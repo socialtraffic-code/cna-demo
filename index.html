@@ -4,582 +4,577 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="color-scheme" content="light">
-<title>Enrollment workspace - CNA Training Institute (demo)</title>
+<title>CNA Training Institute — enrollment workspace (demo)</title>
 <style>
   :root{
-    --ink:#141719; --ink2:#3c4348; --muted:#6b7379; --faint:#98a0a6;
-    --line:#e3e2dc; --line2:#eeede9; --bg:#f7f7f4; --card:#fff;
-    --brand:#0f5b51; --brand2:#0a453d; --brandt:#e9f2ef;
-    --amber:#8a5a12; --ambert:#fbf2e2; --red:#94372e; --redt:#faeceb;
-    --green:#1d6746; --greent:#e9f3ed; --blue:#2b5b7a; --bluet:#e9f1f6;
+    --ink:#17181a; --ink2:#3b3f44; --muted:#6d7378; --faint:#98a0a5;
+    --line:#e8e6e1; --line2:#f1efea; --bg:#f8f7f4; --card:#fff; --side:#fcfbf9;
+    --brand:#11554b; --brand2:#0b3f38; --brands:#e8f1ee;
+    --amber:#8a5a12; --ambers:#fbf2e2; --red:#953a31; --reds:#fbeeec;
+    --blue:#2c5b78; --blues:#edf2f6; --grey:#f1efea;
+    --shadow:0 1px 2px rgba(23,24,26,.04),0 1px 3px rgba(23,24,26,.03);
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
-  .num{font-variant-numeric:tabular-nums}
-  button{font:inherit}
-  /* top bar */
-  .top{height:52px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:0 18px;position:sticky;top:0;z-index:40}
-  .mark{width:24px;height:24px;border-radius:6px;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
-  .brand{display:flex;align-items:center;gap:9px}
-  .brand b{font-size:13.5px;letter-spacing:-.01em}
-  .brand .loc{color:var(--muted);font-size:12px}
-  .search{flex:1;max-width:420px;position:relative}
-  .search input{width:100%;height:32px;border:1px solid var(--line);border-radius:7px;background:var(--bg);padding:0 10px 0 30px;font:inherit;font-size:13px;color:var(--ink)}
-  .search input:focus{outline:none;border-color:#c9d2ce;background:#fff}
-  .search svg{position:absolute;left:9px;top:8px;opacity:.45}
-  .demoTag{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--amber);background:var(--ambert);border:1px solid #efe1c6;padding:3px 7px;border-radius:5px}
+  body{margin:0;background:var(--bg);color:var(--ink);font:14.5px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+  button{font:inherit;cursor:pointer}
+  :focus-visible{outline:2px solid #9dc3b8;outline-offset:2px}
+  .ico{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+  /* ══ shell ══ */
+  .shell{display:flex;min-height:100vh}
+  .side{width:236px;flex:0 0 236px;background:var(--side);border-right:1px solid var(--line);display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+  .ws{display:flex;align-items:center;gap:10px;padding:16px 14px 14px}
+  .ws .mark{width:30px;height:30px;border-radius:8px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:700;font-size:12.5px;letter-spacing:.02em}
+  .ws .nm{font-size:13px;font-weight:650;letter-spacing:-.01em;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
+  .ws .sub{font-size:11.5px;color:var(--muted)}
+  .ws .chev{margin-left:auto;color:var(--faint)}
+  .nav{flex:1;padding:4px 8px 12px;overflow:auto}
+  .nav .section{font-size:11px;color:var(--faint);padding:14px 10px 6px;letter-spacing:.02em}
+  .nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:7px;color:var(--ink2);text-decoration:none;font-size:13.5px;line-height:1.2;position:relative}
+  .nav a:hover{background:#f4f2ed;color:var(--ink)}
+  .nav a.on{background:#fff;color:var(--brand2);font-weight:600;box-shadow:var(--shadow)}
+  .nav a.on .ico{color:var(--brand)}
+  .nav a .badge{margin-left:auto;font-size:11.5px;font-weight:600;color:var(--muted);background:#efede7;border-radius:999px;padding:1px 7px}
+  .nav a.on .badge{background:var(--brands);color:var(--brand2)}
+  .sidefoot{border-top:1px solid var(--line);padding:10px 12px;display:flex;align-items:center;gap:10px}
+  .sidefoot .av{width:28px;height:28px;border-radius:50%;background:#dcd9d2;color:#4c4a45;display:grid;place-items:center;font-size:11px;font-weight:650}
+  .sidefoot .nm{font-size:12.5px;font-weight:600;line-height:1.2}
+  .sidefoot .rl{font-size:11px;color:var(--muted)}
+  .sidefoot .dots{margin-left:auto;color:var(--faint)}
+  /* ══ main ══ */
+  .wrap{flex:1;min-width:0;display:flex;flex-direction:column}
+  .top{height:56px;display:flex;align-items:center;gap:16px;padding:0 26px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:30}
+  .crumb{font-size:12.5px;color:var(--muted)}
+  .crumb b{color:var(--ink);font-weight:600}
   .top .spacer{flex:1}
-  .ghost{border:1px solid var(--line);background:#fff;border-radius:7px;padding:6px 11px;font-size:12.5px;color:var(--ink2);cursor:pointer}
-  .ghost:hover{background:#fafaf8}
-  /* shell */
-  .shell{display:flex;align-items:flex-start;min-height:calc(100vh - 52px)}
-  .side{width:216px;flex:0 0 216px;padding:16px 12px;border-right:1px solid var(--line);background:#fbfbf9;position:sticky;top:52px;height:calc(100vh - 52px);overflow:auto}
-  .side h5{margin:14px 8px 6px;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:650}
-  .side h5:first-child{margin-top:2px}
-  .navitem{display:flex;align-items:center;gap:8px;width:100%;border:0;background:transparent;padding:7px 8px;border-radius:6px;font-size:13px;color:var(--ink2);cursor:pointer;text-align:left}
-  .navitem:hover{background:#f1f1ec}
-  .navitem[aria-current="true"]{background:#e9efec;color:var(--brand2);font-weight:600}
-  .navitem .count{margin-left:auto;font-size:11.5px;color:var(--muted);background:#efefea;border-radius:999px;padding:1px 7px}
-  .navitem[aria-current="true"] .count{background:#dbe7e2;color:var(--brand2)}
-  .navitem .dot{width:6px;height:6px;border-radius:50%;background:var(--faint)}
-  .navitem.warn .dot{background:#c98a2e}.navitem.bad .dot{background:#b4554a}
-  .main{flex:1;min-width:0;padding:20px 24px 60px}
-  .head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
-  .head h1{margin:0;font-size:19px;letter-spacing:-.02em;font-weight:650}
-  .head .n{color:var(--muted);font-size:13px}
-  .head .spacer{flex:1}
-  .btn{border:0;border-radius:7px;background:var(--brand);color:#fff;padding:7px 12px;font-size:12.5px;font-weight:600;cursor:pointer}
+  .search{position:relative;width:280px}
+  .search input{width:100%;height:34px;border:1px solid var(--line);border-radius:8px;background:#fbfaf8;padding:0 10px 0 32px;font-size:13px;color:var(--ink)}
+  .search input::placeholder{color:var(--faint)}
+  .search .ico{position:absolute;left:9px;top:8.5px;color:var(--faint);width:15px;height:15px}
+  .iconbtn{border:1px solid var(--line);background:#fff;border-radius:8px;height:34px;width:34px;display:grid;place-items:center;color:var(--muted)}
+  .iconbtn:hover{background:#fbfaf8;color:var(--ink2)}
+  .demo{font-size:11.5px;color:var(--amber);background:var(--ambers);border:1px solid #f0e3c7;border-radius:6px;padding:4px 8px;font-weight:600}
+  .main{padding:28px 32px 80px;max-width:1160px;width:100%}
+  .phead{display:flex;align-items:flex-start;gap:16px;margin-bottom:22px}
+  .phead h1{margin:0;font-size:24px;letter-spacing:-.025em;font-weight:650;line-height:1.2}
+  .phead .d{font-size:13px;color:var(--muted);margin-top:3px}
+  .phead .spacer{flex:1}
+  .btn{display:inline-flex;align-items:center;gap:7px;border:1px solid transparent;border-radius:8px;background:var(--brand);color:#fff;padding:8px 13px;font-size:13px;font-weight:600;box-shadow:var(--shadow)}
   .btn:hover{background:var(--brand2)}
-  .btn.ghost2{background:#fff;color:var(--ink2);border:1px solid var(--line);font-weight:500}
-  /* kpis */
-  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
-  .kpi{border:1px solid var(--line);background:#fff;border-radius:9px;padding:11px 13px}
-  .kpi .k{font-size:11.5px;color:var(--muted)}
+  .btn .ico{width:15px;height:15px}
+  .btn.ghost{background:#fff;color:var(--ink2);border-color:var(--line);font-weight:550;box-shadow:none}
+  .btn.ghost:hover{background:#fbfaf8;color:var(--ink)}
+  h2{font-size:14.5px;font-weight:650;letter-spacing:-.01em;margin:0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+  .card .h{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line2)}
+  .card .h .sub{font-size:12.5px;color:var(--muted)}
+  .card .h .spacer{flex:1}
+  .card .b{padding:16px 18px}
+  .muted{color:var(--muted)}
+  .sub{font-size:12.5px;color:var(--muted)}
+  /* grids */
+  .cols{display:grid;grid-template-columns:minmax(0,1fr) 322px;gap:18px;align-items:stretch}
+  .r2{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+  .r3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .stack{display:flex;flex-direction:column;gap:16px}
+  /* today */
+  .hero{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:0}
+  .hero .l{padding:20px 22px;border-right:1px solid var(--line2)}
+  .hero .k{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:7px}
+  .hero .big{font-size:21px;font-weight:650;letter-spacing:-.02em;margin:5px 0 3px}
+  .hero .line{font-size:13.5px;color:var(--ink2)}
+  .hero .r{padding:20px 22px;display:flex;flex-direction:column;justify-content:center}
+  .hero .r .v{font-size:23px;font-weight:650;letter-spacing:-.02em;margin-top:4px}
+  .meter{height:7px;border-radius:4px;background:#eeebe3;overflow:hidden;margin:13px 0 9px}
+  .meter i{display:block;height:100%;background:var(--brand);border-radius:4px}
+  .todo{display:flex;flex-direction:column}
+  .todo .item{display:flex;gap:12px;align-items:center;padding:13px 18px;border-bottom:1px solid var(--line2)}
+  .todo .item:last-child{border-bottom:0}
+  .todo .pip{width:7px;height:7px;border-radius:50%;flex:0 0 auto}
+  .pip.red{background:#b4554a}.pip.amber{background:#c9922e}.pip.blue{background:#4a7fa3}
+  .todo .g{flex:1;min-width:0}
+  .todo .t{font-size:13.5px;font-weight:550}
+  .todo .s{font-size:12.5px;color:var(--muted)}
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .kpi{border:1px solid var(--line);border-radius:11px;background:#fff;padding:13px 14px;box-shadow:var(--shadow)}
+  .kpi .k{font-size:12.5px;color:var(--muted)}
   .kpi .v{font-size:21px;font-weight:650;letter-spacing:-.02em;margin-top:3px}
-  .kpi .f{font-size:11.5px;color:var(--faint)}
-  .kpi.warn .v{color:var(--amber)}.kpi.bad .v{color:var(--red)}
+  .kpi .f{font-size:12px;color:var(--faint)}
   /* table */
-  .cols{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:16px;align-items:start}
-  .rail{display:flex;flex-direction:column;gap:12px}
-  .railcard{border:1px solid var(--line);background:#fff;border-radius:10px;overflow:hidden}
-  .railhead{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line2);font-size:12px;font-weight:650;letter-spacing:-.01em;background:#fcfcfa}
-  .railbadge{margin-left:auto;font-size:11px;font-weight:600;color:var(--brand2);background:var(--brandt);border-radius:999px;padding:1px 7px}
-  .railbody{padding:8px 12px 12px}
-  .chkitem{display:flex;gap:8px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line2);font-size:12.5px}
-  .chkitem:last-child{border-bottom:0}
-  .chkitem .grow{flex:1;min-width:0}
-  .chkitem .s{display:block;font-size:11px;color:var(--muted)}
-  .chkitem .act{flex:0 0 auto}
-  @media (max-width:1180px){.cols{grid-template-columns:minmax(0,1fr)}.rail{display:none}}
-  .card{border:1px solid var(--line);background:#fff;border-radius:10px;overflow:hidden}
-  .bar2{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line2);background:#fcfcfa}
-  .bar2 .t{font-size:12.5px;font-weight:650}
-  .bar2 .s{font-size:11.5px;color:var(--muted)}
-  .bar2 .spacer{flex:1}
-  select.mini{border:1px solid var(--line);border-radius:6px;background:#fff;padding:5px 8px;font-size:12px;color:var(--ink2)}
   table{width:100%;border-collapse:separate;border-spacing:0}
-  thead th{position:sticky;top:0;background:#fbfbf9;text-align:left;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);font-weight:650;padding:9px 14px;border-bottom:1px solid var(--line2);white-space:nowrap;cursor:default}
-  thead th.sortable{cursor:pointer}
-  thead th.sortable:hover{color:var(--ink2)}
-  tbody td{padding:10px 14px;border-bottom:1px solid var(--line2);font-size:13px;vertical-align:middle;white-space:nowrap}
-  tbody tr{cursor:pointer}
-  tbody tr:hover td{background:#f9f9f6}
+  thead th{text-align:left;font-size:11.5px;font-weight:600;color:var(--faint);letter-spacing:.02em;padding:10px 18px;border-bottom:1px solid var(--line2);background:#fcfbf9}
+  thead th:first-child{border-top-left-radius:12px}
+  thead th:last-child{border-top-right-radius:12px}
+  tbody td{padding:12px 18px;border-bottom:1px solid var(--line2);font-size:13.5px;vertical-align:middle}
+  tbody tr:hover td{background:#fbfaf7}
   tbody tr:last-child td{border-bottom:0}
-  tbody tr.sel td{background:#f2f7f4}
-  .who{display:flex;align-items:center;gap:9px;min-width:190px}
-  .av{width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:10.5px;font-weight:650;flex:0 0 auto}
-  .who .n{font-weight:600;letter-spacing:-.01em;font-size:13px}
-  .who .m{font-size:11px;color:var(--muted)}
-  .pill{display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 8px;border-radius:999px;font-size:11.5px;font-weight:600}
-  .pill.ok{color:var(--green);background:var(--greent)}
-  .pill.warn{color:var(--amber);background:var(--ambert)}
-  .pill.bad{color:var(--red);background:var(--redt)}
-  .pill.info{color:var(--blue);background:var(--bluet)}
-  .pill.mute{color:var(--muted);background:#f0f0eb}
-  .docs{display:flex;align-items:center;gap:6px}
-  .bar3{width:44px;height:5px;border-radius:3px;background:#ecebe6;overflow:hidden}
-  .bar3 i{display:block;height:100%;background:var(--green)}
-  .bar3.warn i{background:#c9922e}.bar3.bad i{background:#b4554a}
-  .owed{color:var(--red);font-weight:650}
-  .paid{color:var(--muted)}
-  .rowacts{display:flex;gap:6px;justify-content:flex-end;opacity:0;transition:opacity .12s}
-  tbody tr:hover .rowacts{opacity:1}
-  .act{border:1px solid var(--line);background:#fff;border-radius:6px;padding:3px 7px;font-size:11.5px;color:var(--ink2);cursor:pointer}
-  .act:hover{border-color:#cfd3cd}
-  .empty{padding:34px 16px;text-align:center;color:var(--muted);font-size:13px}
+  .who{display:flex;align-items:center;gap:10px}
+  .av{width:29px;height:29px;border-radius:50%;background:var(--brands);color:var(--brand2);display:grid;place-items:center;font-size:11px;font-weight:700;flex:0 0 auto}
+  .nm{font-weight:600;font-size:13.5px;letter-spacing:-.005em}
+  .s2{font-size:12px;color:var(--muted)}
+  .pill{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 9px;border-radius:999px;font-size:12px;font-weight:600}
+  .pill:before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.65}
+  .pill.ok{color:#1b6142;background:var(--brands)}
+  .pill.warn{color:var(--amber);background:var(--ambers)}
+  .pill.bad{color:var(--red);background:var(--reds)}
+  .pill.info{color:var(--blue);background:var(--blues)}
+  .pill.none{color:var(--muted);background:var(--grey)}
+  .prog{display:flex;align-items:center;gap:8px}
+  .track{width:62px;height:6px;border-radius:3px;background:#eeebe3;overflow:hidden;flex:0 0 auto}
+  .track i{display:block;height:100%;background:var(--brand)}
+  .track.warn i{background:#c9922e}.track.bad i{background:#b4554a}
+  .money{font-variant-numeric:tabular-nums}
+  .money.owed{color:var(--red);font-weight:650}
+  .rowbtn{border:1px solid var(--line);background:#fff;border-radius:7px;padding:5px 9px;font-size:12px;color:var(--ink2);font-weight:550}
+  .rowbtn:hover{background:#fbfaf8}
+  /* filters */
+  .tools{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  .seg{display:flex;background:#f1efe9;border-radius:9px;padding:3px}
+  .seg button{border:0;background:transparent;border-radius:7px;padding:6px 11px;font-size:12.5px;color:var(--ink2)}
+  .seg button.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:var(--shadow)}
+  /* classes */
+  .klass .k{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:650}
+  .klass .rows{display:flex;flex-direction:column;gap:7px;margin:12px 0}
+  .klass .r{display:flex;justify-content:space-between;font-size:13px}
+  .klass .r span:first-child{color:var(--muted)}
+  .phases{display:flex;gap:5px;margin:4px 0 10px}
+  .phases div{flex:1;height:5px;border-radius:3px;background:#eeebe3}
+  .phases div.on{background:var(--brand)}
+  /* quiz */
+  .qline{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line2)}
+  .qline:last-child{border-bottom:0}
+  .qline .g{flex:1;min-width:0}
+  .qbox{font-size:15px;font-weight:600;margin:4px 0 14px;letter-spacing:-.01em}
+  .opt{border:1px solid var(--line);border-radius:9px;padding:11px 13px;margin-bottom:8px;font-size:13.5px;display:flex;gap:10px;align-items:center;background:#fff}
+  .opt .m{width:18px;height:18px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:10.5px;color:var(--faint);flex:0 0 auto}
+  .opt.right{border-color:#c3d8cf;background:#f3f8f5}
+  .opt.right .m{background:var(--brand);border-color:var(--brand);color:#fff}
+  /* messages */
+  .msg{display:flex;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line2)}
+  .msg:last-child{border-bottom:0}
+  .msg .from{width:132px;flex:0 0 132px}
+  .msg .body{flex:1;min-width:0}
+  .msg .sj{font-size:13.5px;font-weight:600}
+  .msg .sn{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tpl{display:flex;flex-direction:column}
+  .tpl button{display:flex;align-items:center;gap:9px;border:0;border-bottom:1px solid var(--line2);background:#fff;padding:12px 18px;text-align:left;font-size:13.5px;color:var(--ink2)}
+  .tpl button:last-child{border-bottom:0}
+  .tpl button:hover{background:#fbfaf7}
+  .tpl .ico{color:var(--faint);width:15px;height:15px}
+  /* team */
+  .role{font-size:12px;font-weight:600;border-radius:999px;padding:3px 9px}
+  .role.owner{color:var(--brand2);background:var(--brands)}
+  .role.admin{color:var(--blue);background:var(--blues)}
+  .role.teacher{color:var(--amber);background:var(--ambers)}
+  .role.student{color:var(--muted);background:var(--grey)}
+  .perm{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--line2);font-size:13.5px;align-items:flex-start}
+  .perm:last-child{border-bottom:0}
+  .perm .ico{color:var(--brand);width:15px;height:15px;margin-top:2px}
   /* drawer */
-  .scrim{position:fixed;inset:0;background:rgba(20,23,25,.25);opacity:0;pointer-events:none;transition:opacity .15s;z-index:50}
+  .scrim{position:fixed;inset:0;background:rgba(23,24,26,.22);opacity:0;pointer-events:none;transition:.15s;z-index:50}
   .scrim.on{opacity:1;pointer-events:auto}
-  .drawer{position:fixed;top:0;right:0;height:100%;width:560px;max-width:94vw;background:#fff;border-left:1px solid var(--line);z-index:51;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .18s ease}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:520px;max-width:94vw;background:#fff;border-left:1px solid var(--line);z-index:51;transform:translateX(100%);transition:transform .18s ease;display:flex;flex-direction:column;box-shadow:-8px 0 24px rgba(23,24,26,.06)}
   .drawer.on{transform:none}
-  .dhead{padding:14px 18px 0;border-bottom:1px solid var(--line2)}
-  .dhead .topline{display:flex;align-items:center;gap:11px}
-  .dhead .who2{font-size:16px;font-weight:650;letter-spacing:-.01em}
-  .dhead .meta{font-size:12px;color:var(--muted)}
-  .dhead .x{margin-left:auto;border:0;background:transparent;font-size:19px;color:var(--faint);cursor:pointer;line-height:1}
-  .tabs{display:flex;gap:2px;margin-top:12px}
-  .tab{border:0;background:transparent;padding:8px 10px;font-size:12.5px;color:var(--muted);border-bottom:2px solid transparent;cursor:pointer}
-  .tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--brand);font-weight:650}
-  .dbody{padding:16px 18px;overflow:auto}
-  .sec{margin-bottom:18px}
-  .sec h4{margin:0 0 7px;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);font-weight:650}
-  .kv{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--line2);font-size:13px}
-  .kv:last-child{border-bottom:0}
-  .kv .a{color:var(--muted)}
-  .kv .b{font-weight:550}
-  .drow{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--line2);font-size:13px}
-  .drow:last-child{border-bottom:0}
-  .drow .grow{flex:1;min-width:0}
-  .drow .s{font-size:11.5px;color:var(--muted)}
-  .chk{width:15px;height:15px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:9px;flex:0 0 auto}
-  .chk.ok{background:var(--green)}.chk.warn{background:#c9922e}.chk.bad{background:#b4554a}
-  .timeline{border-left:1px solid var(--line);margin-left:6px;padding-left:14px}
-  .tl{position:relative;padding:0 0 14px}
-  .tl:before{content:"";position:absolute;left:-19px;top:5px;width:7px;height:7px;border-radius:50%;background:#c6cbc7}
-  .tl.now:before{background:var(--brand)}
-  .tl .t{font-size:12.5px}
-  .tl .d{font-size:11.5px;color:var(--muted)}
-  .dfoot{padding:10px 18px;border-top:1px solid var(--line2);display:flex;gap:8px}
-  .dfoot .spacer{flex:1}
-  /* student view */
-  .sv{max-width:820px}
-  .steps{display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:12px;color:var(--faint)}
-  .steps .st{display:flex;align-items:center;gap:7px}
-  .steps .st.on{color:var(--brand);font-weight:650}
-  .steps i{width:20px;height:20px;border-radius:50%;background:#eceae5;color:var(--muted);display:grid;place-items:center;font-style:normal;font-size:10.5px}
-  .steps .st.on i{background:var(--brand);color:#fff}
-  .steps .sep{width:20px;height:1px;background:var(--line)}
-  .panel{border:1px solid var(--line);background:#fff;border-radius:10px;padding:20px}
-  .panel h2{margin:0 0 3px;font-size:16px;letter-spacing:-.01em}
-  .panel p.lead{margin:0 0 16px;color:var(--muted);font-size:12.5px}
-  .cohorts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  .cohort{border:1px solid var(--line);border-radius:8px;padding:12px;background:#fff;cursor:pointer;text-align:left}
-  .cohort:hover{border-color:#cfd4ce}
-  .cohort[aria-pressed="true"]{border-color:var(--brand);background:var(--brandt)}
-  .cohort .k{font-size:12.5px;font-weight:650}
-  .cohort .v{font-size:11.5px;color:var(--muted);margin-top:2px}
-  .field{display:flex;flex-direction:column;gap:5px;margin-bottom:11px}
-  .field label{font-size:11.5px;color:var(--muted)}
-  .field input{border:1px solid var(--line);border-radius:7px;padding:8px 10px;font:inherit;font-size:13px}
-  .field input:focus{outline:2px solid var(--brandt);border-color:var(--brand)}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-  .totals{display:flex;justify-content:space-between;border-top:1px solid var(--line2);padding-top:10px;margin-top:6px;font-size:13.5px}
-  .fa{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
-  .upload{border:1px dashed #cfd4ce;border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;margin-bottom:9px}
-  .upload .grow{flex:1}
-  .upload .nm{font-size:12.5px;font-weight:600}
-  .upload .h{font-size:11.5px;color:var(--muted)}
-  .agree{border:1px solid var(--line);background:#fcfcfa;border-radius:8px;padding:14px;font-size:12.5px;line-height:1.7;color:var(--ink2);max-height:180px;overflow:auto}
-  .confirm{text-align:center;padding:22px 8px}
-  .tick{width:40px;height:40px;border-radius:50%;background:var(--greent);color:var(--green);display:grid;place-items:center;font-size:18px;margin:0 auto 10px}
+  .dh{display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line2)}
+  .dh .nm{font-size:16px;font-weight:650;letter-spacing:-.015em}
+  .dh .x{margin-left:auto;border:0;background:transparent;color:var(--faint);width:28px;height:28px;border-radius:7px;display:grid;place-items:center}
+  .dh .x:hover{background:#f4f2ed;color:var(--ink2)}
+  .act-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .db{padding:16px 20px;overflow:auto}
+  .ds{margin-bottom:20px}
+  .ds h4{margin:0 0 8px;font-size:11.5px;letter-spacing:.03em;color:var(--faint);font-weight:650;text-transform:uppercase}
+  .line{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid var(--line2);font-size:13.5px}
+  .line:last-child{border-bottom:0}
+  .line .a{color:var(--muted)}
+  .chk{display:flex;gap:9px;padding:7px 0;font-size:13.5px;align-items:flex-start}
+  .chk .c{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:10px;flex:0 0 auto;margin-top:1px}
+  .c.ok{background:var(--brand)}.c.bad{background:#b4554a}
+  .df{padding:12px 20px;border-top:1px solid var(--line2);display:flex;gap:9px}
   .hidden{display:none!important}
-  @media (max-width:940px){
+  @media (max-width:1080px){
     .side{display:none}
-    .kpis{grid-template-columns:repeat(2,1fr)}
-    .cohorts{grid-template-columns:1fr}
-    .grid2{grid-template-columns:1fr}
-    thead th:nth-child(3),tbody td:nth-child(3){display:none}
-    .search{max-width:none}
+    .main{padding:20px 16px 60px}
+    .cols,.r2,.r3,.kpis,.hero{grid-template-columns:1fr}
+    .hero .l{border-right:0;border-bottom:1px solid var(--line2)}
+    .search{display:none}
+    td:nth-child(2),th:nth-child(2){display:none}
   }
 </style>
 </head>
 <body>
-
-<div class="top">
-  <div class="brand"><div class="mark">CT</div><div><b>CNA Training Institute</b> <span class="loc">Sugar Land, TX</span></div></div>
-  <div class="search">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-    <input id="q" placeholder="Search students, cohorts, documents" aria-label="Search">
-  </div>
-  <div class="spacer"></div>
-  <span class="demoTag">Demo &middot; sample data</span>
-  <button class="ghost" id="resetBtn">Reset</button>
-</div>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c0-3.2 2.9-5.5 6.5-5.5s6.5 2.3 6.5 5.5"/><path d="M16.5 5.5a3 3 0 0 1 0 5.8"/><path d="M18 14.6c2 .6 3.5 2.2 3.5 4.4"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="m4 7 8 6 8-6"/></symbol>
+  <symbol id="i-team" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6.5 9a5.5 5.5 0 0 1 11 0c0 5 2 6 2 6h-15s2-1 2-6"/><path d="M10 19a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></symbol>
+  <symbol id="i-money" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9v6M18 9v6"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 8V3h10v5"/><rect x="4" y="8" width="16" height="8" rx="2"/><path d="M7 14h10v7H7z"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m8 10 4 4 4-4"/></symbol>
+  <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="18" cy="12" r="1.4"/></symbol>
+  <symbol id="i-mail2" viewBox="0 0 24 24"><path d="M3 6h13v9H8l-5 4z"/><path d="M8 10h8"/></symbol>
+</svg>
 
 <div class="shell">
-  <nav class="side" aria-label="Saved views">
-    <h5>Views</h5>
-    <button class="navitem" data-view="starting" aria-current="true"><span class="dot bad"></span>Starting Monday<span class="count" id="c-starting">12</span></button>
-    <button class="navitem" data-view="docs"><span class="dot warn"></span>Documents due<span class="count" id="c-docs">4</span></button>
-    <button class="navitem" data-view="money"><span class="dot bad"></span>Balance due<span class="count" id="c-money">6</span></button>
-    <button class="navitem" data-view="all"><span class="dot"></span>All students<span class="count" id="c-all">48</span></button>
-    <h5>Cohorts</h5>
-    <button class="navitem" data-cohort="Day 3-week"><span class="dot"></span>Day 3-week</button>
-    <button class="navitem" data-cohort="Evening 4-week"><span class="dot"></span>Evening 4-week</button>
-    <button class="navitem" data-cohort="Weekend 6-week"><span class="dot"></span>Weekend 6-week</button>
-    <h5>Actions</h5>
-    <button class="navitem" id="newEnrollment"><span class="dot"></span>New enrollment</button>
-    <button class="navitem" id="exportBtn"><span class="dot"></span>Export CSV</button>
-    <button class="navitem" id="printBtn"><span class="dot"></span>Print Thursday list</button>
-  </nav>
+  <aside class="side">
+    <div class="ws">
+      <div class="mark">CT</div>
+      <div><div class="nm">CNA Training Institute</div><div class="sub">Sugar Land, Texas</div></div>
+      <svg class="ico chev" width="15" height="15"><use href="#i-chev"/></svg>
+    </div>
+    <nav class="nav" id="nav">
+      <a href="#today" data-page="today" class="on"><svg class="ico"><use href="#i-home"/></svg>Today<span class="badge">3</span></a>
+      <a href="#students" data-page="students"><svg class="ico"><use href="#i-users"/></svg>Students</a>
+      <a href="#classes" data-page="classes"><svg class="ico"><use href="#i-cal"/></svg>Classes</a>
+      <a href="#quizzes" data-page="quizzes"><svg class="ico"><use href="#i-check"/></svg>Quizzes</a>
+      <a href="#messages" data-page="messages"><svg class="ico"><use href="#i-mail"/></svg>Messages<span class="badge">2</span></a>
+      <a href="#money" data-page="money"><svg class="ico"><use href="#i-money"/></svg>Money</a>
+      <div class="section">Settings</div>
+      <a href="#team" data-page="team"><svg class="ico"><use href="#i-team"/></svg>Team</a>
+    </nav>
+    <div class="sidefoot">
+      <div class="av">WS</div>
+      <div><div class="nm">Walid Shazaman</div><div class="rl">Owner</div></div>
+      <svg class="ico dots" width="15" height="15"><use href="#i-dots"/></svg>
+    </div>
+  </aside>
 
-  <div class="main">
-    <!-- OWNER -->
-    <section id="ownerView">
-      <div class="head">
-        <h1 id="viewTitle">Starting Monday</h1>
-        <span class="n" id="viewSub">12 students &middot; next cohort Oct 27</span>
-        <div class="spacer"></div>
-        <button class="btn ghost2" id="printBtn2">Print files</button>
-        <button class="btn" id="newEnrollment2">New enrollment</button>
-      </div>
+  <div class="wrap">
+    <div class="top">
+      <div class="crumb"><b>CNA Training Institute</b> &nbsp;/&nbsp; <span id="crumb">Today</span></div>
+      <div class="spacer"></div>
+      <div class="search"><svg class="ico"><use href="#i-search"/></svg><input placeholder="Search students"></div>
+      <button class="iconbtn" aria-label="Notifications"><svg class="ico"><use href="#i-bell"/></svg></button>
+      <span class="demo">Demo · sample data</span>
+    </div>
 
-      <div class="kpis">
-        <div class="kpi"><div class="k">Starting Monday</div><div class="v num" id="kpiStart">10</div><div class="f" id="kpiSeats">of 14 seats · 4 open</div></div>
-        <div class="kpi warn"><div class="k">Documents outstanding</div><div class="v num" id="kpiDocs">0</div><div class="f" id="kpiDocsFoot">across 0 students</div></div>
-        <div class="kpi bad"><div class="k">Balance due before class</div><div class="v num" id="kpiMoney">$0</div><div class="f" id="kpiMoneyFoot">0 on the plan</div></div>
-        <div class="kpi"><div class="k">Audit-ready files</div><div class="v num" id="kpiAudit">0<span style="font-size:13px;color:var(--faint)">/0</span></div><div class="f" id="kpiAuditFoot">0 missing one item</div></div>
-      </div>
-
-      <div class="cols">
-      <div class="card">
-        <div class="bar2">
-          <span class="t" id="tableTitle">Starting Monday</span>
-          <span class="s" id="tableCount">12 of 48 students</span>
+    <main class="main">
+      <!-- TODAY -->
+      <section data-sec="today">
+        <div class="phead">
+          <div><h1>Today</h1><div class="d">Thursday, 23 October</div></div>
           <div class="spacer"></div>
-          <select class="mini" id="sortSel" aria-label="Sort">
-            <option value="name">Sort: name</option>
-            <option value="docs">Sort: documents left</option>
-            <option value="money">Sort: balance due</option>
-            <option value="start">Sort: start date</option>
-          </select>
+          <button class="btn ghost"><svg class="ico"><use href="#i-print"/></svg>Print Thursday list</button>
+          <button class="btn"><svg class="ico"><use href="#i-plus"/></svg>Enroll a student</button>
         </div>
-        <table>
-          <thead><tr>
-            <th>Student</th><th>Cohort</th><th>Starts</th><th>Documents</th><th>Payment</th><th>Status</th><th></th>
-          </tr></thead>
-          <tbody id="rows"></tbody>
-        </table>
-        <div class="empty hidden" id="emptyState">No students match this view.</div>
-      </div>
-      <aside class="rail">
-        <div class="railcard">
-          <div class="railhead">Thursday checklist <span class="railbadge" id="chkCount">0</span></div>
-          <div class="railbody" id="checklist"></div>
-        </div>
-        <div class="railcard">
-          <div class="railhead">Next cohort</div>
-          <div class="railbody">
-            <div class="kv"><span class="a">Evening, 4 weeks</span><span class="b">Oct 27</span></div>
-            <div class="kv"><span class="a">Seats</span><span class="b">5 of 14 open</span></div>
-            <div class="kv"><span class="a">Classroom</span><span class="b">Zoom, 4 weeks</span></div>
-            <div class="kv" style="border-bottom:0"><span class="a">Clinical</span><span class="b">Partner facilities</span></div>
-          </div>
-        </div>
-      </aside>
-      </div>
-    </section>
 
-    <!-- STUDENT -->
-    <section id="studentView" class="hidden sv">
-      <div class="head"><h1>New student enrollment</h1><div class="spacer"></div><button class="btn ghost2" id="backOwner">Back to workspace</button></div>
-      <div class="steps" id="steps">
-        <div class="st on" data-s="1"><i>1</i>Cohort</div><div class="sep"></div>
-        <div class="st" data-s="2"><i>2</i>Registration</div><div class="sep"></div>
-        <div class="st" data-s="3"><i>3</i>Documents</div><div class="sep"></div>
-        <div class="st" data-s="4"><i>4</i>Agreement</div><div class="sep"></div>
-        <div class="st" data-s="5"><i>5</i>Done</div>
-      </div>
-      <div class="panel">
-        <div data-step="1">
-          <h2>Choose a program and start date</h2>
-          <p class="lead">All schedules cover the same 100 hours: 40 classroom, 20 skills lab, 40 clinical. Tuition $1,350.</p>
-          <div class="cohorts">
-            <button class="cohort" data-cohort="Day 3-week" aria-pressed="false"><div class="k">Day, 3 weeks</div><div class="v">Mon-Fri 9am-5pm</div><div class="v">Starts Oct 27 &middot; 2 seats</div></button>
-            <button class="cohort" data-cohort="Evening 4-week" aria-pressed="true"><div class="k">Evening, 4 weeks</div><div class="v">Mon-Fri 6-10pm</div><div class="v">Starts Oct 27 &middot; 5 seats</div></button>
-            <button class="cohort" data-cohort="Weekend 6-week" aria-pressed="false"><div class="k">Weekend, 6 weeks</div><div class="v">Sat-Sun 9am-5pm</div><div class="v">Starts Nov 1 &middot; 6 seats</div></button>
-          </div>
-          <div class="fa"><button class="btn" id="n1">Continue</button></div>
-        </div>
-        <div data-step="2" class="hidden">
-          <h2>Registration fee</h2>
-          <p class="lead">$100 reserves the seat. Non-refundable, applied to tuition.</p>
-          <div class="grid2">
-            <div class="field"><label for="cn">Name on card</label><input id="cn" placeholder="Jordan Alvarez"></div>
-            <div class="field"><label for="cc">Card number</label><input id="cc" placeholder="4242 4242 4242 4242" inputmode="numeric"></div>
-            <div class="field"><label for="ce">Expiry</label><input id="ce" placeholder="09 / 29"></div>
-            <div class="field"><label for="cv">CVC</label><input id="cv" placeholder="123"></div>
-          </div>
-          <div class="totals"><span>Due today</span><b class="num">$100.00</b></div>
-          <div class="fa"><button class="btn ghost2" data-back="1">Back</button><button class="btn" id="n2">Pay $100 and continue</button></div>
-        </div>
-        <div data-step="3" class="hidden">
-          <h2>Your documents</h2>
-          <p class="lead">Seven items required. You are not on the roster until the school approves each one.</p>
-          <div id="uploads"></div>
-          <div class="fa"><button class="btn ghost2" data-back="2">Back</button><button class="btn" id="n3">Submit for review</button></div>
-        </div>
-        <div data-step="4" class="hidden">
-          <h2>Enrollment agreement</h2>
-          <p class="lead">Read and sign. The signed copy is stored on the student record.</p>
-          <div class="agree">I enrol in the CNA Training Institute nurse aide program and understand the 100-hour curriculum: 40 hours classroom, 20 hours skills lab, 40 hours clinical. Tuition is $1,350. The $100 registration fee is non-refundable and applied to tuition. The remaining $1,250 is due before class begins, or in two payments of $650 and $625 under the payment plan. I must attend all scheduled hours; absences require make-up time. I must hold a current negative TB test and BLS/CPR card before clinical placement. The state exam is booked separately and its fee is not included.</div>
-          <div class="grid2" style="margin-top:12px">
-            <div class="field"><label for="sig">Type your full name to sign</label><input id="sig" placeholder="Jordan Alvarez"></div>
-            <div class="field"><label>Date</label><input value="Oct 23, 2026" readonly></div>
-          </div>
-          <div class="fa"><button class="btn ghost2" data-back="3">Back</button><button class="btn" id="n4" disabled>Sign and submit</button></div>
-        </div>
-        <div data-step="5" class="hidden">
-          <div class="confirm"><div class="tick">&check;</div><h2>Seat held</h2>
-            <p class="lead" style="max-width:430px;margin:0 auto">Registration received. Upload the seven documents and the school reviews them. The student appears on the workspace as <b>documents due</b> until every item is approved.</p>
-            <div style="margin-top:14px"><button class="btn" id="backOwner2">Back to workspace</button></div>
+        <div class="card" style="margin-bottom:16px">
+          <div class="hero">
+            <div class="l">
+              <div class="k"><svg class="ico" style="width:15px;height:15px;color:var(--faint)"><use href="#i-cal"/></svg>Next class starts</div>
+              <div class="big">Monday, 27 October</div>
+              <div class="line">Evening class · 4 weeks · 5 seats left</div>
+              <div class="meter"><i style="width:64%"></i></div>
+              <div class="line"><b>9 of 14 files ready</b></div>
+              <div class="sub" style="margin-top:2px">Five students still owe a document or a payment.</div>
+            </div>
+            <div class="r">
+              <div class="k">Still to collect</div>
+              <div class="v money">$5,850</div>
+              <div class="sub">before Monday, from 7 students on the plan</div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+
+        <div class="cols">
+          <div class="stack">
+            <div class="card">
+              <div class="h"><h2>Needs you today</h2><span class="sub">4 things</span></div>
+              <div class="todo">
+                <div class="item"><span class="pip red"></span><div class="g"><div class="t">Maya Whitfield is missing 2 documents and owes $1,250</div><div class="s">Starts Monday · reminder sent 3 days ago</div></div><button class="btn ghost">Send reminder</button></div>
+                <div class="item"><span class="pip red"></span><div class="g"><div class="t">Samuel Boateng has not uploaded his BLS card</div><div class="s">3 documents missing · cannot start clinicals</div></div><button class="btn ghost">Send reminder</button></div>
+                <div class="item"><span class="pip amber"></span><div class="g"><div class="t">2 students asked a question</div><div class="s">Jordan about the payment plan · Nia about make-up hours</div></div><button class="btn ghost">Open messages</button></div>
+                <div class="item"><span class="pip blue"></span><div class="g"><div class="t">Infection control quiz closes Sunday</div><div class="s">14 of 18 taken · average 88%</div></div><button class="btn ghost">See quiz</button></div>
+              </div>
+            </div>
+
+            <div class="kpis">
+              <div class="kpi"><div class="k">Students starting</div><div class="v">12</div><div class="f">Monday and next weekend</div></div>
+              <div class="kpi"><div class="k">Files incomplete</div><div class="v">3</div><div class="f">documents missing</div></div>
+              <div class="kpi"><div class="k">Collected this week</div><div class="v money">$4,300</div><div class="f">7 payments</div></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="h"><h2>Quick actions</h2></div>
+            <div class="tpl">
+              <button><svg class="ico"><use href="#i-plus"/></svg>Enroll a student</button>
+              <button><svg class="ico"><use href="#i-cal"/></svg>Add a class</button>
+              <button><svg class="ico"><use href="#i-mail2"/></svg>Send a message</button>
+              <button><svg class="ico"><use href="#i-doc"/></svg>Print a student file</button>
+              <button><svg class="ico"><use href="#i-check"/></svg>Set a quiz</button>
+            </div>
+            <div class="b" style="border-top:1px solid var(--line2);padding:12px 18px">
+              <div class="sub">Each of these opens the same screen a phone call would: one student, one class, one message.</div>
+            </div>
+            <div class="h" style="border-top:1px solid var(--line2)"><h2>Recent activity</h2></div>
+            <div class="db" style="padding:6px 18px 14px">
+              <div class="line"><span class="a act-line">Maya Whitfield opened the reminder</span><span class="sub">2h</span></div>
+              <div class="line"><span class="a act-line">Jordan Alvarez paid $100</span><span class="sub">5h</span></div>
+              <div class="line"><span class="a act-line">Renee Duval uploaded her TB test</span><span class="sub">yesterday</span></div>
+              <div class="line"><span class="a act-line">Evening class roster printed</span><span class="sub">yesterday</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STUDENTS -->
+      <section data-sec="students" class="hidden">
+        <div class="phead"><div><h1>Students</h1><div class="d">12 enrolled · 9 starting Monday</div></div><div class="spacer"></div><button class="btn"><svg class="ico"><use href="#i-plus"/></svg>Enroll a student</button></div>
+        <div class="tools">
+          <div class="seg" id="filters">
+            <button class="on" data-f="all">Everyone</button>
+            <button data-f="starting">Starting Monday</button>
+            <button data-f="missing">Missing documents</button>
+            <button data-f="owes">Owes money</button>
+          </div>
+        </div>
+        <div class="card">
+          <table>
+            <thead><tr><th>Student</th><th>Class</th><th>Starts</th><th>Documents</th><th>Money</th><th></th></tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CLASSES -->
+      <section data-sec="classes" class="hidden">
+        <div class="phead"><div><h1>Classes</h1><div class="d">Three classes running</div></div><div class="spacer"></div><button class="btn ghost"><svg class="ico"><use href="#i-plus"/></svg>Add a class</button></div>
+        <div class="r3">
+          <div class="card klass"><div class="b">
+            <div class="k"><svg class="ico" style="width:15px;height:15px;color:var(--brand)"><use href="#i-cal"/></svg>Evening class</div>
+            <div class="rows">
+              <div class="r"><span>Starts</span><b>Mon, 27 Oct</b></div>
+              <div class="r"><span>Length</span><b>4 weeks · 6-10 pm</b></div>
+              <div class="r"><span>Students</span><b>9 of 14</b></div>
+              <div class="r"><span>Teacher</span><b>Ms. Alvarez, RN</b></div>
+            </div>
+            <div class="phases"><div class="on"></div><div></div><div></div></div>
+            <div class="sub">Week 1 online classroom, then skills lab, then clinicals.</div>
+            <button class="btn ghost" style="margin-top:12px">Open roster</button>
+          </div></div>
+          <div class="card klass"><div class="b">
+            <div class="k"><svg class="ico" style="width:15px;height:15px;color:var(--brand)"><use href="#i-cal"/></svg>Day class</div>
+            <div class="rows">
+              <div class="r"><span>Starts</span><b>Mon, 27 Oct</b></div>
+              <div class="r"><span>Length</span><b>3 weeks · 9 am-5 pm</b></div>
+              <div class="r"><span>Students</span><b>7 of 12</b></div>
+              <div class="r"><span>Teacher</span><b>Mr. Boateng, RN</b></div>
+            </div>
+            <div class="phases"><div class="on"></div><div class="on"></div><div></div></div>
+            <div class="sub">Week 2: skills lab at the school.</div>
+            <button class="btn ghost" style="margin-top:12px">Open roster</button>
+          </div></div>
+          <div class="card klass"><div class="b">
+            <div class="k"><svg class="ico" style="width:15px;height:15px;color:var(--brand)"><use href="#i-cal"/></svg>Weekend class</div>
+            <div class="rows">
+              <div class="r"><span>Starts</span><b>Sat, 1 Nov</b></div>
+              <div class="r"><span>Length</span><b>6 weeks · 9 am-5 pm</b></div>
+              <div class="r"><span>Students</span><b>6 of 12</b></div>
+              <div class="r"><span>Teacher</span><b>Ms. Okoro, RN</b></div>
+            </div>
+            <div class="phases"><div></div><div></div><div></div></div>
+            <div class="sub">Not started · 6 seats left.</div>
+            <button class="btn ghost" style="margin-top:12px">Open roster</button>
+          </div></div>
+        </div>
+      </section>
+
+      <!-- QUIZZES -->
+      <section data-sec="quizzes" class="hidden">
+        <div class="phead"><div><h1>Quizzes</h1><div class="d">Short practice tests between lessons</div></div><div class="spacer"></div><button class="btn"><svg class="ico"><use href="#i-plus"/></svg>Set a quiz</button></div>
+        <div class="r2">
+          <div class="card">
+            <div class="h"><h2>This month</h2></div>
+            <div class="qline"><div class="g"><div class="nm">Infection control</div><div class="s2">Set by Ms. Alvarez · closes Sunday</div></div><div style="text-align:right"><div class="nm">88%</div><div class="s2">14 of 18 taken</div></div></div>
+            <div class="qline"><div class="g"><div class="nm">Patient safety and falls</div><div class="s2">Set by Mr. Boateng · closed</div></div><div style="text-align:right"><div class="nm">92%</div><div class="s2">18 of 18 taken</div></div></div>
+            <div class="qline"><div class="g"><div class="nm">Vital signs</div><div class="s2">Draft · not sent yet</div></div><div style="text-align:right"><div class="nm">—</div><div class="s2">0 taken</div></div></div>
+          </div>
+          <div class="card">
+            <div class="h"><h2>What a student sees</h2><span class="sub">Question 3 of 20</span></div>
+            <div class="b">
+              <div class="qbox">Before entering a patient's room, what should you do first?</div>
+              <div class="opt"><span class="m">A</span>Knock and wait for an answer</div>
+              <div class="opt right"><span class="m">&#10003;</span>Clean your hands and put on gloves</div>
+              <div class="opt"><span class="m">C</span>Open the curtains for daylight</div>
+              <div class="opt"><span class="m">D</span>Ask the nurse what to do</div>
+              <div class="sub" style="margin-top:10px">The correct answer is highlighted after they answer, with one line of explanation.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MESSAGES -->
+      <section data-sec="messages" class="hidden">
+        <div class="phead"><div><h1>Messages</h1><div class="d">Email and text in one place</div></div><div class="spacer"></div><button class="btn"><svg class="ico"><use href="#i-mail2"/></svg>Write a message</button></div>
+        <div class="cols">
+          <div class="card">
+            <div class="h"><h2>Inbox</h2><span class="sub">3 unread</span></div>
+            <div class="msg"><div class="from"><div class="nm">Jordan Alvarez</div><div class="s2">Student</div></div><div class="body"><div class="sj">Can I pay the rest next Friday?</div><div class="sn">Hi, I get paid on the 31st, is it ok if the remaining $700 comes then…</div></div></div>
+            <div class="msg"><div class="from"><div class="nm">Nia Fontaine</div><div class="s2">Student</div></div><div class="body"><div class="sj">Make-up hours for the missed lab</div><div class="sn">I missed Tuesday because of work, what do I need to do to catch up…</div></div></div>
+            <div class="msg"><div class="from"><div class="nm">Maria Sanchez</div><div class="s2">New enquiry</div></div><div class="body"><div class="sj">When does the next class start?</div><div class="sn">Hello, I would like to know the price and the next start date…</div></div></div>
+          </div>
+          <div class="card">
+            <div class="h"><h2>Replies you use every week</h2></div>
+            <div class="tpl">
+              <button><svg class="ico"><use href="#i-doc"/></svg>Reminder: 2 documents still missing</button>
+              <button><svg class="ico"><use href="#i-money"/></svg>Payment due before class starts</button>
+              <button><svg class="ico"><use href="#i-mail"/></svg>Welcome, here is your first day</button>
+              <button><svg class="ico"><use href="#i-cal"/></svg>You missed a lab, here are the dates</button>
+              <button><svg class="ico"><use href="#i-check"/></svg>Your certificate is ready to collect</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MONEY -->
+      <section data-sec="money" class="hidden">
+        <div class="phead"><div><h1>Money</h1><div class="d">Tuition, payments and what is still owed</div></div><div class="spacer"></div><button class="btn ghost"><svg class="ico"><use href="#i-print"/></svg>Export</button></div>
+        <div class="kpis" style="margin-bottom:16px">
+          <div class="kpi"><div class="k">Collected this month</div><div class="v money">$12,450</div><div class="f">19 payments</div></div>
+          <div class="kpi"><div class="k">Still to collect</div><div class="v money" style="color:var(--red)">$5,850</div><div class="f">7 students</div></div>
+          <div class="kpi"><div class="k">On a payment plan</div><div class="v">7</div><div class="f">of 12 students</div></div>
+        </div>
+        <div class="card">
+          <div class="h"><h2>Who owes what</h2><span class="sub">before Monday</span></div>
+          <table><thead><tr><th>Student</th><th>Paid</th><th>Still due</th><th>Plan</th><th></th></tr></thead><tbody id="moneyRows"></tbody></table>
+        </div>
+      </section>
+
+      <!-- TEAM -->
+      <section data-sec="team" class="hidden">
+        <div class="phead"><div><h1>Team</h1><div class="d">Who can see and do what</div></div><div class="spacer"></div><button class="btn"><svg class="ico"><use href="#i-plus"/></svg>Invite someone</button></div>
+        <div class="r2">
+          <div class="card">
+            <div class="h"><h2>People</h2></div>
+            <table><thead><tr><th>Person</th><th>Role</th><th></th></tr></thead><tbody>
+              <tr><td><div class="who"><div class="av">WS</div><div><div class="nm">Walid Shazaman</div><div class="s2">owner@cnatraininginstitute.org</div></div></div></td><td><span class="role owner">Owner</span></td><td><button class="rowbtn">Manage</button></td></tr>
+              <tr><td><div class="who"><div class="av">LA</div><div><div class="nm">Lisa Alvarez</div><div class="s2">lisa@cnatraininginstitute.org</div></div></div></td><td><span class="role admin">Administrator</span></td><td><button class="rowbtn">Manage</button></td></tr>
+              <tr><td><div class="who"><div class="av">MB</div><div><div class="nm">Michael Boateng</div><div class="s2">michael@cnatraininginstitute.org</div></div></div></td><td><span class="role teacher">Teacher</span></td><td><button class="rowbtn">Manage</button></td></tr>
+              <tr><td><div class="who"><div class="av">JA</div><div><div class="nm">Jordan Alvarez</div><div class="s2">student</div></div></div></td><td><span class="role student">Student</span></td><td><button class="rowbtn">Manage</button></td></tr>
+            </tbody></table>
+          </div>
+          <div class="card">
+            <div class="h"><h2>What each role sees</h2></div>
+            <div class="b">
+              <div class="perm"><svg class="ico"><use href="#i-check"/></svg><span><b>Owner</b> — every student, every payment, every report.</span></div>
+              <div class="perm"><svg class="ico"><use href="#i-check"/></svg><span><b>Administrator</b> — students, documents, payments. No reports.</span></div>
+              <div class="perm"><svg class="ico"><use href="#i-check"/></svg><span><b>Teacher</b> — their own class: attendance, quizzes, skills checklist.</span></div>
+              <div class="perm"><svg class="ico"><use href="#i-check"/></svg><span><b>Student</b> — their own file only. Can upload documents and pay.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 </div>
 
 <div class="scrim" id="scrim"></div>
-<aside class="drawer" id="drawer" aria-hidden="true">
-  <div class="dhead">
-    <div class="topline">
-      <div class="av" id="dAv">JA</div>
-      <div><div class="who2" id="dName">Jordan Alvarez</div><div class="meta" id="dMeta">Evening 4-week &middot; starts Oct 27</div></div>
-      <button class="x" id="dClose" aria-label="Close">&times;</button>
-    </div>
-    <div class="tabs" id="dTabs">
-      <button class="tab" data-tab="overview" aria-selected="true">Overview</button>
-      <button class="tab" data-tab="documents" aria-selected="false">Documents</button>
-      <button class="tab" data-tab="payments" aria-selected="false">Payments</button>
-      <button class="tab" data-tab="agreement" aria-selected="false">Agreement</button>
-      <button class="tab" data-tab="activity" aria-selected="false">Activity</button>
-    </div>
-  </div>
-  <div class="dbody" id="dBody"></div>
-  <div class="dfoot">
-    <button class="act" id="dEmail">Email student</button>
-    <button class="act" id="dPrint">Print student file</button>
-    <div class="spacer"></div>
-    <button class="act" id="dCall">Call</button>
-  </div>
+<aside class="drawer" id="drawer">
+  <div class="dh"><div class="av" id="dAv">MW</div><div><div class="nm" id="dName">Student</div><div class="s2" id="dMeta"></div></div><button class="x" id="dx" aria-label="Close"><svg class="ico"><use href="#i-plus"/></svg></button></div>
+  <div class="db" id="dBody"></div>
+  <div class="df"><button class="btn"><svg class="ico"><use href="#i-mail2"/></svg>Send a message</button><button class="btn ghost"><svg class="ico"><use href="#i-print"/></svg>Print file</button></div>
 </aside>
 
 <script>
 (function(){
   "use strict";
-  var DOCS = ["Completed application","Proof of education","TB test (within 12 months)","BLS / CPR card","Primary government ID","Secondary ID (name matches)","Social Security card"];
-  var S = [
-    {n:"Jordan Alvarez",c:"Evening 4-week",starts:"Oct 27",docs:7,paid:650,owed:700,status:"payment pending",tone:"warn",enrolled:"Oct 12",phone:"(346) 555-0142"},
-    {n:"Maya Whitfield",c:"Evening 4-week",starts:"Oct 27",docs:5,paid:100,owed:1250,status:"documents due",tone:"bad",enrolled:"Oct 14",phone:"(713) 555-0188"},
-    {n:"Tobias Reed",c:"Day 3-week",starts:"Oct 27",docs:7,paid:1350,owed:0,status:"enrolled",tone:"ok",enrolled:"Oct 03",phone:"(281) 555-0111"},
-    {n:"Aisha Bello",c:"Day 3-week",starts:"Oct 27",docs:7,paid:1350,owed:0,status:"enrolled",tone:"ok",enrolled:"Oct 02",phone:"(832) 555-0173"},
-    {n:"Caleb Ortiz",c:"Weekend 6-week",starts:"Nov 01",docs:6,paid:650,owed:700,status:"documents due",tone:"warn",enrolled:"Oct 09",phone:"(346) 555-0155"},
-    {n:"Renee Duval",c:"Evening 4-week",starts:"Oct 27",docs:7,paid:1350,owed:0,status:"enrolled",tone:"ok",enrolled:"Oct 06",phone:"(713) 555-0134"},
-    {n:"Samuel Boateng",c:"Evening 4-week",starts:"Oct 27",docs:4,paid:100,owed:1250,status:"documents due",tone:"bad",enrolled:"Oct 16",phone:"(281) 555-0166"},
-    {n:"Nia Fontaine",c:"Weekend 6-week",starts:"Nov 01",docs:7,paid:750,owed:600,status:"classroom",tone:"info",enrolled:"Sep 22",phone:"(512) 555-0129"},
-    {n:"Owen Park",c:"Day 3-week",starts:"Sep 29",docs:7,paid:1350,owed:0,status:"completed",tone:"mute",enrolled:"Aug 30",phone:"(806) 555-0107"},
-    {n:"Priya Raman",c:"Evening 4-week",starts:"Oct 27",docs:7,paid:100,owed:1250,status:"payment pending",tone:"warn",enrolled:"Oct 18",phone:"(346) 555-0190"},
-    {n:"Marcus Deel",c:"Evening 4-week",starts:"Oct 27",docs:7,paid:1250,owed:100,status:"payment pending",tone:"warn",enrolled:"Oct 11",phone:"(713) 555-0122"},
-    {n:"Hannah Ives",c:"Day 3-week",starts:"Oct 27",docs:7,paid:1350,owed:0,status:"enrolled",tone:"ok",enrolled:"Oct 07",phone:"(832) 555-0145"}
+  var DOCS=["Application form","Proof of education","TB test","BLS / CPR card","Government ID","Second ID","Social Security card"];
+  var S=[
+    {n:"Jordan Alvarez",c:"Evening class",enrolled:"12 Oct",starts:"27 Oct",docs:7,paid:650,owed:700,st:"Payment plan",tone:"warn"},
+    {n:"Maya Whitfield",c:"Evening class",enrolled:"14 Oct",starts:"27 Oct",docs:5,paid:100,owed:1250,st:"Documents missing",tone:"bad"},
+    {n:"Samuel Boateng",c:"Evening class",enrolled:"16 Oct",starts:"27 Oct",docs:4,paid:100,owed:1250,st:"Documents missing",tone:"bad"},
+    {n:"Priya Raman",c:"Evening class",enrolled:"18 Oct",starts:"27 Oct",docs:7,paid:100,owed:1250,st:"Payment plan",tone:"warn"},
+    {n:"Marcus Deel",c:"Evening class",enrolled:"11 Oct",starts:"27 Oct",docs:7,paid:1250,owed:100,st:"Payment plan",tone:"warn"},
+    {n:"Renee Duval",c:"Evening class",enrolled:"06 Oct",starts:"27 Oct",docs:7,paid:1350,owed:0,st:"Ready",tone:"ok"},
+    {n:"Aisha Bello",c:"Day class",enrolled:"02 Oct",starts:"27 Oct",docs:7,paid:1350,owed:0,st:"Ready",tone:"ok"},
+    {n:"Tobias Reed",c:"Day class",enrolled:"03 Oct",starts:"27 Oct",docs:7,paid:1350,owed:0,st:"Ready",tone:"ok"},
+    {n:"Hannah Ives",c:"Day class",enrolled:"07 Oct",starts:"27 Oct",docs:7,paid:1350,owed:0,st:"Ready",tone:"ok"},
+    {n:"Caleb Ortiz",c:"Weekend class",enrolled:"09 Oct",starts:"1 Nov",docs:6,paid:650,owed:700,st:"Documents missing",tone:"warn"},
+    {n:"Nia Fontaine",c:"Weekend class",enrolled:"22 Sep",starts:"1 Nov",docs:7,paid:750,owed:600,st:"In classroom",tone:"info"},
+    {n:"Owen Park",c:"Day class",enrolled:"30 Aug",starts:"29 Sep",docs:7,paid:1350,owed:0,st:"Finished",tone:"none"}
   ];
-  var view="starting", cohortFilter="", sortKey="name", q="", sel=-1, tab="overview", studentView=false, step=1;
-
-  function init(n){return n.split(" ").map(function(w){return w[0];}).join("").slice(0,2).toUpperCase();}
+  var filter="all";
+  function $(i){return document.getElementById(i);}
+  function ini(n){return n.split(" ").map(function(w){return w[0];}).join("").slice(0,2).toUpperCase();}
   function money(v){return "$"+v.toLocaleString("en-US");}
-  function $id(i){return document.getElementById(i);}
 
-  function visible(){
-    var rows = S.slice();
-    if(view==="docs") rows = rows.filter(function(s){return s.docs<7;});
-    if(view==="money") rows = rows.filter(function(s){return s.owed>0;});
-    if(view==="starting") rows = rows.filter(function(s){return s.starts==="Oct 27";});
-    if(cohortFilter) rows = rows.filter(function(s){return s.c===cohortFilter;});
-    if(q){var k=q.toLowerCase(); rows = rows.filter(function(s){return (s.n+" "+s.c).toLowerCase().indexOf(k)>=0;});}
-    rows.sort(function(a,b){
-      if(sortKey==="docs") return a.docs-b.docs;
-      if(sortKey==="money") return b.owed-a.owed;
-      if(sortKey==="start") return a.starts.localeCompare(b.starts);
-      return a.n.localeCompare(b.n);
-    });
-    return rows;
+  function shown(){
+    var r=S.slice();
+    if(filter==="starting") r=r.filter(function(s){return s.starts==="27 Oct";});
+    if(filter==="missing") r=r.filter(function(s){return s.docs<7;});
+    if(filter==="owes") r=r.filter(function(s){return s.owed>0;});
+    return r;
   }
-
-  function render(){
-    var rows = visible();
-    $id("rows").innerHTML = rows.map(function(s){
-      var i = S.indexOf(s);
-      var dt = s.docs===7?"ok":(s.docs>=5?"warn":"bad");
-      var pct = Math.round(s.docs/7*100);
-      var pay = s.owed>0 ? '<span class="owed num">'+money(s.owed)+' due</span>' : '<span class="paid">Paid in full</span>';
-      return '<tr data-i="'+i+'"'+(i===sel?' class="sel"':'')+'>'+
-        '<td><div class="who"><div class="av">'+init(s.n)+'</div><div><div class="n">'+s.n+'</div><div class="m">Enrolled '+s.enrolled+'</div></div></div></td>'+
-        '<td>'+s.c+'</td>'+
-        '<td class="num">'+s.starts+'</td>'+
-        '<td><div class="docs"><div class="bar3 '+dt+'"><i style="width:'+pct+'%"></i></div><span class="pill '+dt+'">'+s.docs+'/7</span></div></td>'+
-        '<td>'+pay+'</td>'+
-        '<td><span class="pill '+s.tone+'">'+s.status+'</span></td>'+
-        '<td><div class="rowacts"><button class="act" data-open="'+i+'">Open</button><button class="act" data-email="'+i+'">Email</button></div></td>'+
-      '</tr>';
+  function renderStudents(){
+    $("rows").innerHTML=shown().map(function(s){
+      var i=S.indexOf(s), pct=Math.round(s.docs/7*100), tone=s.docs===7?"":(s.docs>=5?"warn":"bad");
+      return '<tr data-i="'+i+'">'+
+      '<td><div class="who"><div class="av">'+ini(s.n)+'</div><div><div class="nm">'+s.n+'</div><div class="s2">Enrolled '+s.enrolled+'</div></div></div></td>'+
+      '<td class="s2">'+s.c+'</td>'+
+      '<td class="s2">'+s.starts+'</td>'+
+      '<td><div class="prog"><span class="track '+tone+'"><i style="width:'+pct+'%"></i></span><span class="s2">'+s.docs+' of 7</span></div></td>'+
+      '<td class="money '+(s.owed>0?'owed':'')+'">'+(s.owed>0?money(s.owed):'Paid')+'</td>'+
+      '<td><button class="rowbtn" data-i="'+i+'">Open</button></td></tr>';
     }).join("");
-    $id("emptyState").classList.toggle("hidden", rows.length>0);
-    var label = view==="starting"?"Starting Monday":view==="docs"?"Documents due":view==="money"?"Balance due":"All students";
-    $id("viewTitle").textContent = cohortFilter || label;
-    var sub = rows.length + (rows.length===1?" student":" students");
-    $id("viewSub").textContent = sub + (cohortFilter?" in "+cohortFilter:"") + (view==="starting"?" · next cohort Oct 27":"");
-    $id("tableTitle").textContent = cohortFilter || label;
-    $id("tableCount").textContent = rows.length + " of " + S.length + " students";
-    var due = S.filter(function(s){return s.owed>0;}).reduce(function(a,s){return a+s.owed;},0);
-    var missing = S.reduce(function(a,s){return a+(7-s.docs);},0);
-    var withMissing = S.filter(function(s){return s.docs<7;});
-    var withMoney = S.filter(function(s){return s.owed>0;});
-    var starting = S.filter(function(s){return s.starts==="Oct 27";});
-    var audit = S.filter(function(s){return s.docs===7;});
-    $id("kpiStart").textContent = starting.length;
-    $id("kpiSeats").textContent = "of 14 seats · " + Math.max(0,14-starting.length) + " open";
-    $id("kpiMoney").textContent = money(due);
-    $id("kpiMoneyFoot").textContent = withMoney.length + " on the plan";
-    $id("kpiDocs").textContent = missing;
-    $id("kpiDocsFoot").textContent = "across " + withMissing.length + " students";
-    $id("kpiAudit").innerHTML = audit.length + '<span style="font-size:13px;color:var(--faint)">/' + S.length + '</span>';
-    $id("kpiAuditFoot").textContent = (S.length-audit.length) + " files missing an item";
-    // One line per student: an owner chases a person, not two separate tasks.
-    var todo = S.filter(function(s){return s.docs<7 || s.owed>0;}).slice(0,4);
-    var items = todo.map(function(s){
-      var bits = [];
-      if (s.docs<7) bits.push((7-s.docs)+" document(s) missing");
-      if (s.owed>0) bits.push(money(s.owed)+" due");
-      var tone = s.docs<7 ? "bad" : "warn";
-      return '<div class="chkitem"><span class="chk '+tone+'">!</span><span class="grow">'+s.n+'<span class="s">'+bits.join(" · ")+' · starts '+s.starts+'</span></span><button class="act" data-email="'+S.indexOf(s)+'">Email</button></div>';
-    });
-    $id("checklist").innerHTML = items.join("") || '<div class="chkitem"><span class="chk ok">&check;</span><span class="grow">Nothing outstanding<span class="s">every file is complete and paid</span></span></div>';
-    $id("chkCount").textContent = S.filter(function(s){return s.docs<7 || s.owed>0;}).length;
-    $id("c-starting").textContent = S.filter(function(s){return s.starts==="Oct 27";}).length;
-    $id("c-docs").textContent = S.filter(function(s){return s.docs<7;}).length;
-    $id("c-money").textContent = S.filter(function(s){return s.owed>0;}).length;
-    $id("c-all").textContent = S.length;
   }
-
+  function renderMoney(){
+    $("moneyRows").innerHTML=S.filter(function(s){return s.owed>0;}).map(function(s){
+      var i=S.indexOf(s);
+      return '<tr data-i="'+i+'"><td><div class="who"><div class="av">'+ini(s.n)+'</div><div><div class="nm">'+s.n+'</div><div class="s2">Enrolled '+s.enrolled+'</div></div></div></td>'+
+      '<td class="money">'+money(s.paid)+'</td><td class="money owed">'+money(s.owed)+'</td>'+
+      '<td><span class="pill '+(s.tone==='bad'?'bad':'warn')+'">'+(s.tone==='bad'?'Documents missing':'On the plan')+'</span></td>'+
+      '<td><button class="rowbtn" data-i="'+i+'">Open</button></td></tr>';
+    }).join("");
+  }
   function openDrawer(i){
-    sel = i; var s = S[i]; tab = "overview";
-    $id("dAv").textContent = init(s.n);
-    $id("dName").textContent = s.n;
-    $id("dMeta").textContent = s.c + " · starts " + s.starts;
-    Array.prototype.forEach.call(document.querySelectorAll("#dTabs .tab"), function(t){
-      t.setAttribute("aria-selected", String(t.getAttribute("data-tab")==="overview"));
-    });
-    drawTab();
-    $id("drawer").classList.add("on"); $id("scrim").classList.add("on"); $id("drawer").setAttribute("aria-hidden","false");
-    render();
+    var s=S[i]; if(!s) return;
+    $("dAv").textContent=ini(s.n); $("dName").textContent=s.n;
+    $("dMeta").textContent=s.c+" · starts "+s.starts;
+    var missing=DOCS.slice(s.docs);
+    $("dBody").innerHTML=
+      '<div class="ds"><h4>Situation</h4><span class="pill '+s.tone+'">'+s.st+'</span></div>'+
+      '<div class="ds"><h4>Documents</h4>'+DOCS.map(function(d,idx){
+        var ok=idx<s.docs;
+        return '<div class="chk"><span class="c '+(ok?'ok':'bad')+'">'+(ok?'&#10003;':'!')+'</span><span>'+d+(ok?'':' <span class="s2">— missing</span>')+'</span></div>';}).join("")+'</div>'+
+      '<div class="ds"><h4>Money</h4>'+
+        '<div class="line"><span class="a">Total tuition</span><span class="money">$1,350</span></div>'+
+        '<div class="line"><span class="a">Paid so far</span><span class="money">'+money(s.paid)+'</span></div>'+
+        '<div class="line"><span class="a">Still due</span><span class="money '+(s.owed>0?'owed':'')+'">'+money(s.owed)+'</span></div></div>'+
+      '<div class="ds"><h4>Agreement</h4><div class="chk"><span class="c ok">&#10003;</span><span>Signed at enrollment, stored on the file.</span></div></div>'+
+      '<div class="ds"><h4>Next step</h4><div class="s2">'+(missing.length?'Ask for '+missing.length+' missing document(s)'+(s.owed>0?' and the balance.':'.'):(s.owed>0?'Collect the remaining '+money(s.owed)+' before Monday.':'Nothing outstanding — the file is complete.'))+'</div></div>';
+    $("drawer").classList.add("on"); $("scrim").classList.add("on");
   }
-  function closeDrawer(){$id("drawer").classList.remove("on"); $id("scrim").classList.remove("on"); $id("drawer").setAttribute("aria-hidden","true");}
-
-  function drawTab(){
-    var s = S[sel]; if(!s){return;}
-    var h = "";
-    if(tab==="overview"){
-      h += '<div class="sec"><h4>Status</h4><span class="pill '+s.tone+'">'+s.status+'</span></div>';
-      h += '<div class="sec"><h4>Enrollment</h4>'+
-        '<div class="kv"><span class="a">Program</span><span class="b">Nurse aide, 100 hours</span></div>'+
-        '<div class="kv"><span class="a">Cohort</span><span class="b">'+s.c+'</span></div>'+
-        '<div class="kv"><span class="a">Starts</span><span class="b">'+s.starts+', 2026</span></div>'+
-        '<div class="kv"><span class="a">Enrolled</span><span class="b">'+s.enrolled+', 2026</span></div>'+
-        '<div class="kv"><span class="a">Phone</span><span class="b">'+s.phone+'</span></div></div>';
-      h += '<div class="sec"><h4>Open items</h4>'+
-        (s.docs<7?'<div class="drow"><span class="chk bad">!</span><span class="grow">'+(7-s.docs)+' document(s) missing<span class="s"> due before class</span></span></div>':'')+
-        (s.owed>0?'<div class="drow"><span class="chk warn">!</span><span class="grow">'+money(s.owed)+' balance due<span class="s"> before the first class</span></span></div>':'')+
-        (s.docs===7&&s.owed===0?'<div class="drow"><span class="chk ok">&check;</span><span class="grow">Nothing outstanding<span class="s"> file is audit-ready</span></span></div>':'')+
-        '</div>';
-    }
-    if(tab==="documents"){
-      h += '<div class="sec"><h4>Seven required documents</h4>' + DOCS.map(function(d,idx){
-        var ok = idx < s.docs;
-        return '<div class="drow"><span class="chk '+(ok?'ok':'bad')+'">'+(ok?'&check;':'!')+'</span><span class="grow">'+d+'<span class="s"> '+(ok?'approved':'not uploaded')+'</span></span>'+(ok?'<button class="act">View</button>':'<button class="act">Request</button>')+'</div>';
-      }).join("") + '</div>';
-      h += '<div class="sec"><h4>File check</h4><div class="kv"><span class="a">Complete</span><span class="b">'+s.docs+' of 7</span></div><div class="kv"><span class="a">Audit status</span><span class="b">'+(s.docs===7?'ready':'incomplete')+'</span></div></div>';
-    }
-    if(tab==="payments"){
-      h += '<div class="sec"><h4>Tuition</h4>'+
-        '<div class="kv"><span class="a">Tuition</span><span class="b num">$1,350</span></div>'+
-        '<div class="kv"><span class="a">Registration fee</span><span class="b num">$100</span></div>'+
-        '<div class="kv"><span class="a">Paid</span><span class="b num">'+money(s.paid)+'</span></div>'+
-        '<div class="kv"><span class="a">Balance</span><span class="b num" style="'+(s.owed>0?'color:var(--red)':'')+'">'+money(s.owed)+'</span></div></div>';
-      h += '<div class="sec"><h4>Schedule</h4>'+
-        '<div class="drow"><span class="chk ok">&check;</span><span class="grow">Registration $100<span class="s"> paid '+s.enrolled+'</span></span></div>'+
-        '<div class="drow"><span class="chk '+(s.paid>=750?'ok':'warn')+'">'+(s.paid>=750?'&check;':'!')+'</span><span class="grow">Payment $650<span class="s"> due at enrollment</span></span></div>'+
-        '<div class="drow"><span class="chk '+(s.owed===0?'ok':'warn')+'">'+(s.owed===0?'&check;':'!')+'</span><span class="grow">Payment $600<span class="s"> due before class</span></span></div></div>';
-    }
-    if(tab==="agreement"){
-      h += '<div class="sec"><h4>Enrollment agreement</h4><div class="agree">I enrol in the CNA Training Institute nurse aide program and understand the 100-hour curriculum: 40 hours classroom, 20 hours skills lab, 40 hours clinical. Tuition is $1,350, with $100 non-refundable registration applied to tuition and the balance due before class begins. I must attend all scheduled hours; absences require make-up time.</div></div>';
-      h += '<div class="sec"><h4>Signature</h4><div class="kv"><span class="a">Signed by</span><span class="b">'+s.n+'</span></div><div class="kv"><span class="a">Date</span><span class="b">'+s.enrolled+', 2026</span></div><div class="kv"><span class="a">Stored on</span><span class="b">student record</span></div></div>';
-    }
-    if(tab==="activity"){
-      h += '<div class="sec"><h4>Timeline</h4><div class="timeline">'+
-        '<div class="tl now"><div class="t">Record opened</div><div class="d">'+s.enrolled+', 2026 &middot; '+s.c+'</div></div>'+
-        '<div class="tl"><div class="t">Registration fee received</div><div class="d">$100 &middot; card</div></div>'+
-        '<div class="tl"><div class="t">Documents: '+s.docs+' of 7 approved</div><div class="d">'+(s.docs<7?(7-s.docs)+' still outstanding':'file complete')+'</div></div>'+
-        '<div class="tl"><div class="t">Tuition '+money(s.paid)+' received</div><div class="d">balance '+money(s.owed)+'</div></div>'+
-        '<div class="tl"><div class="t">Reminder email sent</div><div class="d">automatically, when an item is outstanding</div></div>'+
-      '</div></div>';
-    }
-    $id("dBody").innerHTML = h;
-  }
-
-  function setView(v){ view=v; cohortFilter=""; sel=-1;
-    Array.prototype.forEach.call(document.querySelectorAll(".navitem[data-view]"), function(b){
-      b.setAttribute("aria-current", String(b.getAttribute("data-view")===v));
-    });
-    render();
-  }
-  function showStudent(on){
-    studentView = on;
-    $id("ownerView").classList.toggle("hidden", on);
-    $id("studentView").classList.toggle("hidden", !on);
+  function closeDrawer(){$("drawer").classList.remove("on");$("scrim").classList.remove("on");}
+  function go(page){
+    Array.prototype.forEach.call(document.querySelectorAll("[data-sec]"),function(sec){sec.classList.toggle("hidden",sec.getAttribute("data-sec")!==page);});
+    Array.prototype.forEach.call(document.querySelectorAll("#nav a"),function(a){a.classList.toggle("on",a.getAttribute("data-page")===page);});
+    $("crumb").textContent=page.charAt(0).toUpperCase()+page.slice(1);
     window.scrollTo({top:0});
   }
-  function setStep(n){ step=n;
-    Array.prototype.forEach.call(document.querySelectorAll("[data-step]"), function(p){
-      p.classList.toggle("hidden", Number(p.getAttribute("data-step"))!==n);
-    });
-    Array.prototype.forEach.call($id("steps").children, function(c){
-      if(c.hasAttribute("data-s")) c.classList.toggle("on", Number(c.getAttribute("data-s"))<=n);
-    });
-  }
-  function renderUploads(){
-    $id("uploads").innerHTML = DOCS.map(function(d,i){
-      return '<div class="upload"><div class="grow"><div class="nm">'+d+'</div><div class="h">PDF, JPG or PNG</div></div><button class="act" data-up="'+i+'">Upload</button></div>';
-    }).join("");
-  }
 
-  document.addEventListener("click", function(e){
-    var t = e.target.closest("button, tr, .cohort"); if(!t) return;
-    if(t.id==="resetBtn"){ location.reload(); return; }
-    if(t.id==="newEnrollment"||t.id==="newEnrollment2"){ showStudent(true); setStep(1); return; }
-    if(t.id==="backOwner"||t.id==="backOwner2"){ showStudent(false); return; }
-    if(t.hasAttribute("data-view")){ setView(t.getAttribute("data-view")); return; }
-    if(t.hasAttribute("data-cohort") && t.classList.contains("navitem")){ cohortFilter=t.getAttribute("data-cohort"); sel=-1; render(); return; }
-    if(t.classList.contains("cohort")){
-      Array.prototype.forEach.call(document.querySelectorAll(".cohort"), function(c){c.setAttribute("aria-pressed","false");});
-      t.setAttribute("aria-pressed","true"); return;
+  document.addEventListener("click",function(e){
+    var t=e.target.closest("a,button,tr"); if(!t) return;
+    if(t.id==="dx"){closeDrawer();return;}
+    if(t.hasAttribute("data-page")){e.preventDefault();go(t.getAttribute("data-page"));return;}
+    if(t.hasAttribute("data-f")){
+      Array.prototype.forEach.call(document.querySelectorAll("[data-f]"),function(b){b.classList.remove("on");});
+      t.classList.add("on"); filter=t.getAttribute("data-f"); renderStudents(); return;
     }
-    if(t.id==="n1"){ setStep(2); return; }
-    if(t.id==="n2"){ setStep(3); return; }
-    if(t.id==="n3"){ setStep(4); return; }
-    if(t.id==="n4"){ setStep(5); return; }
-    if(t.hasAttribute("data-back")){ setStep(Number(t.getAttribute("data-back"))); return; }
-    if(t.hasAttribute("data-up")){ t.textContent="Uploaded"; t.closest(".upload").querySelector(".h").textContent="mock_file.pdf · awaiting school approval"; return; }
-    if(t.hasAttribute("data-open")){ openDrawer(Number(t.getAttribute("data-open"))); return; }
-    if(t.hasAttribute("data-email")){ var i=Number(t.getAttribute("data-email")); openDrawer(i); tab="activity"; syncTabs(); drawTab(); return; }
-    if(t.id==="dClose"){ closeDrawer(); return; }
-    if(t.hasAttribute("data-tab")){ tab=t.getAttribute("data-tab"); syncTabs(); drawTab(); return; }
-    if(t.hasAttribute("data-i") || (t.closest && t.closest("tr[data-i]"))){
-      var row = t.closest("tr[data-i]"); if(row){ openDrawer(Number(row.getAttribute("data-i"))); return; }
-    }
-    if(t.id==="printBtn"||t.id==="printBtn2"||t.id==="dPrint"){ window.print(); return; }
-    if(t.id==="exportBtn"){ alert("Demo: the CSV would list the students in this view."); return; }
+    if(t.hasAttribute("data-i")){openDrawer(Number(t.getAttribute("data-i")));return;}
+    if(t.closest&&t.closest("tr[data-i]")){openDrawer(Number(t.closest("tr[data-i]").getAttribute("data-i")));return;}
   });
-  function syncTabs(){ Array.prototype.forEach.call(document.querySelectorAll("#dTabs .tab"), function(x){ x.setAttribute("aria-selected", String(x.getAttribute("data-tab")===tab)); }); }
+  $("scrim").addEventListener("click",closeDrawer);
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")closeDrawer();});
 
-  $id("scrim").addEventListener("click", closeDrawer);
-  document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeDrawer(); });
-  $id("q").addEventListener("input", function(){ q=this.value; sel=-1; render(); });
-  $id("sortSel").addEventListener("change", function(){ sortKey=this.value; render(); });
-  $id("sig").addEventListener("input", function(){ $id("n4").disabled = this.value.trim().length<3; });
-
-  renderUploads(); render(); setStep(1);
-  if (location.hash.indexOf("#s=")===0){ var idx=Number(location.hash.slice(3)); if(!isNaN(idx)) openDrawer(idx); }
+  renderStudents(); renderMoney();
+  var h=(location.hash||"").replace("#","");
+  go(h&&document.querySelector('[data-sec="'+h+'"]')?h:"today");
 })();
 </script>
 </body>
