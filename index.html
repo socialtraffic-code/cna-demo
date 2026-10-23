@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>CNA Training Institute — Enrollment Demo</title>
+<style>
+:root {
+  --ink:#182630; --muted:#5f6e77; --line:#dde5e2; --bg:#f5f7f4; --card:#fff;
+  --brand:#155e57; --brand-dark:#0e4741; --brand-soft:#eef7f3;
+  --blue:#2d5f86; --amber:#8a5a12; --red:#9c3a32;
+  --radius:14px; --shadow:0 1px 2px rgba(20,45,40,.05), 0 8px 24px rgba(20,45,40,.04);
+}
+* { box-sizing:border-box; }
+[hidden] { display:none !important; }
+body {
+  margin:0; min-height:100vh; display:flex; flex-direction:column; font-family:system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color:var(--ink); background:var(--bg); font-size:16px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap { max-width:1080px; margin:0 auto; padding:0 24px; }
+.hidden { display:none !important; }
+h1, h2, h3, h4 { margin:0; line-height:1.2; letter-spacing:-.01em; }
+p { margin:0; }
+button, input, select { font:inherit; color:inherit; }
+.site-head { background:linear-gradient(135deg, #0f3c3a 0%, #155e57 60%, #1b6b60 100%); color:#f2f8f5; }
+.head-inner { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; padding-top:26px; padding-bottom:24px; }
+.eyebrow { font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:#a9cec4; margin-bottom:6px; }
+.site-head h1 { font-size:30px; font-weight:650; letter-spacing:-.02em; }
+.built { font-size:12.5px; color:#c2ded6; margin-top:4px; }
+.head-meta { text-align:right; font-size:12.5px; color:#c2ded6; display:flex; flex-direction:column; align-items:flex-end; gap:7px; }
+.head-pill { border:1px solid rgba(255,255,255,.28); border-radius:999px; padding:5px 12px; font-size:11.5px; letter-spacing:.04em; color:#e8f4ef; }
+.progress { background:var(--card); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:10; }
+.steps { list-style:none; display:flex; gap:4px; margin:0 auto; padding:8px 24px; max-width:1080px; overflow-x:auto; }
+.steps li { flex:1 1 0; min-width:118px; }
+.step { width:100%; display:flex; align-items:center; gap:8px; background:none; border:0; border-bottom:2px solid transparent; padding:9px 4px; cursor:pointer; color:var(--muted); text-align:left; }
+.step-num { width:22px; height:22px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:11.5px; font-weight:650; background:#edf1ef; color:var(--muted); flex:none; }
+.step-label { font-size:12.5px; font-weight:550; white-space:nowrap; }
+.step.current { color:var(--brand-dark); border-bottom-color:var(--brand); }
+.step.current .step-num { background:var(--brand); color:#fff; }
+.step.done { color:var(--ink); }
+.step.done .step-num { background:var(--brand-soft); color:var(--brand); }
+.step:disabled { cursor:default; opacity:.55; }
+.step:not(:disabled):hover { color:var(--brand); }
+main { padding:34px 0 60px; flex:1 0 auto; width:100%; min-width:0; }
+.screen { animation:fade .18s ease; }
+@keyframes fade { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:none; } }
+.kicker { font-size:11px; letter-spacing:.16em; text-transform:uppercase; font-weight:650; color:var(--brand); margin-bottom:8px; }
+.screen h2 { font-size:27px; margin-bottom:8px; }
+.lead { color:var(--muted); max-width:70ch; margin-bottom:22px; font-size:15.5px; }
+.panel { background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:22px; }
+.program-head { display:flex; align-items:center; justify-content:space-between; gap:24px; margin-bottom:18px; }
+.program-head h3 { font-size:18px; margin-bottom:4px; }
+.program-head p { color:var(--muted); font-size:13.5px; max-width:58ch; }
+.price { text-align:right; flex:none; }
+.price-num { display:block; font-size:26px; font-weight:650; color:var(--brand-dark); line-height:1.1; }
+.price-note { font-size:12px; color:var(--muted); }
+.cohorts { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:18px; }
+.cohort { display:flex; flex-direction:column; gap:5px; text-align:left; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; cursor:pointer; box-shadow:var(--shadow); transition:border-color .15s, box-shadow .15s, background .15s; }
+.cohort:hover { border-color:#a9c9c0; }
+.cohort.selected { border-color:var(--brand); box-shadow:0 0 0 1px var(--brand), var(--shadow); background:var(--brand-soft); }
+.cohort-top { display:flex; justify-content:space-between; gap:8px; align-items:baseline; }
+.cohort-top strong { font-size:15.5px; }
+.seats { font-size:10.5px; font-weight:650; text-transform:uppercase; letter-spacing:.05em; color:var(--brand); background:var(--brand-soft); border-radius:999px; padding:3px 8px; white-space:nowrap; }
+.cohort.selected .seats { background:#fff; }
+.seats.hot { color:var(--amber); background:#fbf2e2; }
+.cohort-meta { font-size:12.5px; color:var(--muted); }
+.cohort-blurb { font-size:12.5px; color:var(--ink); margin-top:2px; }
+.bar { display:flex; align-items:center; justify-content:space-between; gap:16px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:16px 20px; box-shadow:var(--shadow); }
+.bar p { font-size:13.5px; color:var(--muted); }
+.bar p strong { color:var(--ink); }
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; background:var(--brand); color:#fff; border:1px solid var(--brand); border-radius:9px; padding:10px 18px; font-size:14px; font-weight:600; cursor:pointer; transition:background .15s, border-color .15s, opacity .15s; }
+.btn:hover { background:var(--brand-dark); border-color:var(--brand-dark); }
+.btn:disabled { opacity:.45; cursor:not-allowed; background:var(--brand); }
+.btn.secondary { background:var(--card); color:var(--ink); border-color:var(--line); }
+.btn.secondary:hover { border-color:#b8c9c3; background:#fafcfb; }
+.btn.small { padding:6px 11px; font-size:12.5px; border-radius:7px; }
+.btn.danger { color:var(--red); border-color:#e6c4c0; background:#fdf6f5; }
+.btn.danger:hover { background:#fbeceb; border-color:#d9a9a3; }
+.btn.block { width:100%; margin-top:4px; }
+button:focus-visible, input:focus-visible, select:focus-visible, label.file-label:focus-within { outline:2px solid #2c7f74; outline-offset:2px; }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:start; }
+.panel h3 { font-size:16px; margin-bottom:10px; }
+.field { margin-bottom:13px; }
+.field label { display:block; font-size:12.5px; font-weight:600; margin-bottom:5px; }
+.field input { width:100%; padding:10px 12px; border:1px solid #cfdad6; border-radius:8px; background:#fff; font-size:14px; }
+.field input:focus { outline:none; border-color:var(--brand); box-shadow:0 0 0 3px rgba(21,94,87,.12); }
+.field input.invalid { border-color:var(--red); background:#fff8f7; }
+.field-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.hint, .demo-note { font-size:12px; color:var(--muted); margin-top:8px; }
+.fee-list { list-style:none; margin:0 0 12px; padding:0; }
+.fee-list li { display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-bottom:1px dashed #e4ebe7; font-size:13.5px; }
+.fee-list li:last-child { border-bottom:0; }
+.fee-list .total { font-weight:650; color:var(--brand-dark); font-size:15px; }
+.fee-list .free { color:var(--brand); }
+.summary-label { font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:4px; }
+.summary-cohort { font-size:14px; font-weight:600; margin-bottom:16px; }
+.actions { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:18px; flex-wrap:wrap; }
+.notice { background:#fbf7ee; border:1px solid #eadfc9; border-radius:10px; padding:11px 14px; font-size:12.5px; color:#6f5a33; margin-top:14px; }
+.doc-toolbar { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:12px; flex-wrap:wrap; }
+.doc-toolbar p { font-size:13.5px; color:var(--muted); }
+.docs-panel { padding:6px 20px; }
+.doc { display:flex; align-items:flex-start; justify-content:space-between; gap:20px; padding:15px 0; border-bottom:1px solid #e7eeeb; }
+.doc:last-child { border-bottom:0; }
+.doc-main { min-width:0; }
+.doc h4 { font-size:14.5px; margin-bottom:2px; }
+.doc p { font-size:12.5px; color:var(--muted); }
+.doc-meta { margin-top:5px; color:#4c5c63 !important; }
+.doc-meta .muted { color:var(--muted); }
+.doc-side { display:flex; flex-direction:column; align-items:flex-end; gap:8px; flex:none; }
+.chip { display:inline-block; font-size:11px; font-weight:650; padding:3px 9px; border-radius:999px; background:#eef1f0; color:#5f6e77; white-space:nowrap; }
+.chip.review { background:#fdf4e4; color:var(--amber); }
+.chip.approved { background:#e9f6ef; color:#1f6b4a; }
+.chip.rejected { background:#fbecea; color:var(--red); }
+.file-label { position:relative; overflow:hidden; cursor:pointer; }
+.file-input { position:absolute; width:1px; height:1px; opacity:0; }
+.admin-box { display:flex; flex-direction:column; align-items:flex-end; gap:7px; }
+.note-input { width:220px; max-width:100%; padding:7px 10px; border:1px solid #cfdad6; border-radius:7px; font-size:12.5px; }
+.note-input.invalid { border-color:var(--red); background:#fff8f7; }
+.admin-actions { display:flex; gap:6px; }
+.agreement { max-width:78ch; }
+.agreement-list { margin:12px 0 0; padding-left:20px; color:#33434b; }
+.agreement-list li { margin-bottom:7px; font-size:13.5px; }
+.sign-block { border-top:1px solid var(--line); margin-top:20px; padding-top:18px; }
+.sign-block h3 { margin-bottom:6px; }
+.signed { background:#f1faf5; border:1px solid #bfe0cf; border-radius:12px; padding:18px; margin-top:4px; }
+.signed h3 { color:#1f6b4a; }
+.signed p { font-size:13.5px; margin-top:6px; color:#39564a; }
+.error { color:var(--red); font-size:12.5px; margin-top:-6px; margin-bottom:10px; }
+.stats { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px; }
+.stat { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; box-shadow:var(--shadow); }
+.stat-num { display:block; font-size:24px; font-weight:650; color:var(--brand-dark); line-height:1.15; }
+.stat-label { font-size:12px; color:var(--muted); }
+.toolbar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+.toolbar label { font-size:12.5px; font-weight:600; color:var(--muted); }
+.toolbar select { padding:8px 10px; border:1px solid #cfdad6; border-radius:8px; background:#fff; font-size:13px; }
+.table-panel { padding:0; overflow:hidden; }
+.table-wrap { overflow-x:auto; }
+.table-hint { display:none; }
+table { width:100%; border-collapse:collapse; min-width:760px; }
+th { text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:650; padding:14px 16px 9px; border-bottom:1px solid var(--line); white-space:nowrap; }
+td { padding:12px 16px; border-bottom:1px solid #eef2ef; font-size:13px; vertical-align:top; }
+tbody tr:last-child td { border-bottom:0; }
+tr.is-you td { background:#f6fbf8; }
+tr.is-you td:first-child { box-shadow:inset 3px 0 0 var(--brand); }
+td strong { font-weight:600; display:block; }
+.you-label { display:block; font-size:10.5px; color:var(--brand); font-weight:600; margin-top:1px; }
+.cell-sub { display:block; font-size:11.5px; color:var(--muted); margin-top:3px; }
+.tag { display:inline-block; font-size:11px; font-weight:650; padding:2px 8px; border-radius:999px; white-space:nowrap; }
+.tag-gray { background:#eef1f0; color:#5f6e77; }
+.tag-blue { background:#eaf1f7; color:var(--blue); }
+.tag-amber { background:#fdf4e4; color:var(--amber); }
+.tag-green { background:#e9f6ef; color:#1f6b4a; }
+.tag-teal { background:#e6f4f1; color:var(--brand-dark); }
+.empty { text-align:center; color:var(--muted); padding:24px; }
+.small { font-size:12px; color:var(--muted); }
+.foot { margin-top:16px; }
+.site-foot { border-top:1px solid var(--line); background:#eef2ee; margin-top:auto; }
+.foot-inner { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; padding-top:18px; padding-bottom:18px; font-size:12px; color:#65746f; }
+@media (max-width:820px) {
+  .head-inner { flex-direction:column; align-items:flex-start; gap:12px; }
+  .head-meta { align-items:flex-start; text-align:left; }
+  .cohorts, .grid2 { grid-template-columns:1fr; }
+  .screen h2 { font-size:23px; }
+  .program-head { flex-direction:column; align-items:flex-start; gap:8px; }
+  .price { text-align:left; }
+  .bar { flex-direction:column; align-items:flex-start; }
+  .bar .btn { width:100%; }
+  .doc { flex-direction:column; gap:10px; }
+  .doc-side { flex-direction:row; flex-wrap:wrap; align-items:center; justify-content:space-between; width:100%; }
+  .admin-box { align-items:stretch; width:100%; }
+  .admin-actions { justify-content:flex-end; }
+  .actions .btn { flex:1 1 auto; }
+  .stats { grid-template-columns:1fr; }
+  .table-hint { display:block; font-size:12px; color:var(--muted); margin-top:10px; }
+}
+@media (max-width:460px) {
+  .wrap, .steps { padding-left:16px; padding-right:16px; }
+  .site-head h1 { font-size:25px; }
+  .panel { padding:18px; }
+  .steps { gap:0; overflow:visible; }
+  .steps li { min-width:0; flex:1 1 0; }
+  .step { flex-direction:column; align-items:center; gap:3px; padding:7px 1px; text-align:center; }
+  .step-num { width:20px; height:20px; font-size:10.5px; }
+  .step-label { font-size:10px; }
+}
+</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap head-inner">
+    <div>
+      <p class="eyebrow">Enrollment portal</p>
+      <h1>CNA Training Institute</h1>
+      <p class="built">Demo built by Social Traffic</p>
+    </div>
+    <div class="head-meta">
+      <span class="head-pill">Certified Nursing Assistant</span>
+      <span>Fall 2026 enrollment</span>
+    </div>
+  </div>
+</header>
+<nav class="progress" aria-label="Enrollment progress">
+  <ol class="steps" id="steps">
+    <li><button type="button" class="step" data-step="1"><span class="step-num">1</span><span class="step-label">Program</span></button></li>
+    <li><button type="button" class="step" data-step="2"><span class="step-num">2</span><span class="step-label">Registration</span></button></li>
+    <li><button type="button" class="step" data-step="3"><span class="step-num">3</span><span class="step-label">Documents</span></button></li>
+    <li><button type="button" class="step" data-step="4"><span class="step-num">4</span><span class="step-label">Agreement</span></button></li>
+    <li><button type="button" class="step" data-step="5"><span class="step-num">5</span><span class="step-label">Dashboard</span></button></li>
+  </ol>
+</nav>
+<main class="wrap">
+  <section class="screen" data-screen="1" aria-labelledby="title-program">
+    <p class="kicker">Step 1 of 5</p>
+    <h2 id="title-program">Choose your program and start date</h2>
+    <p class="lead">The Certified Nursing Assistant program combines classroom instruction with supervised clinicals. Pick the schedule that fits your life; every cohort covers the same state-approved curriculum.</p>
+    <div class="panel program-head">
+      <div>
+        <h3>Certified Nursing Assistant (CNA)</h3>
+        <p>120 classroom hours plus 40 clinical hours. CPR included, uniform fitting included, job placement support after graduation.</p>
+      </div>
+      <div class="price"><span class="price-num">$1,450</span><span class="price-note">tuition plus $100 registration</span></div>
+    </div>
+    <div id="cohortList" class="cohorts" role="group" aria-label="Available cohorts"></div>
+    <div class="bar">
+      <p id="programSelection">Select one cohort to continue.</p>
+      <button type="button" class="btn" id="toRegistration" disabled>Continue to registration</button>
+    </div>
+  </section>
+  <section class="screen hidden" data-screen="2" aria-labelledby="title-registration">
+    <p class="kicker">Step 2 of 5</p>
+    <h2 id="title-registration">Pay the $100 registration fee</h2>
+    <p class="lead">Your seat is held once the registration fee is paid. The fee is applied to your tuition balance; the rest is due before your first class or through a payment plan.</p>
+    <div class="grid2">
+      <div class="panel">
+        <h3>Your registration</h3>
+        <p class="summary-label">Selected cohort</p>
+        <p class="summary-cohort" id="regCohort">No cohort selected</p>
+        <div class="field"><label for="studentName">Full name</label><input id="studentName" autocomplete="name" placeholder="Jordan Avery"></div>
+        <div class="field"><label for="studentEmail">Email</label><input id="studentEmail" type="email" autocomplete="email" placeholder="jordan@example.com"></div>
+        <ul class="fee-list">
+          <li><span>Tuition</span><span>$1,450</span></li>
+          <li><span>Registration fee</span><span>$100</span></li>
+          <li><span>Credited to tuition</span><span class="free">-$100</span></li>
+          <li class="total"><span>Due today</span><span>$100</span></li>
+        </ul>
+        <p class="small">Balance after today: $1,350. Payment plans are available at orientation.</p>
+      </div>
+      <div class="panel">
+        <h3>Card details</h3>
+        <form id="payForm" novalidate>
+          <div class="field"><label for="cardNumber">Card number</label><input id="cardNumber" inputmode="numeric" autocomplete="cc-number" maxlength="19" placeholder="4242 4242 4242 4242"></div>
+          <div class="field-row">
+            <div class="field"><label for="cardExpiry">Expiry</label><input id="cardExpiry" inputmode="numeric" autocomplete="cc-exp" maxlength="5" placeholder="MM/YY"></div>
+            <div class="field"><label for="cardCvc">Security code</label><input id="cardCvc" inputmode="numeric" autocomplete="cc-csc" maxlength="4" placeholder="123"></div>
+          </div>
+          <div class="field"><label for="cardZip">Billing ZIP</label><input id="cardZip" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="80202"></div>
+          <button type="submit" class="btn block">Pay $100 and continue</button>
+          <p class="demo-note">Demo only. No card is charged and nothing is sent anywhere.</p>
+        </form>
+      </div>
+    </div>
+    <div class="actions"><button type="button" class="btn secondary" id="regBack">Back to program</button><span class="small">Registration fee is non-refundable after the cohort starts.</span></div>
+  </section>
+  <section class="screen hidden" data-screen="3" aria-labelledby="title-documents">
+    <p class="kicker">Step 3 of 5</p>
+    <h2 id="title-documents">Upload your documents</h2>
+    <p class="lead">Seven documents are required before clinicals. PDF, JPG, or PNG files are fine. Upload what you have now and add the rest later; admissions reviews each file and sends a note if something needs attention.</p>
+    <div class="doc-toolbar">
+      <p id="docCount">0 of 7 approved</p>
+      <button type="button" class="btn secondary small" id="adminToggle" aria-pressed="false">Admin review</button>
+    </div>
+    <div class="panel docs-panel"><div id="docList" class="doc-list"></div></div>
+    <div class="notice" id="docNotice">This demo accepts any file and stores only the file name in memory. Switch to Admin review to approve or reject a document and leave a note.</div>
+    <div class="actions"><button type="button" class="btn secondary" id="docsBack">Back</button><button type="button" class="btn" id="docsNext">Continue to agreement</button></div>
+  </section>
+  <section class="screen hidden" data-screen="4" aria-labelledby="title-agreement">
+    <p class="kicker">Step 4 of 5</p>
+    <h2 id="title-agreement">Review and sign the enrollment agreement</h2>
+    <p class="lead">Read the agreement below. Typing your name and signing records your acceptance for this cohort.</p>
+    <div class="panel agreement">
+      <h3>Enrollment agreement</h3>
+      <p class="small">CNA Training Institute · Certified Nursing Assistant program</p>
+      <ul class="agreement-list">
+        <li>I confirm that my application and all submitted documents are accurate and complete.</li>
+        <li>I understand tuition is $1,450. My $100 registration fee is applied to that balance, and the remaining $1,350 is due before my first class or under an approved payment plan.</li>
+        <li>I will attend all scheduled classroom and clinical hours. Any missed time must be made up before completion.</li>
+        <li>I understand clinical placement requires all seven documents approved, including a TB test dated within the last 12 months.</li>
+        <li>I agree to follow the school's conduct, safety, and attendance policies while enrolled.</li>
+      </ul>
+      <div class="sign-block" id="signForm">
+        <h3>Signature</h3>
+        <p class="small">By typing my name and selecting Sign agreement, I accept the terms above.</p>
+        <div class="grid2">
+          <div class="field"><label for="signName">Typed full name</label><input id="signName" autocomplete="name" placeholder="Jordan Avery"></div>
+          <div class="field"><label for="signDate">Date</label><input id="signDate" type="date"></div>
+        </div>
+        <p class="error" id="signError" hidden>Enter your full name to sign.</p>
+        <button type="button" class="btn" id="signBtn">Sign agreement</button>
+      </div>
+      <div class="signed" id="signedCard" hidden>
+        <h3>Agreement signed</h3>
+        <p>Signed by <strong id="signedName"></strong> on <span id="signedDate"></span>.</p>
+        <p>Cohort: <strong id="signedCohort"></strong>. A copy is saved to your student record.</p>
+      </div>
+    </div>
+    <div class="actions"><button type="button" class="btn secondary" id="agreeBack">Back</button><button type="button" class="btn" id="toDashboard" hidden>Open owner dashboard</button></div>
+  </section>
+  <section class="screen hidden" data-screen="5" aria-labelledby="title-dashboard">
+    <p class="kicker">Step 5 of 5</p>
+    <h2 id="title-dashboard">Owner dashboard</h2>
+    <p class="lead">Enrollment, document review, and tuition status across every open cohort. Your demo registration appears at the top of the roster.</p>
+    <div class="stats" id="rosterStats"></div>
+    <div class="toolbar">
+      <label for="cohortFilter">Cohort</label>
+      <select id="cohortFilter">
+        <option value="all">All cohorts</option>
+        <option value="day">Day · starts Nov 9</option>
+        <option value="evening">Evening · starts Nov 16</option>
+        <option value="weekend">Weekend · starts Dec 5</option>
+      </select>
+      <button type="button" class="btn secondary small" id="resetDemo">Start a new demo</button>
+    </div>
+    <div class="panel table-panel">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Student</th><th>Program</th><th>Cohort</th><th>Documents</th><th>Payment</th><th>Status</th></tr></thead>
+          <tbody id="rosterBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <p class="table-hint">Scroll the table sideways to see payment and status.</p>
+    <p class="small foot">All names and records are sample data for this demo.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <p><strong>CNA Training Institute</strong> · 1400 Harbor Way, Suite 210 · (555) 014-2280</p>
+    <p>Demo only. Sample students, documents, and payments. No data leaves this browser.</p>
+  </div>
+</footer>
+<script>
+(function () {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const todayISO = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+  const esc = value => String(value).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+  const COHORTS = [
+    { id: 'day', name: 'Day Program', tag: 'Day · Nov 9', length: '3 weeks', schedule: 'Monday–Friday, 8:00 am–2:30 pm', start: 'November 9, 2026', seats: 6, capacity: 20, blurb: 'Finish fastest. Classroom days with afternoon skills labs.' },
+    { id: 'evening', name: 'Evening Program', tag: 'Evening · Nov 16', length: '4 weeks', schedule: 'Monday–Thursday, 5:30–9:30 pm', start: 'November 16, 2026', seats: 9, capacity: 20, blurb: 'Keep your day job. Evening classes plus Saturday clinicals.' },
+    { id: 'weekend', name: 'Weekend Program', tag: 'Weekend · Dec 5', length: '6 weeks', schedule: 'Saturday and Sunday, 8:00 am–2:00 pm', start: 'December 5, 2026', seats: 4, capacity: 16, blurb: 'Steady pace for working parents and career changers.' }
+  ];
+  const DOC_DEFS = [
+    ['application', 'Completed application', 'Signed program application with every field completed.'],
+    ['education', 'Proof of education', 'High school diploma, GED, or official transcript.'],
+    ['tb', 'TB test', 'Skin or blood test dated within the last 12 months.'],
+    ['cpr', 'BLS/CPR card', 'Current American Heart Association or Red Cross card.'],
+    ['primary', 'Primary government ID', 'Driver license, state ID, or passport.'],
+    ['secondary', 'Secondary ID', 'Name must match the primary ID exactly.'],
+    ['ssn', 'Social Security card', 'Card or official document showing your Social Security number.']
+  ];
+  const ROSTER = [
+    ['Maria Alvarez', 'CNA', 'day', 'Day · Nov 9', '7 of 7 approved', 'Paid', '$1,450 paid', 'Clinicals'],
+    ['Tasha Coleman', 'CNA', 'day', 'Day · Nov 9', '6 of 7 approved', 'Paid', '$1,450 paid', 'Enrolled'],
+    ['Marcus Reed', 'CNA', 'day', 'Day · Nov 9', 'TB test rejected', 'Balance due', '$1,350 due', 'Payment pending'],
+    ['Devon Brooks', 'CNA', 'evening', 'Evening · Nov 16', '7 of 7 approved', 'On plan', '$450 due Nov 15', 'Classroom'],
+    ['Sofia Nguyen', 'CNA', 'evening', 'Evening · Nov 16', '7 of 7 approved', 'Paid', '$1,450 paid', 'Completed'],
+    ['Liam Foster', 'CNA', 'evening', 'Evening · Nov 16', '2 of 7 approved', 'On plan', '$900 due', 'Documents review'],
+    ['Priya Shah', 'CNA', 'weekend', 'Weekend · Dec 5', '5 of 7 approved', 'On plan', '$700 due', 'Enrolled'],
+    ['Jordan Ellis', 'CNA', 'weekend', 'Weekend · Dec 5', '3 of 7 approved', 'Balance due', '$1,350 due', 'Documents review'],
+    ['Grace Kim', 'CNA', 'weekend', 'Weekend · Dec 5', '7 of 7 approved', 'Balance due', '$1,450 due', 'Registration paid']
+  ].map(r => ({ name: r[0], program: r[1], cohortKey: r[2], cohort: r[3], docs: r[4], pay: r[5], payDetail: r[6], status: r[7] }));
+  const STATUS_TAG = {
+    'Registration paid': 'tag-gray',
+    'Documents review': 'tag-blue',
+    'Payment pending': 'tag-amber',
+    'Enrolled': 'tag-teal',
+    'Classroom': 'tag-blue',
+    'Clinicals': 'tag-teal',
+    'Completed': 'tag-green'
+  };
+  const CHIP_LABEL = { missing: 'Not uploaded', review: 'In review', approved: 'Approved', rejected: 'Rejected' };
+  const payTag = p => p === 'Paid' ? 'tag-green' : p === 'On plan' ? 'tag-blue' : 'tag-amber';
+  const currentCohort = () => COHORTS.find(c => c.id === state.cohortId);
+  const state = {
+    step: 1, cohortId: null, payment: false, admin: false, signed: false, filter: 'all', studentName: '',
+    signature: { name: '', date: todayISO() }, docs: DOC_DEFS.map(d => ({ id: d[0], name: d[1], detail: d[2], status: 'missing', file: '', note: '' }))
+  };
+  function docCounts() {
+    const count = status => state.docs.filter(d => d.status === status).length;
+    return { approved: count('approved'), rejected: count('rejected'), review: count('review') };
+  }
+  function prettyDate(iso) {
+    const date = new Date(iso + 'T12:00:00');
+    return !iso || isNaN(date.getTime()) ? (iso || 'today') : date.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
+  }
+  function renderSteps() {
+    document.querySelectorAll('#steps .step').forEach((btn, i) => {
+      const n = i + 1;
+      btn.classList.toggle('done', n < state.step);
+      btn.classList.toggle('current', n === state.step);
+      btn.disabled = n > state.step;
+      btn.querySelector('.step-num').textContent = n < state.step ? '✓' : String(n);
+      if (n === state.step) btn.setAttribute('aria-current', 'step'); else btn.removeAttribute('aria-current');
+    });
+  }
+  function renderProgram() {
+    $('cohortList').innerHTML = COHORTS.map(c => `
+      <button type="button" class="cohort${state.cohortId === c.id ? ' selected' : ''}" data-cohort="${c.id}" aria-pressed="${state.cohortId === c.id}">
+        <span class="cohort-top"><strong>${c.name}</strong><span class="seats${c.seats <= 4 ? ' hot' : ''}">${c.seats} of ${c.capacity} seats left</span></span>
+        <span class="cohort-meta">${c.length} · starts ${c.start}</span>
+        <span class="cohort-meta">${c.schedule}</span>
+        <span class="cohort-blurb">${c.blurb}</span>
+      </button>`).join('');
+    const cohort = currentCohort();
+    $('programSelection').innerHTML = cohort
+      ? `<strong>${cohort.name}</strong> selected · ${cohort.length} · starts ${cohort.start}`
+      : 'Select one cohort to continue.';
+    $('toRegistration').disabled = !cohort;
+  }
+  function renderCheckout() {
+    const cohort = currentCohort();
+    $('regCohort').textContent = cohort ? cohort.name + ' · ' + cohort.length + ' · starts ' + cohort.start : 'No cohort selected';
+  }
+  function renderDocs() {
+    const counts = docCounts();
+    $('docCount').textContent = counts.approved + ' of 7 approved' +
+      (counts.rejected ? ' · ' + counts.rejected + ' rejected' : '') +
+      (counts.review ? ' · ' + counts.review + ' in review' : '');
+    $('adminToggle').textContent = state.admin ? 'Student view' : 'Admin review';
+    $('adminToggle').setAttribute('aria-pressed', String(state.admin));
+    $('docList').innerHTML = state.docs.map(doc => {
+      let meta;
+      if (doc.status === 'approved') meta = 'Approved by the admissions team.';
+      else if (doc.status === 'rejected') meta = 'Rejected: ' + esc(doc.note) + ' <span class="muted">Re-upload to resubmit.</span>';
+      else if (doc.status === 'review') meta = 'Uploaded: ' + esc(doc.file) + '. Waiting for review.';
+      else meta = 'No file uploaded yet.';
+      let action;
+      if (state.admin) {
+        const disabled = doc.status === 'missing' ? ' disabled' : '';
+        action = `<div class="admin-box">
+          <input class="note-input" data-note="${doc.id}" value="${esc(doc.note)}" placeholder="Note to student" aria-label="Note for ${doc.name}">
+          <div class="admin-actions"><button type="button" class="btn small" data-approve="${doc.id}"${disabled}>Approve</button>
+            <button type="button" class="btn small danger" data-reject="${doc.id}"${disabled}>Reject</button></div>
+        </div>`;
+      } else {
+        const label = doc.status === 'missing' ? 'Upload' : doc.status === 'rejected' ? 'Re-upload' : 'Replace';
+        action = `<label class="btn secondary small file-label">${label}<input class="file-input" type="file" data-file="${doc.id}" accept=".pdf,.jpg,.jpeg,.png"></label>`;
+      }
+      return `<div class="doc"><div class="doc-main"><h4>${doc.name}</h4><p>${doc.detail}</p><p class="doc-meta">${meta}</p></div>
+        <div class="doc-side"><span class="chip ${doc.status}">${CHIP_LABEL[doc.status]}</span>${action}</div></div>`;
+    }).join('');
+  }
+  function renderAgreement() {
+    const cohort = currentCohort();
+    $('signForm').hidden = state.signed; $('signedCard').hidden = !state.signed; $('toDashboard').hidden = !state.signed;
+    if (state.signed) {
+      $('signedName').textContent = state.signature.name;
+      $('signedDate').textContent = prettyDate(state.signature.date);
+      $('signedCohort').textContent = cohort ? cohort.name + ', ' + cohort.length + ', starts ' + cohort.start : 'Selected cohort';
+    } else {
+      if (!$('signName').value && state.studentName) $('signName').value = state.studentName;
+      if (!$('signDate').value) $('signDate').value = todayISO();
+    }
+  }
+  function currentStudent() {
+    if (!state.payment) return null;
+    const cohort = currentCohort();
+    const counts = docCounts();
+    const docParts = [counts.approved + ' of 7 approved'];
+    if (counts.rejected) docParts.push(counts.rejected + ' rejected');
+    if (counts.review) docParts.push(counts.review + ' in review');
+    const hasDocs = counts.approved || counts.rejected || counts.review;
+    return {
+      name: state.signature.name || state.studentName || 'Your application', program: 'CNA',
+      cohortKey: state.cohortId, cohort: cohort ? cohort.tag : 'No cohort',
+      docs: docParts.join(' · '), pay: 'Paid', payDetail: '$100 paid · $1,350 due',
+      status: state.signed ? 'Enrolled' : (hasDocs ? 'Documents review' : 'Registration paid'), you: true
+    };
+  }
+  function renderDashboard() {
+    const you = currentStudent();
+    const all = (you ? [you] : []).concat(ROSTER);
+    const rows = state.filter === 'all' ? all : all.filter(r => r.cohortKey === state.filter);
+    $('rosterBody').innerHTML = rows.length ? rows.map(r => `
+      <tr${r.you ? ' class="is-you"' : ''}>
+        <td><strong>${esc(r.name)}</strong>${r.you ? '<span class="you-label">Your demo registration</span>' : ''}</td>
+        <td>${r.program}</td>
+        <td>${r.cohort}</td>
+        <td>${esc(r.docs)}</td>
+        <td><span class="tag ${payTag(r.pay)}">${r.pay}</span><span class="cell-sub">${esc(r.payDetail)}</span></td>
+        <td><span class="tag ${STATUS_TAG[r.status] || 'tag-gray'}">${r.status}</span></td>
+      </tr>`).join('') : '<tr><td colspan="6" class="empty">No students in this cohort.</td></tr>';
+    const openDocs = all.filter(r => !r.docs.startsWith('7 of 7')).length;
+    $('rosterStats').innerHTML = `
+      <div class="stat"><span class="stat-num">${all.length}</span><span class="stat-label">Students on roster</span></div>
+      <div class="stat"><span class="stat-num">${openDocs}</span><span class="stat-label">Students with open documents</span></div>
+      <div class="stat"><span class="stat-num">3</span><span class="stat-label">Open cohorts</span></div>`;
+  }
+  function render() {
+    document.querySelectorAll('.screen').forEach(screen => {
+      screen.classList.toggle('hidden', Number(screen.dataset.screen) !== state.step);
+    });
+    renderSteps();
+    if (state.step === 1) renderProgram();
+    if (state.step === 2) renderCheckout();
+    if (state.step === 3) renderDocs();
+    if (state.step === 4) renderAgreement();
+    if (state.step === 5) renderDashboard();
+  }
+  function go(step) {
+    state.step = step;
+    render();
+    window.scrollTo(0, 0);
+  }
+  function resetDemo() {
+    state.step = 1; state.cohortId = null; state.payment = false; state.admin = false; state.signed = false;
+    state.filter = 'all'; state.studentName = ''; state.signature = { name: '', date: todayISO() };
+    state.docs = DOC_DEFS.map(d => ({ id: d[0], name: d[1], detail: d[2], status: 'missing', file: '', note: '' }));
+    ['studentName', 'studentEmail', 'cardNumber', 'cardExpiry', 'cardCvc', 'cardZip', 'signName'].forEach(id => { $(id).value = ''; });
+    $('signDate').value = todayISO(); $('signError').hidden = true; $('cohortFilter').value = 'all';
+    render();
+  }
+  $('cohortList').addEventListener('click', e => {
+    const button = e.target.closest('[data-cohort]'); if (!button) return;
+    if (state.signed) state.signed = false;
+    state.cohortId = button.dataset.cohort; renderProgram();
+  });
+  document.querySelectorAll('#steps .step').forEach(btn => {
+    btn.addEventListener('click', () => { if (!btn.disabled) go(Number(btn.dataset.step)); });
+  });
+  $('toRegistration').addEventListener('click', () => go(2)); $('regBack').addEventListener('click', () => go(1));
+  $('payForm').addEventListener('submit', e => {
+    e.preventDefault(); state.studentName = $('studentName').value.trim(); state.payment = true; go(3);
+  });
+  $('docsBack').addEventListener('click', () => go(2)); $('docsNext').addEventListener('click', () => go(4));
+  $('agreeBack').addEventListener('click', () => go(3)); $('toDashboard').addEventListener('click', () => go(5));
+  $('adminToggle').addEventListener('click', () => { state.admin = !state.admin; renderDocs(); });
+  $('cohortFilter').addEventListener('change', e => { state.filter = e.target.value; renderDashboard(); });
+  $('resetDemo').addEventListener('click', resetDemo);
+  $('docList').addEventListener('click', e => {
+    const approve = e.target.closest('[data-approve]');
+    const reject = e.target.closest('[data-reject]');
+    if (approve) {
+      const doc = state.docs.find(d => d.id === approve.dataset.approve);
+      doc.status = 'approved'; doc.note = ''; renderDocs();
+    }
+    if (reject) {
+      const doc = state.docs.find(d => d.id === reject.dataset.reject);
+      const input = $('docList').querySelector('[data-note="' + doc.id + '"]');
+      const note = input.value.trim();
+      if (!note) { input.classList.add('invalid'); input.placeholder = 'Add a note before rejecting'; input.focus(); return; }
+      doc.status = 'rejected'; doc.note = note; renderDocs();
+    }
+  });
+  $('docList').addEventListener('input', e => { if (e.target.classList.contains('note-input')) e.target.classList.remove('invalid'); });
+  $('docList').addEventListener('change', e => {
+    const input = e.target.closest('[data-file]');
+    if (!input || !input.files || !input.files[0]) return;
+    const doc = state.docs.find(d => d.id === input.dataset.file);
+    doc.status = 'review'; doc.file = input.files[0].name; doc.note = ''; renderDocs();
+  });
+  $('signName').addEventListener('input', () => { $('signError').hidden = true; $('signName').classList.remove('invalid'); });
+  $('signBtn').addEventListener('click', () => {
+    const name = $('signName').value.trim();
+    if (name.length < 2) { $('signError').hidden = false; $('signName').classList.add('invalid'); $('signName').focus(); return; }
+    $('signError').hidden = true; $('signName').classList.remove('invalid');
+    state.signature = { name: name, date: $('signDate').value || todayISO() };
+    state.signed = true; renderAgreement();
+  });
+  $('cardNumber').addEventListener('input', e => { const digits = e.target.value.replace(/\D/g, '').slice(0, 16); e.target.value = digits.replace(/(\d{4})(?=\d)/g, '$1 '); });
+  $('cardExpiry').addEventListener('input', e => { const digits = e.target.value.replace(/\D/g, '').slice(0, 4); e.target.value = digits.length > 2 ? digits.slice(0, 2) + '/' + digits.slice(2) : digits; });
+  $('cardCvc').addEventListener('input', e => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4); });
+  $('cardZip').addEventListener('input', e => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 5); });
+  $('signDate').value = todayISO();
+  render();
+})();
+</script>
+</body>
+</html>
