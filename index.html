@@ -1008,6 +1008,24 @@
   }
 
 
+
+  // ── visit beacon: tells us who opened the demo (endpoint filled in at deploy) ──
+  var COLLECTOR = "https://social-traffic-demo-analytics.social-traffic.workers.dev";
+  function logHit(kind){
+    if(!COLLECTOR) return;
+    try{
+      fetch(COLLECTOR + "/hit", {
+        method: "POST",
+        headers: {"content-type": "application/json"},
+        keepalive: true,
+        body: JSON.stringify({
+          p: pid, kind: kind, school: sname, city: scity, name: oname,
+          path: location.pathname, ref: document.referrer
+        })
+      }).catch(function(){});
+    }catch(e){}
+  }
+
   // ── personalised workspace: the visitor's school name replaces the sample brand ──
   var sname="", scity="", pid="";
   try{ pid=new URLSearchParams(location.search).get("p")||""; }catch(e){}
@@ -1052,7 +1070,7 @@
     if(sname.length<2){$("gateName").focus();return;}
     if(oname.length<2){$("gateOwner").focus();return;}
     try{localStorage.setItem("demoSchool",JSON.stringify({n:sname,c:scity,o:oname}));}catch(e){}
-    applyBrand(); $("gate").classList.remove("on");
+    applyBrand(); $("gate").classList.remove("on"); logHit("submit");
   }
   function bootBrand(){
     var fromUrl="";
@@ -1138,7 +1156,7 @@
   $("zmodal").addEventListener("click",function(e){if(e.target===this)closeZoom();});
   document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeDrawer();closeZoom();closeEnroll();}});
 
-  setGreeting(); bootBrand(); renderStudents(); renderMoney(); renderMail(); addZoomButtons();
+  setGreeting(); bootBrand(); logHit("view"); renderStudents(); renderMoney(); renderMail(); addZoomButtons();
   var h=(location.hash||"").replace("#","");
   var sm=h.match(/^students-(\d+)$/);
   if(sm){ go("students"); openDrawer(Number(sm[1])); }
