@@ -294,6 +294,39 @@
   .esummary{border:1px solid var(--line);border-radius:9px;padding:6px 12px;margin:4px 0 12px;background:#fcfbfa}
   .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(12px);background:#1d1f21;color:#fff;font-size:13px;padding:10px 16px;border-radius:9px;opacity:0;pointer-events:none;transition:.16s;z-index:90;max-width:80vw;text-align:center}
   .toast.on{opacity:1;transform:translateX(-50%)}
+
+  /* today, action first */
+  .greet{margin-bottom:20px}
+  .greet h1{font-size:26px;letter-spacing:-.025em;font-weight:650;margin:0}
+  .greet .line{font-size:14px;color:var(--muted);margin-top:4px}
+  .greet .who{color:var(--ink)}
+  .sampleLine{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--amber);background:var(--ambers);border:1px solid #f0e3c7;border-radius:999px;padding:4px 11px;margin-top:10px}
+  .arow{display:flex;align-items:flex-start;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line2)}
+  .arow:last-of-type{border-bottom:0}
+  .arow .pip{width:7px;height:7px;border-radius:50%;margin-top:7px;flex:0 0 auto}
+  .arow .g{flex:1;min-width:0}
+  .arow .t{font-size:14px;font-weight:600;letter-spacing:-.005em}
+  .arow .s{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .arow .chips2{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+  .ch{font-size:11.5px;font-weight:600;border-radius:999px;padding:3px 9px}
+  .ch.warn{color:var(--amber);background:var(--ambers)}
+  .ch.bad{color:var(--red);background:var(--reds)}
+  .ch.ok{color:var(--green);background:var(--greens)}
+  .arow .acts{display:flex;gap:7px;flex:0 0 auto;align-items:center}
+  .afoot{display:flex;align-items:center;gap:10px;padding:12px 18px;background:#fcfbf9;border-top:1px solid var(--line2)}
+  .afoot .s{font-size:12.5px;color:var(--muted);margin-right:auto}
+  .miniStat{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--line2)}
+  .miniStat:last-child{border-bottom:0}
+  .miniStat .ic{width:30px;height:30px;border-radius:8px;background:var(--brands);color:var(--brand2);display:grid;place-items:center;flex:0 0 auto}
+  .miniStat .g{flex:1}
+  .miniStat .k{font-size:12.5px;color:var(--muted)}
+  .miniStat .v{font-size:15px;font-weight:650;letter-spacing:-.01em}
+  .agenda{display:flex;flex-direction:column}
+  .agenda .a{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line2);font-size:13.5px}
+  .agenda .a:last-child{border-bottom:0}
+  .agenda .d{width:74px;flex:0 0 74px;color:var(--muted);font-size:12.5px}
+  .agenda .x{flex:1}
+
   /* gate */
   .gate{position:fixed;inset:0;background:rgba(23,24,26,.55);z-index:100;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(2px)}
   .gate.on{display:flex}
@@ -453,68 +486,84 @@
     <main class="main">
       <!-- TODAY -->
       <section data-sec="today">
-        <div class="phead">
-          <div><h1>Today</h1><div class="d">Thursday, 23 October</div></div>
-          <div class="spacer"></div>
-          <button class="btn ghost"><svg class="ico"><use href="#i-print"/></svg>Print Thursday list</button>
-          <button class="btn"><svg class="ico"><use href="#i-plus"/></svg>Enroll a student</button>
-        </div>
-
-        <div class="card" style="margin-bottom:16px">
-          <div class="hero">
-            <div class="l">
-              <div class="k"><svg class="ico" style="width:15px;height:15px;color:var(--faint)"><use href="#i-cal"/></svg>Next class starts</div>
-              <div class="big">Monday, 27 October</div>
-              <div class="line">Evening class · 4 weeks · 5 seats left</div>
-              <div class="meter"><i style="width:64%"></i></div>
-              <div class="line"><b>9 of 14 files ready</b></div>
-              <div class="sub" style="margin-top:2px">Five students still owe a document or a payment.</div>
-            </div>
-            <div class="r">
-              <div class="k">Still to collect</div>
-              <div class="v money">$5,850</div>
-              <div class="sub">before Monday, from 7 students on the plan</div>
-            </div>
-          </div>
+        <div class="greet">
+          <h1><span id="greetTime">Good morning</span><span id="greetWho"></span></h1>
+          <div class="line">Two students need something from you before Monday. Everything else can wait.</div>
+          <div class="sampleLine"><svg class="ico" style="width:13px;height:13px"><use href="#i-doc"/></svg><span id="sampleBrand">This is a sample school</span> &middot; nothing here is real</div>
         </div>
 
         <div class="cols">
           <div class="stack">
             <div class="card">
-              <div class="h"><h2>Needs you today</h2><span class="sub">4 things</span></div>
-              <div class="todo">
-                <div class="item"><span class="pip red"></span><div class="g"><div class="t">Maya Whitfield is missing 2 documents and owes $1,250</div><div class="s">Starts Monday · reminder sent 3 days ago</div></div><button class="btn ghost">Send reminder</button></div>
-                <div class="item"><span class="pip red"></span><div class="g"><div class="t">Samuel Boateng has not uploaded his BLS card</div><div class="s">3 documents missing · cannot start clinicals</div></div><button class="btn ghost">Send reminder</button></div>
-                <div class="item"><span class="pip amber"></span><div class="g"><div class="t">2 students asked a question</div><div class="s">Jordan about the payment plan · Nia about make-up hours</div></div><button class="btn ghost">Open messages</button></div>
-                <div class="item"><span class="pip blue"></span><div class="g"><div class="t">Infection control quiz closes Sunday</div><div class="s">14 of 18 taken · average 88%</div></div><button class="btn ghost">See quiz</button></div>
+              <div class="h"><h2>Before Monday</h2><span class="sub">2 students and 2 questions</span><div class="spacer"></div><button class="rowbtn" onclick="window.print()">Print Thursday list</button></div>
+
+              <div class="arow">
+                <span class="pip" style="background:#b4554a"></span>
+                <div class="g">
+                  <div class="t">Maya Whitfield still owes $1,250 and 2 documents</div>
+                  <div class="s">Starts Monday &middot; reminder sent 3 days ago &middot; (713) 555-0188</div>
+                  <div class="chips2"><span class="ch warn">2 documents missing</span><span class="ch bad">$1,250 due</span></div>
+                </div>
+                <div class="acts"><button class="btn">Send reminder</button><button class="rowbtn" data-open-student="Maya Whitfield">Open</button></div>
+              </div>
+
+              <div class="arow">
+                <span class="pip" style="background:#b4554a"></span>
+                <div class="g">
+                  <div class="t">Samuel Boateng has not uploaded his BLS card</div>
+                  <div class="s">3 documents missing &middot; cannot start clinicals without it</div>
+                  <div class="chips2"><span class="ch warn">3 documents missing</span><span class="ch bad">$1,250 due</span></div>
+                </div>
+                <div class="acts"><button class="btn ghost">Send reminder</button><button class="rowbtn" data-open-student="Samuel Boateng">Open</button></div>
+              </div>
+
+              <div class="arow">
+                <span class="pip" style="background:#c9922e"></span>
+                <div class="g">
+                  <div class="t">2 students asked a question in Messages</div>
+                  <div class="s">"Can I pay the rest next Friday?" &middot; "What do I need to do to catch up?"</div>
+                  <div class="chips2"><span class="ch warn">Jordan Alvarez</span><span class="ch warn">Nia Fontaine</span></div>
+                </div>
+                <div class="acts"><button class="btn ghost" data-goto="messages">Open messages</button></div>
+              </div>
+
+              <div class="afoot">
+                <span class="s">One reminder covers both students and both questions.</span>
+                <button class="rowbtn">Send all reminders</button>
               </div>
             </div>
 
-            <div class="kpis">
-              <div class="kpi"><div class="k">Students starting</div><div class="v">12</div><div class="f">Monday and next weekend</div></div>
-              <div class="kpi"><div class="k">Files incomplete</div><div class="v">3</div><div class="f">documents missing</div></div>
-              <div class="kpi"><div class="k">Collected this week</div><div class="v money">$4,300</div><div class="f">7 payments</div></div>
+            <div class="card">
+              <div class="h"><h2>This week</h2><span class="sub">what happens next</span></div>
+              <div class="b">
+                <div class="agenda">
+                  <div class="a"><div class="d">Sunday</div><div class="x">Infection control quiz closes &middot; 14 of 18 taken</div><span class="ch ok">on track</span></div>
+                  <div class="a"><div class="d">Monday</div><div class="x">Evening and day classes start &middot; 9 and 7 students</div><span class="ch warn">5 files open</span></div>
+                  <div class="a"><div class="d">1 Nov</div><div class="x">Weekend class starts &middot; 6 students, 6 seats left</div><span class="ch ok">ready</span></div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="card">
-            <div class="h"><h2>Quick actions</h2></div>
-            <div class="tpl">
-              <button><svg class="ico"><use href="#i-plus"/></svg>Enroll a student</button>
-              <button><svg class="ico"><use href="#i-cal"/></svg>Add a class</button>
-              <button><svg class="ico"><use href="#i-mail2"/></svg>Send a message</button>
-              <button><svg class="ico"><use href="#i-doc"/></svg>Print a student file</button>
-              <button><svg class="ico"><use href="#i-check"/></svg>Set a quiz</button>
+          <div class="stack">
+            <div class="card">
+              <div class="h"><h2>Monday's class</h2></div>
+              <div class="b">
+                <div class="miniStat"><span class="ic"><svg class="ico" style="width:15px;height:15px"><use href="#i-users"/></svg></span><div class="g"><div class="k">Students starting</div><div class="v">9 of 14 seats</div></div></div>
+                <div class="miniStat"><span class="ic"><svg class="ico" style="width:15px;height:15px"><use href="#i-doc"/></svg></span><div class="g"><div class="k">Files ready</div><div class="v">9 of 14 complete</div></div></div>
+                <div class="miniStat"><span class="ic"><svg class="ico" style="width:15px;height:15px"><use href="#i-money"/></svg></span><div class="g"><div class="k">Still to collect</div><div class="v money" style="color:var(--red)">$5,850</div></div></div>
+                <button class="btn ghost" style="width:100%;justify-content:center;margin-top:12px" data-goto="classes">Open the class</button>
+              </div>
             </div>
-            <div class="b" style="border-top:1px solid var(--line2);padding:12px 18px">
-              <div class="sub">Each of these opens the same screen a phone call would: one student, one class, one message.</div>
-            </div>
-            <div class="h" style="border-top:1px solid var(--line2)"><h2>Recent activity</h2></div>
-            <div class="db" style="padding:6px 18px 14px">
-              <div class="line"><span class="a act-line">Maya Whitfield opened the reminder</span><span class="sub">2h</span></div>
-              <div class="line"><span class="a act-line">Jordan Alvarez paid $100</span><span class="sub">5h</span></div>
-              <div class="line"><span class="a act-line">Renee Duval uploaded her TB test</span><span class="sub">yesterday</span></div>
-              <div class="line"><span class="a act-line">Evening class roster printed</span><span class="sub">yesterday</span></div>
+
+            <div class="card">
+              <div class="h"><h2>Quick actions</h2></div>
+              <div class="tpl">
+                <button data-goto="students" data-action="enroll"><svg class="ico"><use href="#i-plus"/></svg>Enroll a student</button>
+                <button data-goto="classes"><svg class="ico"><use href="#i-cal"/></svg>Add a class</button>
+                <button data-goto="messages"><svg class="ico"><use href="#i-mail2"/></svg>Send a message</button>
+                <button data-goto="quizzes"><svg class="ico"><use href="#i-check"/></svg>Set a quiz</button>
+              </div>
             </div>
           </div>
         </div>
@@ -972,6 +1021,11 @@
     $("teamMail").textContent=(oname?slugify(oname.split(" ")[0]):"marisol")+"@"+(sname?slugify(sname):"cnatraininginstitute")+".org";
   }
 
+  function setGreeting(){
+    var h=new Date().getHours();
+    var t=h<12?"Good morning":(h<18?"Good afternoon":"Good evening");
+    var el=$("greetTime"); if(el) el.textContent=t;
+  }
   function applyBrand(){
     var nm=sname||"Your school";
     $("brandName").textContent=nm;
@@ -980,6 +1034,9 @@
     $("brandLoc").style.display=scity?"block":"none";
     document.title=(sname?sname+" — ":"")+"enrollment workspace (demo)";
     applyOwner();
+    var first=(oname||"").split(" ")[0];
+    var g=$("greetWho"); if(g) g.textContent=first?", "+first:"";
+    var sb=$("sampleBrand"); if(sb) sb.textContent="Sample workspace for "+(sname||"a sample school");
   }
   function openGate(){
     $("gateName").value=sname; $("gateCity").value=scity; $("gateOwner").value=oname;
@@ -1073,7 +1130,7 @@
   $("zmodal").addEventListener("click",function(e){if(e.target===this)closeZoom();});
   document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeDrawer();closeZoom();closeEnroll();}});
 
-  bootBrand(); renderStudents(); renderMoney(); renderMail(); addZoomButtons();
+  setGreeting(); bootBrand(); renderStudents(); renderMoney(); renderMail(); addZoomButtons();
   var h=(location.hash||"").replace("#","");
   var sm=h.match(/^students-(\d+)$/);
   if(sm){ go("students"); openDrawer(Number(sm[1])); }
