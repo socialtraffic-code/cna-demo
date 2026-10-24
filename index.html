@@ -294,6 +294,15 @@
   .esummary{border:1px solid var(--line);border-radius:9px;padding:6px 12px;margin:4px 0 12px;background:#fcfbfa}
   .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(12px);background:#1d1f21;color:#fff;font-size:13px;padding:10px 16px;border-radius:9px;opacity:0;pointer-events:none;transition:.16s;z-index:90;max-width:80vw;text-align:center}
   .toast.on{opacity:1;transform:translateX(-50%)}
+  /* gate */
+  .gate{position:fixed;inset:0;background:rgba(23,24,26,.55);z-index:100;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(2px)}
+  .gate.on{display:flex}
+  .gatecard{background:#fff;border-radius:16px;width:min(480px,96vw);padding:26px 26px 24px;box-shadow:0 30px 70px rgba(23,24,26,.3);display:flex;flex-direction:column;gap:4px}
+  .gatecard h1{font-size:21px;letter-spacing:-.02em;margin:12px 0 4px}
+  .gatecard .gsub{font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.5}
+  .gatecard .field{margin-bottom:12px}
+  .gatebtn{width:100%;justify-content:center;height:42px;margin-top:4px}
+  .ws{cursor:pointer}
   /* drawer */
   .scrim{position:fixed;inset:0;background:rgba(23,24,26,.22);opacity:0;pointer-events:none;transition:.15s;z-index:50}
   .scrim.on{opacity:1;pointer-events:auto}
@@ -395,11 +404,23 @@
 </svg>
 
 <div class="sideScrim" id="sideScrim"></div>
+<div class="gate" id="gate">
+  <div class="gatecard" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+    <div class="mark" style="width:38px;height:38px;border-radius:10px;font-size:14px">CT</div>
+    <h1 id="gateTitle">Your school, your workspace</h1>
+    <p class="gsub">Type your school's name to open the preview. It is a live demo with sample students, so nothing you type leaves your browser.</p>
+    <div class="field"><label for="gateName">School name</label><input id="gateName" placeholder="e.g. Sunrise CNA Academy" autocomplete="organization"></div>
+    <div class="field"><label for="gateCity">City and state <span class="sub">(optional)</span></label><input id="gateCity" placeholder="e.g. Houston, Texas" autocomplete="address-level2"></div>
+    <div class="field"><label for="gateOwner">Your name <span class="sub">(optional)</span></label><input id="gateOwner" placeholder="e.g. Dana Reyes" autocomplete="name"></div>
+    <button class="btn gatebtn" id="gateGo" disabled>Open the preview</button>
+    <div class="gsub" style="margin-top:12px">No account, no card, nothing to install.</div>
+  </div>
+</div>
 <div class="shell">
   <aside class="side">
     <div class="ws">
       <div class="mark">CT</div>
-      <div><div class="nm">CNA Training Institute</div><div class="sub">Sugar Land, Texas</div></div>
+      <div><div class="nm" id="brandName">CNA Training Institute</div><div class="sub" id="brandLoc">Sugar Land, Texas</div></div>
       <svg class="ico chev" width="15" height="15"><use href="#i-chev"/></svg>
     </div>
     <nav class="nav" id="nav">
@@ -413,8 +434,8 @@
       <a href="#team" data-page="team"><svg class="ico"><use href="#i-team"/></svg>Team</a>
     </nav>
     <div class="sidefoot">
-      <div class="av">MV</div>
-      <div><div class="nm">Marisol Vega</div><div class="rl">Owner</div></div>
+      <div class="av" id="meAv">MV</div>
+      <div><div class="nm" id="meName">Marisol Vega</div><div class="rl">Owner</div></div>
       <svg class="ico dots" width="15" height="15"><use href="#i-dots"/></svg>
     </div>
   </aside>
@@ -422,7 +443,7 @@
   <div class="wrap">
     <div class="top">
       <button class="iconbtn menuBtn" id="menuBtn" aria-label="Open menu"><svg class="ico"><use href="#i-menu"/></svg></button>
-      <div class="crumb"><b>CNA Training Institute</b> &nbsp;/&nbsp; <span id="crumb">Today</span></div>
+      <div class="crumb"><b id="crumbBrand">CNA Training Institute</b> &nbsp;/&nbsp; <span id="crumb">Today</span></div>
       <div class="spacer"></div>
       <div class="search"><svg class="ico"><use href="#i-search"/></svg><input id="qTop" placeholder="Search students"></div>
       <button class="iconbtn" aria-label="Notifications"><svg class="ico"><use href="#i-bell"/></svg></button>
@@ -705,7 +726,7 @@
           <div class="card">
             <div class="h"><h2>People</h2></div>
             <table><thead><tr><th>Person</th><th>Role</th><th></th></tr></thead><tbody>
-              <tr><td><div class="who"><div class="av">MV</div><div><div class="nm">Marisol Vega</div><div class="s2">marisol@cnatraininginstitute.org</div></div></div></td><td><span class="role owner">Owner</span></td><td><button class="rowbtn">Manage</button></td></tr>
+              <tr><td><div class="who"><div class="av" id="teamAv">MV</div><div><div class="nm" id="teamName">Marisol Vega</div><div class="s2" id="teamMail">marisol@cnatraininginstitute.org</div></div></div></td><td><span class="role owner">Owner</span></td><td><button class="rowbtn">Manage</button></td></tr>
               <tr><td><div class="who"><div class="av">LA</div><div><div class="nm">Lisa Alvarez</div><div class="s2">lisa@cnatraininginstitute.org</div></div></div></td><td><span class="role admin">Administrator</span></td><td><button class="rowbtn">Manage</button></td></tr>
               <tr><td><div class="who"><div class="av">MB</div><div><div class="nm">Michael Boateng</div><div class="s2">michael@cnatraininginstitute.org</div></div></div></td><td><span class="role teacher">Teacher</span></td><td><button class="rowbtn">Manage</button></td></tr>
               <tr><td><div class="who"><div class="av">JA</div><div><div class="nm">Jordan Alvarez</div><div class="s2">student</div></div></div></td><td><span class="role student">Student</span></td><td><button class="rowbtn">Manage</button></td></tr>
@@ -936,6 +957,54 @@
     closeEnroll(); renderStudents(); go("students"); toast(name.split(" ")[0]+" enrolled · welcome email sent");
   }
 
+
+  // ── personalised workspace: the visitor's school name replaces the sample brand ──
+  var sname="", scity="";
+
+  var oname="";
+  function slugify(x){return (x||"").toLowerCase().replace(/[^a-z0-9]+/g,"").slice(0,26);}
+  function initials(x){return (x||"").split(" ").filter(Boolean).map(function(w){return w[0];}).join("").slice(0,2).toUpperCase()||"MV";}
+  function applyOwner(){
+    var who=oname||"Marisol Vega";
+    var av=initials(who);
+    $("meName").textContent=who; $("meAv").textContent=av;
+    $("teamName").textContent=who; $("teamAv").textContent=av;
+    $("teamMail").textContent=(oname?slugify(oname.split(" ")[0]):"marisol")+"@"+(sname?slugify(sname):"cnatraininginstitute")+".org";
+  }
+
+  function applyBrand(){
+    var nm=sname||"Your school";
+    $("brandName").textContent=nm;
+    $("crumbBrand").textContent=nm;
+    $("brandLoc").textContent=scity||"";
+    $("brandLoc").style.display=scity?"block":"none";
+    document.title=(sname?sname+" — ":"")+"enrollment workspace (demo)";
+    applyOwner();
+  }
+  function openGate(){
+    $("gateName").value=sname; $("gateCity").value=scity; $("gateOwner").value=oname;
+    $("gateGo").disabled=(sname||"").trim().length<2;
+    $("gate").classList.add("on");
+    setTimeout(function(){$("gateName").focus();},40);
+  }
+  function commitGate(){
+    sname=$("gateName").value.trim(); scity=$("gateCity").value.trim(); oname=$("gateOwner").value.trim();
+    if(sname.length<2){$("gateName").focus();return;}
+    try{localStorage.setItem("demoSchool",JSON.stringify({n:sname,c:scity,o:oname}));}catch(e){}
+    applyBrand(); $("gate").classList.remove("on");
+  }
+  function bootBrand(){
+    var fromUrl="";
+    var fromName="";
+    try{ fromUrl=new URLSearchParams(location.search).get("school")||""; fromName=new URLSearchParams(location.search).get("name")||""; }catch(e){}
+    if(fromUrl){ sname=fromUrl; scity=""; oname=fromName; applyBrand(); return; }
+    try{
+      var saved=JSON.parse(localStorage.getItem("demoSchool")||"null");
+      if(saved&&saved.n){sname=saved.n;scity=saved.c||"";oname=saved.o||"";applyBrand();return;}
+    }catch(e){}
+    openGate();
+  }
+
   // toast + small utilities used by the placeholder actions
   var toastTimer=null;
   function toast(msg){
@@ -963,6 +1032,8 @@
   document.addEventListener("click",function(e){
     var t=e.target.closest("a,button,tr"); if(!t) return;
     if(t.id==="dx"){closeDrawer();return;}
+    if(t.id==="gateGo"){commitGate();return;}
+    if(t.closest&&t.closest(".ws")){openGate();return;}
     if(t.id==="eClose"||t.id==="eCancel"){closeEnroll();return;}
     if(t.id==="eSubmit"){submitEnroll();return;}
     if(t.id==="menuBtn"){document.querySelector(".side").classList.add("open");document.getElementById("sideScrim").classList.add("on");return;}
@@ -991,6 +1062,9 @@
     if(t.hasAttribute("data-i")){openDrawer(Number(t.getAttribute("data-i")));return;}
     if(t.closest&&t.closest("tr[data-i]")){openDrawer(Number(t.closest("tr[data-i]").getAttribute("data-i")));return;}
   });
+  $("gateName").addEventListener("input",function(){$("gateGo").disabled=this.value.trim().length<2;});
+  $("gateName").addEventListener("keydown",function(e){if(e.key==="Enter"){commitGate();}});
+  $("gateCity").addEventListener("keydown",function(e){if(e.key==="Enter"){commitGate();}});
   $("emodal").addEventListener("click",function(e){if(e.target===this)closeEnroll();});
   $("qTop").addEventListener("input",function(){onSearch(this.value);});
   $("menuBtn").addEventListener("click",function(){document.querySelector(".side").classList.add("open");document.getElementById("sideScrim").classList.add("on");});
@@ -999,7 +1073,7 @@
   $("zmodal").addEventListener("click",function(e){if(e.target===this)closeZoom();});
   document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeDrawer();closeZoom();closeEnroll();}});
 
-  renderStudents(); renderMoney(); renderMail(); addZoomButtons();
+  bootBrand(); renderStudents(); renderMoney(); renderMail(); addZoomButtons();
   var h=(location.hash||"").replace("#","");
   var sm=h.match(/^students-(\d+)$/);
   if(sm){ go("students"); openDrawer(Number(sm[1])); }
