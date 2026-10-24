@@ -1009,7 +1009,9 @@
 
 
   // ── personalised workspace: the visitor's school name replaces the sample brand ──
-  var sname="", scity="";
+  var sname="", scity="", pid="";
+  try{ pid=new URLSearchParams(location.search).get("p")||""; }catch(e){}
+  if(pid){ try{ localStorage.setItem("demoPid",pid); }catch(e){} }
 
   var oname="";
   function slugify(x){return (x||"").toLowerCase().replace(/[^a-z0-9]+/g,"").slice(0,26);}
