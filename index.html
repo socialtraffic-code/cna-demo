@@ -278,6 +278,22 @@
   .zbody .opt2{padding:14px 16px;font-size:15px}
   .zbody .zoombtn{display:none}
 
+  .emodal{position:fixed;inset:0;background:rgba(23,24,26,.4);z-index:85;display:none;align-items:center;justify-content:center;padding:20px}
+  .emodal.on{display:flex}
+  .epanel{background:#fff;border-radius:14px;width:min(540px,96vw);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(23,24,26,.22)}
+  .ehead{display:flex;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line2);font-size:15px;font-weight:650}
+  .ehead .x{margin-left:auto;border:1px solid var(--line);background:#fff;border-radius:7px;width:28px;height:28px;display:grid;place-items:center;color:var(--muted)}
+  .ehead .x svg{transform:rotate(45deg)}
+  .ebody{padding:18px 20px;overflow:auto}
+  .efoot{display:flex;gap:9px;justify-content:flex-end;padding:14px 20px;border-top:1px solid var(--line2);background:#fcfbf9}
+  .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+  .field label{font-size:12.5px;color:var(--muted)}
+  .field input,.field select{height:40px;border:1px solid var(--line);border-radius:9px;padding:0 12px;font:inherit;font-size:14px;background:#fff;color:var(--ink);width:100%}
+  .field input:focus,.field select:focus{outline:none;border-color:#9dc3b8;box-shadow:0 0 0 3px #eef6f3}
+  .ebody .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+  .esummary{border:1px solid var(--line);border-radius:9px;padding:6px 12px;margin:4px 0 12px;background:#fcfbfa}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(12px);background:#1d1f21;color:#fff;font-size:13px;padding:10px 16px;border-radius:9px;opacity:0;pointer-events:none;transition:.16s;z-index:90;max-width:80vw;text-align:center}
+  .toast.on{opacity:1;transform:translateX(-50%)}
   /* drawer */
   .scrim{position:fixed;inset:0;background:rgba(23,24,26,.22);opacity:0;pointer-events:none;transition:.15s;z-index:50}
   .scrim.on{opacity:1;pointer-events:auto}
@@ -298,6 +314,53 @@
   .chk .c{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:10px;flex:0 0 auto;margin-top:1px}
   .c.ok{background:var(--brand)}.c.bad{background:#b4554a}
   .df{padding:12px 20px;border-top:1px solid var(--line2);display:flex;gap:9px}
+  .menuBtn{display:none}
+  @media (max-width:1080px){
+    .menuBtn{display:grid}
+    .side{position:fixed;top:0;bottom:0;left:0;height:100vh;z-index:70;display:flex;transform:translateX(-100%);transition:transform .18s ease;box-shadow:12px 0 30px rgba(23,24,26,.12)}
+    .side.open{transform:none}
+    .sideScrim{position:fixed;inset:0;background:rgba(23,24,26,.3);z-index:65;display:none}
+    .sideScrim.on{display:block}
+    .top{padding:0 14px;gap:10px}
+    .crumb{display:none}
+    .main{padding:18px 14px 70px}
+    .phead{flex-wrap:wrap;gap:10px;flex-direction:column;align-items:stretch}
+    .phead .spacer{display:none}
+    .phead .btn{width:100%;justify-content:center}
+    .demo{display:none}
+    .tools{flex-wrap:wrap}
+    .seg{flex-wrap:wrap}
+    html,body{overflow-x:hidden}
+    .main{width:100%;max-width:100%}
+    .card{max-width:100%}
+    .todo .item{flex-wrap:wrap}
+    .todo .item .btn{width:100%}
+    .todo .g{min-width:0}
+    .hero .l,.hero .r{padding:16px}
+    .qcard2 .body{padding:16px}
+    .qcard2 .foot{flex-wrap:wrap}
+    .qcard2 .foot .btn{flex:1;justify-content:center}
+    .qcard2 .qtext{font-size:18px}
+    .mreply .bar{flex-wrap:wrap}
+    .classactions{flex-wrap:wrap}
+    .zbody{padding:14px}
+    .card{overflow-x:auto}
+    section{max-width:100%;overflow-x:hidden}
+    .hero,.cards,.phead,.tools,.kpis,.cols,.r2,.r3,.stack{max-width:100%;min-width:0}
+    .hero{grid-template-columns:minmax(0,1fr)!important;width:100%}
+    .hero>*{min-width:0;max-width:100%}
+    .phead .btn{flex:1 1 100%}
+    .card{width:100%}
+    .card table{min-width:620px}
+    .kpis{grid-template-columns:1fr}
+    .hero{grid-template-columns:1fr}
+    .hero .l{border-right:0;border-bottom:1px solid var(--line2)}
+    .r2,.r3,.cols{grid-template-columns:1fr}
+    .mail{grid-template-columns:1fr;height:calc(100vh - 56px)}
+    .mfold,.mlist{display:none}
+    .qcard2{width:100%}
+    .zpanel{width:96vw}
+  }
   .hidden{display:none!important}
   @media (max-width:1080px){
     .side{display:none}
@@ -325,11 +388,13 @@
   <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 8V3h10v5"/><rect x="4" y="8" width="16" height="8" rx="2"/><path d="M7 14h10v7H7z"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="m8 10 4 4 4-4"/></symbol>
   <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="18" cy="12" r="1.4"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
   <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="6.5" width="12.5" height="11" rx="2.5"/><path d="m15.5 11 5.5-3v8l-5.5-3z"/></symbol>
   <symbol id="i-expand" viewBox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M20 15v5h-5"/></symbol>
   <symbol id="i-mail2" viewBox="0 0 24 24"><path d="M3 6h13v9H8l-5 4z"/><path d="M8 10h8"/></symbol>
 </svg>
 
+<div class="sideScrim" id="sideScrim"></div>
 <div class="shell">
   <aside class="side">
     <div class="ws">
@@ -356,9 +421,10 @@
 
   <div class="wrap">
     <div class="top">
+      <button class="iconbtn menuBtn" id="menuBtn" aria-label="Open menu"><svg class="ico"><use href="#i-menu"/></svg></button>
       <div class="crumb"><b>CNA Training Institute</b> &nbsp;/&nbsp; <span id="crumb">Today</span></div>
       <div class="spacer"></div>
-      <div class="search"><svg class="ico"><use href="#i-search"/></svg><input placeholder="Search students"></div>
+      <div class="search"><svg class="ico"><use href="#i-search"/></svg><input id="qTop" placeholder="Search students"></div>
       <button class="iconbtn" aria-label="Notifications"><svg class="ico"><use href="#i-bell"/></svg></button>
       <span class="demo">Demo · sample data</span>
     </div>
@@ -668,6 +734,31 @@
   </div>
 </div>
 
+<div class="emodal" id="emodal">
+  <div class="epanel" role="dialog" aria-modal="true" aria-labelledby="eTitle">
+    <div class="ehead"><span id="eTitle">Enroll a student</span><button class="x" id="eClose" aria-label="Close"><svg class="ico" style="width:15px;height:15px"><use href="#i-plus"/></svg></button></div>
+    <div class="ebody">
+      <div class="field"><label for="en">Full name</label><input id="en" placeholder="e.g. Jordan Alvarez"></div>
+      <div class="grid2">
+        <div class="field"><label for="ep">Phone</label><input id="ep" placeholder="(346) 555-0142"></div>
+        <div class="field"><label for="ee">Email</label><input id="ee" placeholder="student@email.com"></div>
+      </div>
+      <div class="field"><label for="ec">Class</label><select id="ec">
+        <option>Evening class - starts 27 Oct</option>
+        <option>Day class - starts 27 Oct</option>
+        <option>Weekend class - starts 1 Nov</option>
+      </select></div>
+      <div class="esummary">
+        <div class="line"><span class="a">Registration today</span><span class="num">$100</span></div>
+        <div class="line"><span class="a">Balance before class</span><span class="num">$1,250</span></div>
+        <div class="line"><span class="a">Documents</span><span class="num">7 to collect</span></div>
+      </div>
+      <div class="sub">The student gets a welcome email with their upload link. They stay off the roster until every document is approved.</div>
+    </div>
+    <div class="efoot"><button class="btn ghost" id="eCancel">Cancel</button><button class="btn" id="eSubmit">Take $100 and enroll</button></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer">
   <div class="dh"><div class="av" id="dAv">MW</div><div><div class="nm" id="dName">Student</div><div class="s2" id="dMeta"></div></div><button class="x" id="dx" aria-label="Close"><svg class="ico"><use href="#i-plus"/></svg></button></div>
@@ -703,6 +794,7 @@
     if(filter==="starting") r=r.filter(function(s){return s.starts==="27 Oct";});
     if(filter==="missing") r=r.filter(function(s){return s.docs<7;});
     if(filter==="owes") r=r.filter(function(s){return s.owed>0;});
+    if(term) r=r.filter(function(s){return (s.n+" "+s.c).toLowerCase().indexOf(term)>=0;});
     return r;
   }
   function renderStudents(){
@@ -714,16 +806,16 @@
       '<td class="s2">'+s.starts+'</td>'+
       '<td><div class="prog"><span class="track '+tone+'"><i style="width:'+pct+'%"></i></span><span class="s2">'+s.docs+' of 7</span></div></td>'+
       '<td class="money '+(s.owed>0?'owed':'')+'">'+(s.owed>0?money(s.owed):'Paid')+'</td>'+
-      '<td><button class="rowbtn" data-i="'+i+'">Open</button></td></tr>';
+      '<td><button class="rowbtn" data-i="'+i+'">Open</button> <button class="rowbtn" data-remind="'+i+'">Remind</button></td></tr>';
     }).join("");
   }
   function renderMoney(){
     $("moneyRows").innerHTML=S.filter(function(s){return s.owed>0;}).map(function(s){
       var i=S.indexOf(s);
       return '<tr data-i="'+i+'"><td><div class="who"><div class="av">'+ini(s.n)+'</div><div><div class="nm">'+s.n+'</div><div class="s2">Enrolled '+s.enrolled+'</div></div></div></td>'+
-      '<td class="money">'+money(s.paid)+'</td><td class="money owed">'+money(s.owed)+'</td>'+
+      '<td><div class="prog"><span class="track"><i style="width:'+Math.round(s.paid/1350*100)+'%"></i></span><span class="s2">'+money(s.paid)+'</span></div></td><td class="money owed">'+money(s.owed)+'</td>'+
       '<td><span class="pill '+(s.tone==='bad'?'bad':'warn')+'">'+(s.tone==='bad'?'Documents missing':'On the plan')+'</span></td>'+
-      '<td><button class="rowbtn" data-i="'+i+'">Open</button></td></tr>';
+      '<td><button class="rowbtn" data-i="'+i+'">Open</button> <button class="rowbtn" data-remind="'+i+'">Remind</button></td></tr>';
     }).join("");
   }
   function openDrawer(i){
@@ -832,9 +924,51 @@
   }
   function closeZoom(){document.getElementById("zmodal").classList.remove("on");}
 
+
+
+  function openEnroll(){$("emodal").classList.add("on");setTimeout(function(){$("en").focus();},30);}
+  function closeEnroll(){$("emodal").classList.remove("on");}
+  function submitEnroll(){
+    var name=$("en").value.trim();
+    if(name.length<3){$("en").focus();toast("Add the student's name first.");return;}
+    var cls=$("ec").value, c=cls.split(" - ")[0], start=cls.indexOf("1 Nov")>=0?"1 Nov":"27 Oct";
+    S.unshift({n:name,c:c,enrolled:"23 Oct",starts:start,docs:0,paid:100,owed:1250,st:"Documents missing",tone:"bad"});
+    closeEnroll(); renderStudents(); go("students"); toast(name.split(" ")[0]+" enrolled · welcome email sent");
+  }
+
+  // toast + small utilities used by the placeholder actions
+  var toastTimer=null;
+  function toast(msg){
+    var el=$("toast"); el.textContent=msg; el.classList.add("on");
+    clearTimeout(toastTimer); toastTimer=setTimeout(function(){el.classList.remove("on");},2200);
+  }
+  function exportCsv(){
+    var head=["Student","Class","Starts","Documents","Paid","Due","Status"];
+    var rows=S.map(function(x){return [x.n,x.c,x.starts,x.docs+" of 7",x.paid,x.owed,x.st];});
+    var csv=[head].concat(rows).map(function(r){return r.join(",");}).join("\n");
+    var a=document.createElement("a");
+    a.href="data:text/csv;charset=utf-8,"+encodeURIComponent(csv);
+    a.download="students.csv"; a.click();
+    toast("students.csv downloaded");
+  }
+  // top-bar search filters the roster from anywhere
+  var term="";
+  function onSearch(v){
+    term=(v||"").trim().toLowerCase();
+    if(term){ go("students"); }
+    renderStudents();
+    if(term) toast(shown().length+" student(s) match \""+v.trim()+"\"");
+  }
+
   document.addEventListener("click",function(e){
     var t=e.target.closest("a,button,tr"); if(!t) return;
     if(t.id==="dx"){closeDrawer();return;}
+    if(t.id==="eClose"||t.id==="eCancel"){closeEnroll();return;}
+    if(t.id==="eSubmit"){submitEnroll();return;}
+    if(t.id==="menuBtn"){document.querySelector(".side").classList.add("open");document.getElementById("sideScrim").classList.add("on");return;}
+    if(t.closest&&t.closest(".phead")===null && /Print|Export/i.test(t.textContent)){ if(/Export/i.test(t.textContent)){exportCsv();return;} window.print();return; }
+    if(/Enroll a student/.test(t.textContent.trim())){ openEnroll(); return; }
+    if(/^(Send reminder|Send a message|Add a class|New quiz|Invite someone|Manage|Write|Record a payment)$/.test(t.textContent.trim())){ toast("Demo: this is where " + t.textContent.trim().toLowerCase() + " would happen."); return; }
     if(t.id==="zClose"){closeZoom();return;}
     if(t.hasAttribute("data-mbox")){setMbox(t.getAttribute("data-mbox"));return;}
     if(t.hasAttribute("data-msg")){curMsg=t.getAttribute("data-msg");MAIL[curMsg].unread=false;renderMail();return;}
@@ -847,21 +981,30 @@
       Array.prototype.forEach.call(document.querySelectorAll(".opt2"),function(o){o.classList.remove("sel");});
       t.classList.add("sel"); return;
     }
-    if(t.hasAttribute("data-page")){e.preventDefault();go(t.getAttribute("data-page"));return;}
+    if(t.hasAttribute("data-page")){e.preventDefault();go(t.getAttribute("data-page"));
+      document.querySelector(".side").classList.remove("open");document.getElementById("sideScrim").classList.remove("on");return;}
     if(t.hasAttribute("data-f")){
       Array.prototype.forEach.call(document.querySelectorAll("[data-f]"),function(b){b.classList.remove("on");});
       t.classList.add("on"); filter=t.getAttribute("data-f"); renderStudents(); return;
     }
+    if(t.hasAttribute("data-remind")){toast("Reminder sent to "+S[Number(t.getAttribute("data-remind"))].n);return;}
     if(t.hasAttribute("data-i")){openDrawer(Number(t.getAttribute("data-i")));return;}
     if(t.closest&&t.closest("tr[data-i]")){openDrawer(Number(t.closest("tr[data-i]").getAttribute("data-i")));return;}
   });
+  $("emodal").addEventListener("click",function(e){if(e.target===this)closeEnroll();});
+  $("qTop").addEventListener("input",function(){onSearch(this.value);});
+  $("menuBtn").addEventListener("click",function(){document.querySelector(".side").classList.add("open");document.getElementById("sideScrim").classList.add("on");});
+  $("sideScrim").addEventListener("click",function(){document.querySelector(".side").classList.remove("open");this.classList.remove("on");});
   $("scrim").addEventListener("click",closeDrawer);
   $("zmodal").addEventListener("click",function(e){if(e.target===this)closeZoom();});
-  document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeDrawer();closeZoom();}});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeDrawer();closeZoom();closeEnroll();}});
 
   renderStudents(); renderMoney(); renderMail(); addZoomButtons();
   var h=(location.hash||"").replace("#","");
-  if(h==="zoom"){ go("today"); setTimeout(function(){var c=document.querySelector('[data-sec="today"] .card'); if(c) openZoom(c);},30); }
+  var sm=h.match(/^students-(\d+)$/);
+  if(sm){ go("students"); openDrawer(Number(sm[1])); }
+  else if(h==="enroll"){ go("students"); openEnroll(); }
+  else if(h==="zoom"){ go("today"); setTimeout(function(){var c=document.querySelector('[data-sec="today"] .card'); if(c) openZoom(c);},30); }
   else if(h.indexOf("quizzes")===0){
     go("quizzes");
     setQtab(h==="quizzes-student"?"student":(h==="quizzes-results"?"results":"list"));
