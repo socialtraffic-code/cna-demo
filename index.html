@@ -249,6 +249,27 @@
   .mread .empty{display:grid;place-items:center;height:100%;color:var(--muted);font-size:13.5px}
   @media (max-width:1100px){.mail{grid-template-columns:1fr}.mfold,.mlist{display:none}}
 
+
+  /* card zoom */
+  .card,.mail{position:relative}
+  .zoombtn{position:absolute;top:8px;right:8px;width:28px;height:28px;border:1px solid var(--line);background:#fff;border-radius:7px;display:grid;place-items:center;color:var(--muted);opacity:0;transition:opacity .12s;z-index:6;box-shadow:var(--shadow)}
+  .zoombtn:hover{color:var(--ink);border-color:#cdd6d1}
+  .card:hover .zoombtn,.mail:hover .zoombtn,.zoombtn:focus-visible{opacity:1}
+  @media (hover:none){.zoombtn{opacity:1}}
+  .zmodal{position:fixed;inset:0;background:rgba(23,24,26,.42);z-index:80;display:none;align-items:center;justify-content:center;padding:24px}
+  .zmodal.on{display:flex}
+  .zpanel{background:#fff;border-radius:14px;width:min(1080px,94vw);max-height:88vh;height:auto;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(23,24,26,.22)}
+  .zhead{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line2)}
+  .zhead .t{font-size:14px;font-weight:650}
+  .zhead .x{margin-left:auto;border:1px solid var(--line);background:#fff;border-radius:7px;width:30px;height:30px;display:grid;place-items:center;color:var(--muted)}
+  .zhead .x svg{transform:rotate(45deg)}
+  .zbody{padding:20px 22px;overflow:auto;flex:1}
+  .zbody .card{box-shadow:none;border:0;padding:0}
+  .zbody .hero .big{font-size:28px}
+  .zbody .qtext{font-size:24px}
+  .zbody .opt2{padding:14px 16px;font-size:15px}
+  .zbody .zoombtn{display:none}
+
   /* drawer */
   .scrim{position:fixed;inset:0;background:rgba(23,24,26,.22);opacity:0;pointer-events:none;transition:.15s;z-index:50}
   .scrim.on{opacity:1;pointer-events:auto}
@@ -296,6 +317,7 @@
   <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 8V3h10v5"/><rect x="4" y="8" width="16" height="8" rx="2"/><path d="M7 14h10v7H7z"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="m8 10 4 4 4-4"/></symbol>
   <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="18" cy="12" r="1.4"/></symbol>
+  <symbol id="i-expand" viewBox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M20 15v5h-5"/></symbol>
   <symbol id="i-mail2" viewBox="0 0 24 24"><path d="M3 6h13v9H8l-5 4z"/><path d="M8 10h8"/></symbol>
 </svg>
 
@@ -625,6 +647,14 @@
   </div>
 </div>
 
+
+<div class="zmodal" id="zmodal" aria-hidden="true">
+  <div class="zpanel" role="dialog" aria-modal="true" aria-labelledby="zTitle">
+    <div class="zhead"><span class="t" id="zTitle">Card</span><button class="x" id="zClose" aria-label="Close"><svg class="ico" style="width:15px;height:15px"><use href="#i-plus"/></svg></button></div>
+    <div class="zbody" id="zBody"></div>
+  </div>
+</div>
+
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer">
   <div class="dh"><div class="av" id="dAv">MW</div><div><div class="nm" id="dName">Student</div><div class="s2" id="dMeta"></div></div><button class="x" id="dx" aria-label="Close"><svg class="ico"><use href="#i-plus"/></svg></button></div>
@@ -758,9 +788,39 @@
     lab: "You missed Tuesday's lab. The make-up sessions are Saturday at 9am or next Wednesday at 6pm. Reply and tell me which one you can attend."
   };
 
+
+  // zoom: every card can be opened larger, for a prospect reading on a phone
+  function zoomTitle(card){
+    var h=card.querySelector("h2, .t, .k, h3");
+    return h? h.textContent.trim() : "Details";
+  }
+  function addZoomButtons(){
+    Array.prototype.forEach.call(document.querySelectorAll(".card, .mail"),function(card){
+      if(card.querySelector(":scope > .zoombtn")) return;
+      var b=document.createElement("button");
+      b.className="zoombtn"; b.type="button";
+      b.setAttribute("aria-label","Enlarge this card");
+      b.title="Enlarge";
+      b.innerHTML='<svg class="ico" style="width:14px;height:14px"><use href="#i-expand"/></svg>';
+      b.addEventListener("click",function(ev){ev.stopPropagation();openZoom(card);});
+      card.appendChild(b);
+    });
+  }
+  function openZoom(card){
+    var clone=card.cloneNode(true);
+    var zb=clone.querySelector(".zoombtn"); if(zb) zb.remove();
+    clone.style.boxShadow="none";
+    document.getElementById("zBody").innerHTML="";
+    document.getElementById("zBody").appendChild(clone);
+    document.getElementById("zTitle").textContent=zoomTitle(card);
+    document.getElementById("zmodal").classList.add("on");
+  }
+  function closeZoom(){document.getElementById("zmodal").classList.remove("on");}
+
   document.addEventListener("click",function(e){
     var t=e.target.closest("a,button,tr"); if(!t) return;
     if(t.id==="dx"){closeDrawer();return;}
+    if(t.id==="zClose"){closeZoom();return;}
     if(t.hasAttribute("data-mbox")){setMbox(t.getAttribute("data-mbox"));return;}
     if(t.hasAttribute("data-msg")){curMsg=t.getAttribute("data-msg");MAIL[curMsg].unread=false;renderMail();return;}
     if(t.hasAttribute("data-tpl")){$("replyBox").value=TPL[t.getAttribute("data-tpl")];$("replyBox").focus();return;}
@@ -780,14 +840,16 @@
     if(t.closest&&t.closest("tr[data-i]")){openDrawer(Number(t.closest("tr[data-i]").getAttribute("data-i")));return;}
   });
   $("scrim").addEventListener("click",closeDrawer);
-  document.addEventListener("keydown",function(e){if(e.key==="Escape")closeDrawer();});
+  $("zmodal").addEventListener("click",function(e){if(e.target===this)closeZoom();});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeDrawer();closeZoom();}});
 
-  renderStudents(); renderMoney(); renderMail();
+  renderStudents(); renderMoney(); renderMail(); addZoomButtons();
   var h=(location.hash||"").replace("#","");
-  if(h.indexOf("quizzes")===0){
+  if(h==="zoom"){ go("today"); setTimeout(function(){var c=document.querySelector('[data-sec="today"] .card'); if(c) openZoom(c);},30); }
+  else if(h.indexOf("quizzes")===0){
     go("quizzes");
     setQtab(h==="quizzes-student"?"student":(h==="quizzes-results"?"results":"list"));
-  } else {
+  } else if(h!=="zoom") {
     go(h&&document.querySelector('[data-sec="'+h+'"]')?h:"today");
   }
 })();
