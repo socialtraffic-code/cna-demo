@@ -141,6 +141,13 @@
   .phases{display:flex;gap:5px;margin:4px 0 10px}
   .phases div{flex:1;height:5px;border-radius:3px;background:#eeebe3}
   .phases div.on{background:var(--brand)}
+
+  .classactions{display:flex;gap:8px;margin-top:12px;align-items:center}
+  .classactions .btn{flex:1;justify-content:center}
+  .zoomslot{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted);margin-top:10px}
+  .zoomslot .dot2{width:6px;height:6px;border-radius:50%;background:var(--brand)}
+  .zoomslot.live{color:var(--brand2);font-weight:600}
+
   /* quiz */
   .qline{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line2)}
   .qline:last-child{border-bottom:0}
@@ -318,6 +325,7 @@
   <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 8V3h10v5"/><rect x="4" y="8" width="16" height="8" rx="2"/><path d="M7 14h10v7H7z"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="m8 10 4 4 4-4"/></symbol>
   <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="18" cy="12" r="1.4"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="6.5" width="12.5" height="11" rx="2.5"/><path d="m15.5 11 5.5-3v8l-5.5-3z"/></symbol>
   <symbol id="i-expand" viewBox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M20 15v5h-5"/></symbol>
   <symbol id="i-mail2" viewBox="0 0 24 24"><path d="M3 6h13v9H8l-5 4z"/><path d="M8 10h8"/></symbol>
 </svg>
@@ -458,7 +466,8 @@
             </div>
             <div class="phases"><div class="on"></div><div></div><div></div></div>
             <div class="sub">Week 1 online classroom, then skills lab, then clinicals.</div>
-            <button class="btn ghost" style="margin-top:12px">Open roster</button>
+            <div class="zoomslot live"><span class="dot2"></span>Live now · 9 students in the room</div>
+            <div class="classactions"><button class="btn"><svg class="ico"><use href="#i-video"/></svg>Start Zoom</button><button class="btn ghost">Roster</button></div>
           </div></div>
           <div class="card klass"><div class="b">
             <div class="k"><svg class="ico" style="width:15px;height:15px;color:var(--brand)"><use href="#i-cal"/></svg>Day class</div>
@@ -470,7 +479,8 @@
             </div>
             <div class="phases"><div class="on"></div><div class="on"></div><div></div></div>
             <div class="sub">Week 2: skills lab at the school.</div>
-            <button class="btn ghost" style="margin-top:12px">Open roster</button>
+            <div class="zoomslot"><span class="dot2" style="background:#c9922e"></span>Next Zoom today at 6:00 pm</div>
+            <div class="classactions"><button class="btn ghost"><svg class="ico"><use href="#i-video"/></svg>Start Zoom</button><button class="btn ghost">Roster</button></div>
           </div></div>
           <div class="card klass"><div class="b">
             <div class="k"><svg class="ico" style="width:15px;height:15px;color:var(--brand)"><use href="#i-cal"/></svg>Weekend class</div>
@@ -482,7 +492,8 @@
             </div>
             <div class="phases"><div></div><div></div><div></div></div>
             <div class="sub">Not started · 6 seats left.</div>
-            <button class="btn ghost" style="margin-top:12px">Open roster</button>
+            <div class="zoomslot"><span class="dot2" style="background:#c7c2b8"></span>Zoom opens Sat 1 Nov, 8:45 am</div>
+            <div class="classactions"><button class="btn ghost"><svg class="ico"><use href="#i-video"/></svg>Start Zoom</button><button class="btn ghost">Roster</button></div>
           </div></div>
         </div>
       </section>
