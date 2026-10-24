@@ -1076,7 +1076,15 @@
     var fromUrl="";
     var fromName="";
     try{ fromUrl=new URLSearchParams(location.search).get("school")||""; fromName=new URLSearchParams(location.search).get("name")||""; }catch(e){}
-    if(fromUrl){ sname=fromUrl; scity=""; oname=fromName; applyBrand(); return; }
+    if(fromUrl){
+      sname=fromUrl; scity=""; oname="";
+      applyBrand();
+      // A link can prefill the school; the person's name is still asked for,
+      // so we know who opened it and the greeting is personal.
+      if(fromName){ oname=fromName; applyBrand(); return; }
+      openGate();
+      return;
+    }
     try{
       var saved=JSON.parse(localStorage.getItem("demoSchool")||"null");
       if(saved&&saved.n&&saved.o){sname=saved.n;scity=saved.c||"";oname=saved.o||"";applyBrand();return;}
