@@ -149,6 +149,45 @@
   .opt .m{width:18px;height:18px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:10.5px;color:var(--faint);flex:0 0 auto}
   .opt.right{border-color:#c3d8cf;background:#f3f8f5}
   .opt.right .m{background:var(--brand);border-color:var(--brand);color:#fff}
+
+  /* quizzes */
+  .qtabs{display:inline-flex;background:#f1efe9;border-radius:9px;padding:3px;margin-bottom:18px}
+  .qtabs button{border:0;background:transparent;border-radius:7px;padding:7px 14px;font-size:13px;color:var(--ink2)}
+  .qtabs button.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:var(--shadow)}
+  .qtable td{padding:14px 18px}
+  .qtable .nm{font-size:13.5px}
+  .qtable .s2{margin-top:2px}
+  .avg{font-variant-numeric:tabular-nums;font-weight:650}
+  .stage{display:flex;justify-content:center;padding:6px 0 4px}
+  .qcard2{width:660px;max-width:100%;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+  .qcard2 .top{display:flex;align-items:center;gap:12px;padding:16px 24px;border-bottom:1px solid var(--line2);background:#fcfbf9}
+  .qcard2 .top .t{font-size:13px;font-weight:600}
+  .qcard2 .top .num{font-size:12.5px;color:var(--muted)}
+  .qcard2 .top .timer{margin-left:auto;font-size:12.5px;font-weight:600;color:var(--blue);background:var(--blues);border-radius:999px;padding:4px 10px;font-variant-numeric:tabular-nums}
+  .qseg{display:flex;gap:3px;padding:14px 24px 0}
+  .qseg i{flex:1;height:4px;border-radius:2px;background:#ebe8e1}
+  .qseg i.done{background:var(--brand)}
+  .qseg i.now{background:#9dbdb4}
+  .qcard2 .body{padding:20px 24px 8px}
+  .qcard2 .qtext{font-size:20px;line-height:1.4;font-weight:600;letter-spacing:-.015em;margin:0 0 18px}
+  .opt2{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:9px;font-size:14.5px;background:#fff;cursor:pointer;transition:border-color .1s,background .1s}
+  .opt2:hover{border-color:#cdd6d1}
+  .opt2 .ltr{width:22px;height:22px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:11px;color:var(--faint);flex:0 0 auto;font-weight:600}
+  .opt2.sel{border-color:var(--brand);background:#f3f8f5}
+  .opt2.sel .ltr{background:var(--brand);border-color:var(--brand);color:#fff}
+  .qcard2 .foot{display:flex;align-items:center;gap:10px;padding:14px 24px 18px}
+  .qcard2 .foot .hint{font-size:12.5px;color:var(--muted);margin-right:auto}
+  .res{display:flex;flex-direction:column;gap:10px}
+  .resrow{display:flex;align-items:center;gap:12px;font-size:13.5px}
+  .resrow .lab{width:64px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .resrow .track2{flex:1;height:8px;border-radius:4px;background:#f0ede6;overflow:hidden}
+  .resrow .track2 i{display:block;height:100%;background:var(--brand);border-radius:4px}
+  .resrow .n{width:38px;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+  .qacc{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line2);font-size:13.5px}
+  .qacc:last-child{border-bottom:0}
+  .qacc .g{flex:1}
+  .qacc .p{font-variant-numeric:tabular-nums;font-weight:600}
+
   /* messages */
   .msg{display:flex;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line2)}
   .msg:last-child{border-bottom:0}
@@ -387,23 +426,78 @@
 
       <!-- QUIZZES -->
       <section data-sec="quizzes" class="hidden">
-        <div class="phead"><div><h1>Quizzes</h1><div class="d">Short practice tests between lessons</div></div><div class="spacer"></div><button class="btn"><svg class="ico"><use href="#i-plus"/></svg>Set a quiz</button></div>
-        <div class="r2">
+        <div class="phead"><div><h1>Quizzes</h1><div class="d">Short practice tests between lessons</div></div><div class="spacer"></div><button class="btn"><svg class="ico"><use href="#i-plus"/></svg>New quiz</button></div>
+        <div class="qtabs" id="qtabs">
+          <button class="on" data-qtab="list">All quizzes</button>
+          <button data-qtab="student">What a student sees</button>
+          <button data-qtab="results">Results</button>
+        </div>
+
+        <div data-qpanel="list">
           <div class="card">
-            <div class="h"><h2>This month</h2></div>
-            <div class="qline"><div class="g"><div class="nm">Infection control</div><div class="s2">Set by Ms. Alvarez · closes Sunday</div></div><div style="text-align:right"><div class="nm">88%</div><div class="s2">14 of 18 taken</div></div></div>
-            <div class="qline"><div class="g"><div class="nm">Patient safety and falls</div><div class="s2">Set by Mr. Boateng · closed</div></div><div style="text-align:right"><div class="nm">92%</div><div class="s2">18 of 18 taken</div></div></div>
-            <div class="qline"><div class="g"><div class="nm">Vital signs</div><div class="s2">Draft · not sent yet</div></div><div style="text-align:right"><div class="nm">—</div><div class="s2">0 taken</div></div></div>
+            <table class="qtable">
+              <thead><tr><th>Quiz</th><th>Class</th><th>Questions</th><th>Taken</th><th>Average</th><th>Status</th><th></th></tr></thead>
+              <tbody>
+                <tr><td><div class="nm">Infection control</div><div class="s2">Set by Ms. Alvarez · closes Sunday</div></td><td class="s2">Evening</td><td class="s2">20</td><td class="s2">14 of 18</td><td class="avg">88%</td><td><span class="pill warn">Open</span></td><td><button class="rowbtn">Results</button></td></tr>
+                <tr><td><div class="nm">Patient safety and falls</div><div class="s2">Set by Mr. Boateng · closed</div></td><td class="s2">Day</td><td class="s2">15</td><td class="s2">18 of 18</td><td class="avg">92%</td><td><span class="pill ok">Closed</span></td><td><button class="rowbtn">Results</button></td></tr>
+                <tr><td><div class="nm">Vital signs</div><div class="s2">Draft · not sent yet</div></td><td class="s2">All classes</td><td class="s2">12</td><td class="s2">0</td><td class="avg">—</td><td><span class="pill none">Draft</span></td><td><button class="rowbtn">Edit</button></td></tr>
+                <tr><td><div class="nm">Hand washing</div><div class="s2">Set by Ms. Okoro · closes Friday</div></td><td class="s2">Weekend</td><td class="s2">10</td><td class="s2">6 of 12</td><td class="avg">95%</td><td><span class="pill warn">Open</span></td><td><button class="rowbtn">Results</button></td></tr>
+              </tbody>
+            </table>
           </div>
-          <div class="card">
-            <div class="h"><h2>What a student sees</h2><span class="sub">Question 3 of 20</span></div>
-            <div class="b">
-              <div class="qbox">Before entering a patient's room, what should you do first?</div>
-              <div class="opt"><span class="m">A</span>Knock and wait for an answer</div>
-              <div class="opt right"><span class="m">&#10003;</span>Clean your hands and put on gloves</div>
-              <div class="opt"><span class="m">C</span>Open the curtains for daylight</div>
-              <div class="opt"><span class="m">D</span>Ask the nurse what to do</div>
-              <div class="sub" style="margin-top:10px">The correct answer is highlighted after they answer, with one line of explanation.</div>
+        </div>
+
+        <div data-qpanel="student" class="hidden">
+          <div class="stage">
+            <div class="qcard2">
+              <div class="top">
+                <div><div class="t">Infection control</div><div class="num">Ms. Alvarez · 20 questions</div></div>
+                <div class="num" style="margin-left:auto">Question 3 of 20</div>
+                <div class="timer">12:40 left</div>
+              </div>
+              <div class="qseg"><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="body">
+                <div class="qtext">Before entering a patient's room, what should you do first?</div>
+                <div class="opt2" data-ans="a"><span class="ltr">A</span>Knock and wait for an answer</div>
+                <div class="opt2" data-ans="b" id="qsel"><span class="ltr">B</span>Clean your hands and put on gloves</div>
+                <div class="opt2" data-ans="c"><span class="ltr">C</span>Open the curtains for daylight</div>
+                <div class="opt2" data-ans="d"><span class="ltr">D</span>Ask the nurse what to do</div>
+              </div>
+              <div class="foot">
+                <span class="hint">You can change your answer before you submit.</span>
+                <button class="btn ghost">Previous</button>
+                <button class="btn">Next question</button>
+              </div>
+            </div>
+          </div>
+          <div class="sub" style="text-align:center;margin-top:14px">The correct answer and a one-line explanation appear after they submit. Their score goes to the class results.</div>
+        </div>
+
+        <div data-qpanel="results" class="hidden">
+          <div class="r2">
+            <div class="card">
+              <div class="h"><h2>Infection control</h2><span class="sub">14 of 18 taken · average 88%</span></div>
+              <div class="b">
+                <div class="sub" style="margin-bottom:10px">Score distribution</div>
+                <div class="res">
+                  <div class="resrow"><span class="lab">90-100</span><span class="track2"><i style="width:64%"></i></span><span class="n">6</span></div>
+                  <div class="resrow"><span class="lab">80-89</span><span class="track2"><i style="width:43%"></i></span><span class="n">4</span></div>
+                  <div class="resrow"><span class="lab">70-79</span><span class="track2"><i style="width:21%"></i></span><span class="n">2</span></div>
+                  <div class="resrow"><span class="lab">Below 70</span><span class="track2"><i style="width:21%"></i></span><span class="n">2</span></div>
+                </div>
+                <div class="sub" style="margin-top:16px">Two students are below 70%. The quiz can send them a short retake automatically.</div>
+                <button class="btn" style="margin-top:12px">Send retake to 2 students</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="h"><h2>Questions students missed</h2></div>
+              <div class="b">
+                <div class="qacc"><span class="g">Q4 · When to change gloves</span><span class="p">64%</span></div>
+                <div class="qacc"><span class="g">Q9 · Cleaning a shared surface</span><span class="p">71%</span></div>
+                <div class="qacc"><span class="g">Q12 · Hand washing steps</span><span class="p">79%</span></div>
+                <div class="qacc"><span class="g">Q17 · Waste disposal</span><span class="p">86%</span></div>
+                <div class="sub" style="margin-top:12px">Teachers see which lesson to repeat, not just the average.</div>
+              </div>
             </div>
           </div>
         </div>
@@ -499,7 +593,7 @@
     {n:"Nia Fontaine",c:"Weekend class",enrolled:"22 Sep",starts:"1 Nov",docs:7,paid:750,owed:600,st:"In classroom",tone:"info"},
     {n:"Owen Park",c:"Day class",enrolled:"30 Aug",starts:"29 Sep",docs:7,paid:1350,owed:0,st:"Finished",tone:"none"}
   ];
-  var filter="all";
+  var filter="all", qtab="list";
   function $(i){return document.getElementById(i);}
   function ini(n){return n.split(" ").map(function(w){return w[0];}).join("").slice(0,2).toUpperCase();}
   function money(v){return "$"+v.toLocaleString("en-US");}
@@ -551,6 +645,11 @@
     $("drawer").classList.add("on"); $("scrim").classList.add("on");
   }
   function closeDrawer(){$("drawer").classList.remove("on");$("scrim").classList.remove("on");}
+  function setQtab(t){
+    qtab=t;
+    Array.prototype.forEach.call(document.querySelectorAll("[data-qtab]"),function(b){b.classList.toggle("on",b.getAttribute("data-qtab")===t);});
+    Array.prototype.forEach.call(document.querySelectorAll("[data-qpanel]"),function(p){p.classList.toggle("hidden",p.getAttribute("data-qpanel")!==t);});
+  }
   function go(page){
     Array.prototype.forEach.call(document.querySelectorAll("[data-sec]"),function(sec){sec.classList.toggle("hidden",sec.getAttribute("data-sec")!==page);});
     Array.prototype.forEach.call(document.querySelectorAll("#nav a"),function(a){a.classList.toggle("on",a.getAttribute("data-page")===page);});
@@ -561,6 +660,11 @@
   document.addEventListener("click",function(e){
     var t=e.target.closest("a,button,tr"); if(!t) return;
     if(t.id==="dx"){closeDrawer();return;}
+    if(t.hasAttribute("data-qtab")){setQtab(t.getAttribute("data-qtab"));return;}
+    if(t.classList&&t.classList.contains("opt2")){
+      Array.prototype.forEach.call(document.querySelectorAll(".opt2"),function(o){o.classList.remove("sel");});
+      t.classList.add("sel"); return;
+    }
     if(t.hasAttribute("data-page")){e.preventDefault();go(t.getAttribute("data-page"));return;}
     if(t.hasAttribute("data-f")){
       Array.prototype.forEach.call(document.querySelectorAll("[data-f]"),function(b){b.classList.remove("on");});
@@ -574,7 +678,12 @@
 
   renderStudents(); renderMoney();
   var h=(location.hash||"").replace("#","");
-  go(h&&document.querySelector('[data-sec="'+h+'"]')?h:"today");
+  if(h.indexOf("quizzes")===0){
+    go("quizzes");
+    setQtab(h==="quizzes-student"?"student":(h==="quizzes-results"?"results":"list"));
+  } else {
+    go(h&&document.querySelector('[data-sec="'+h+'"]')?h:"today");
+  }
 })();
 </script>
 </body>
