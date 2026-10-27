@@ -510,7 +510,9 @@
     .menuNav .mi{width:30px;height:30px;border-radius:9px;background:#fff;border:1px solid var(--line);
       display:grid;place-items:center;color:var(--ink2);flex:0 0 auto}
     .menuNav .mi .ico{width:16px;height:16px}
-    .menuNav .mc{margin-left:auto;color:var(--faint);font-size:20px;line-height:1}
+    .menuNav .badge{margin-left:auto;font-size:12px;font-weight:600;color:var(--brand2);background:var(--brands);
+      border-radius:999px;padding:1px 8px;min-width:20px;text-align:center}
+    .menuNav .mc{margin-left:8px;color:var(--faint);font-size:20px;line-height:1}
     .menuFoot{display:flex;align-items:center;gap:10px;padding:12px 20px 0;border-top:1px solid var(--line);margin:8px 14px 0}
   .menuFoot .build{margin-left:auto;font-size:11px;color:var(--faint)}
     /* floating action button */
@@ -642,11 +644,11 @@
       <svg class="ico chev" width="15" height="15"><use href="#i-chev"/></svg>
     </div>
     <nav class="nav" id="nav">
-      <a href="#today" data-page="today" class="on"><svg class="ico"><use href="#i-home"/></svg>Today<span class="badge">3</span></a>
+      <a href="#today" data-page="today" class="on"><svg class="ico"><use href="#i-home"/></svg>Today<span class="badge" data-badge="today">3</span></a>
       <a href="#students" data-page="students"><svg class="ico"><use href="#i-users"/></svg>Students</a>
       <a href="#classes" data-page="classes"><svg class="ico"><use href="#i-cal"/></svg>Classes</a>
-      <a href="#quizzes" data-page="quizzes"><svg class="ico"><use href="#i-check"/></svg>Quizzes</a>
-      <a href="#messages" data-page="messages"><svg class="ico"><use href="#i-mail"/></svg>Messages<span class="badge">2</span></a>
+      <a href="#quizzes" data-page="quizzes"><svg class="ico"><use href="#i-check"/></svg>Quizzes<span class="badge hidden" data-badge="quizzes">1</span></a>
+      <a href="#messages" data-page="messages"><svg class="ico"><use href="#i-mail"/></svg>Messages<span class="badge" data-badge="messages">3</span></a>
       <a href="#money" data-page="money"><svg class="ico"><use href="#i-money"/></svg>Money</a>
       <div class="section">Settings</div>
       <a href="#team" data-page="team"><svg class="ico"><use href="#i-team"/></svg>Team</a>
@@ -1042,11 +1044,11 @@
       <button class="menuClose" id="menuClose" aria-label="Close menu"><svg class="ico"><use href="#i-plus"/></svg></button>
     </div>
     <nav class="menuNav">
-      <button data-go="today"><span class="mi"><svg class="ico"><use href="#i-home"/></svg></span>Today<span class="mc">&rsaquo;</span></button>
+      <button data-go="today"><span class="mi"><svg class="ico"><use href="#i-home"/></svg></span>Today<span class="badge" data-badge="today">3</span><span class="mc">&rsaquo;</span></button>
       <button data-go="students"><span class="mi"><svg class="ico"><use href="#i-users"/></svg></span>Students<span class="mc">&rsaquo;</span></button>
       <button data-go="classes"><span class="mi"><svg class="ico"><use href="#i-cal"/></svg></span>Classes<span class="mc">&rsaquo;</span></button>
-      <button data-go="quizzes"><span class="mi"><svg class="ico"><use href="#i-check"/></svg></span>Quizzes<span class="mc">&rsaquo;</span></button>
-      <button data-go="messages"><span class="mi"><svg class="ico"><use href="#i-mail"/></svg></span>Messages<span class="mc">&rsaquo;</span></button>
+      <button data-go="quizzes"><span class="mi"><svg class="ico"><use href="#i-check"/></svg></span>Quizzes<span class="badge hidden" data-badge="quizzes">1</span><span class="mc">&rsaquo;</span></button>
+      <button data-go="messages"><span class="mi"><svg class="ico"><use href="#i-mail"/></svg></span>Messages<span class="badge" data-badge="messages">3</span><span class="mc">&rsaquo;</span></button>
       <button data-go="money"><span class="mi"><svg class="ico"><use href="#i-money"/></svg></span>Money<span class="mc">&rsaquo;</span></button>
       <button data-go="team"><span class="mi"><svg class="ico"><use href="#i-team"/></svg></span>Team<span class="mc">&rsaquo;</span></button>
     </nav>
@@ -1167,11 +1169,22 @@
   }
   function closeDrawer(){$("drawer").classList.remove("on");$("scrim").classList.remove("on");}
 
+  function updateBadges(){
+    var unread=Object.keys(MAIL).filter(function(k){return MAIL[k].unread;}).length;
+    var counts={today:3, messages:unread, quizzes:1};
+    Array.prototype.forEach.call(document.querySelectorAll("[data-badge]"),function(b){
+      var n=counts[b.getAttribute("data-badge")]||0;
+      b.textContent=n;
+      b.classList.toggle("hidden", n===0);
+    });
+  }
+
   var mbox="inbox", curMsg="jordan";
   function renderMail(){
     var keys=Object.keys(MAIL).filter(function(k){return MAIL[k].box===mbox;});
     $("mboxName").textContent=mbox.charAt(0).toUpperCase()+mbox.slice(1);
     $("mboxCount").textContent=keys.length;
+    updateBadges();
     $("mlist").innerHTML=keys.map(function(k){
         var m=MAIL[k];
         return '<button class="mrow'+(k===curMsg?' on':'')+'" data-msg="'+k+'">'+
