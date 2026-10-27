@@ -408,6 +408,71 @@
   }
   .hidden{display:none!important}
 
+
+  /* ── mobile app shell ── */
+  .tabbar{display:none}
+  .fab{display:none}
+  @media (max-width:700px){
+    body{padding-bottom:0}
+    .top{border-bottom:0;background:transparent;height:52px;padding:0 14px}
+    .menuBtn{display:none}
+    .demo{display:none}
+    .main{padding:2px 16px 96px;max-width:100%}
+    .phead{margin-bottom:14px}
+    .phead h1{font-size:28px;letter-spacing:-.03em}
+    .phead .d{font-size:13px}
+    .phead .btn{padding:11px 14px;font-size:13.5px;border-radius:12px}
+    .greet h1{font-size:28px}
+    .card{border-radius:16px;box-shadow:none}
+    .card .h{padding:14px 16px}
+    .card .h h2{font-size:15px}
+    .kpi{border-radius:14px}
+    /* bottom tab bar */
+    .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;
+      background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);
+      padding:8px 4px calc(8px + env(safe-area-inset-bottom));z-index:75}
+    .tabbar button{display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:transparent;
+      color:var(--muted);font-size:10.5px;padding:4px 0;border-radius:10px}
+    .tabbar button .ico{width:21px;height:21px}
+    .tabbar button.on{color:var(--brand)}
+    /* floating action button */
+    .fab{display:grid;place-items:center;position:fixed;right:18px;bottom:calc(74px + env(safe-area-inset-bottom));
+      width:54px;height:54px;border-radius:50%;border:0;background:var(--brand);color:#fff;
+      box-shadow:0 8px 22px rgba(17,85,75,.35);z-index:76}
+    .fab .ico{width:24px;height:24px}
+    /* drawer becomes a bottom sheet */
+    .drawer{top:auto;bottom:0;right:0;left:0;width:100%;max-width:100%;height:88vh;
+      border-left:0;border-top:1px solid var(--line);border-radius:18px 18px 0 0;
+      transform:translateY(100%)}
+    .drawer.on{transform:none}
+    .dh{border-radius:18px 18px 0 0;padding:10px 18px 14px;position:sticky;top:0;background:#fff;z-index:2}
+    .dh:before{content:"";position:absolute;left:50%;top:6px;transform:translateX(-50%);
+      width:38px;height:4px;border-radius:2px;background:#e3e1da}
+    .dh .av{margin-top:6px}
+  }
+
+  .topAvatar{display:none}
+  .slist{display:none}
+  @media (max-width:700px){
+    .brand{display:none}
+    .topAvatar{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;
+      background:var(--brand);color:#fff;font-size:12px;font-weight:700}
+    body[data-page="today"] .fab{display:none}
+    body[data-page="students"] .phead .btn{display:none}
+    .seg{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+    .seg button{white-space:nowrap}
+    .tablecard{display:none}
+    .slist{display:block}
+    .srow{display:flex;align-items:center;gap:12px;width:100%;background:#fff;
+      border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px;
+      text-align:left;font:inherit}
+    .srow:active{background:#f4f6f3}
+    .srow .grow{flex:1;min-width:0}
+    .srow .nm{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.01em}
+    .srow .sub{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
+    .srow .chev{color:var(--faint);flex:0 0 auto}
+    .srow .dotstat{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
+  }
   @media (max-width:700px){
     /* action rows stack: text first, buttons underneath, never side by side */
     .arow{flex-direction:column;align-items:stretch;gap:10px}
@@ -515,6 +580,7 @@
     <div class="top">
       <button class="iconbtn menuBtn" id="menuBtn" aria-label="Open menu"><svg class="ico"><use href="#i-menu"/></svg></button>
       <div class="crumb"><b id="crumbBrand">CNA Training Institute</b> &nbsp;/&nbsp; <span id="crumb">Today</span></div>
+      <div class="topAvatar" id="topAvatar" aria-hidden="true">S</div>
       <div class="spacer"></div>
       <div class="search"><svg class="ico"><use href="#i-search"/></svg><input id="qTop" placeholder="Search students"></div>
       <button class="iconbtn" aria-label="Notifications"><svg class="ico"><use href="#i-bell"/></svg></button>
@@ -617,7 +683,8 @@
             <button data-f="owes">Owes money</button>
           </div>
         </div>
-        <div class="card">
+        <div class="slist" id="slist"></div>
+        <div class="card tablecard">
           <table>
             <thead><tr><th>Student</th><th>Class</th><th>Starts</th><th>Documents</th><th>Money</th><th></th></tr></thead>
             <tbody id="rows"></tbody>
@@ -865,6 +932,16 @@
     <div class="efoot"><button class="btn ghost" id="eCancel">Cancel</button><button class="btn" id="eSubmit">Take $100 and enroll</button></div>
   </div>
 </div>
+
+<nav class="tabbar" id="tabbar" aria-label="Primary">
+  <button data-go="today" class="on"><svg class="ico"><use href="#i-home"/></svg><span>Today</span></button>
+  <button data-go="students"><svg class="ico"><use href="#i-users"/></svg><span>Students</span></button>
+  <button data-go="classes"><svg class="ico"><use href="#i-cal"/></svg><span>Classes</span></button>
+  <button data-go="messages"><svg class="ico"><use href="#i-mail"/></svg><span>Messages</span></button>
+  <button data-go="more"><svg class="ico"><use href="#i-dots"/></svg><span>More</span></button>
+</nav>
+<button class="fab" id="fab" aria-label="Enroll a student"><svg class="ico"><use href="#i-plus"/></svg></button>
+
 <div class="toast" id="toast"></div>
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer">
@@ -915,6 +992,20 @@
       '<td class="money '+(s.owed>0?'owed':'')+'" data-label="Money">'+(s.owed>0?money(s.owed):'Paid')+'</td>'+
       '<td><button class="rowbtn" data-i="'+i+'">Open</button> <button class="rowbtn" data-remind="'+i+'">Remind</button></td></tr>';
     }).join("");
+    var list=$("slist");
+    if(list){
+      list.innerHTML=shown().map(function(s){
+        var i=S.indexOf(s);
+        var tone=s.docs===7?'var(--brand)':(s.docs>=5?'#c9922e':'#b4554a');
+        return '<button class="srow" data-i="'+i+'">'+
+          '<span class="av">'+ini(s.n)+'</span>'+
+          '<span class="grow"><span class="nm">'+s.n+'</span>'+
+          '<span class="sub">'+s.c+' &middot; '+s.docs+' of 7 docs'+(s.owed>0?' &middot; '+money(s.owed)+' due':'')+'</span></span>'+
+          '<span class="dotstat" style="background:'+tone+'"></span>'+
+          '<svg class="ico chev"><use href="#i-chev" style="transform:rotate(-90deg)"/></svg>'+
+        '</button>';
+      }).join("");
+    }
   }
   function renderMoney(){
     $("moneyRows").innerHTML=S.filter(function(s){return s.owed>0;}).map(function(s){
@@ -924,6 +1015,20 @@
       '<td data-label="Plan"><span class="pill '+(s.tone==='bad'?'bad':'warn')+'">'+(s.tone==='bad'?'Documents missing':'On the plan')+'</span></td>'+
       '<td><button class="rowbtn" data-i="'+i+'">Open</button> <button class="rowbtn" data-remind="'+i+'">Remind</button></td></tr>';
     }).join("");
+    var list=$("slist");
+    if(list){
+      list.innerHTML=shown().map(function(s){
+        var i=S.indexOf(s);
+        var tone=s.docs===7?'var(--brand)':(s.docs>=5?'#c9922e':'#b4554a');
+        return '<button class="srow" data-i="'+i+'">'+
+          '<span class="av">'+ini(s.n)+'</span>'+
+          '<span class="grow"><span class="nm">'+s.n+'</span>'+
+          '<span class="sub">'+s.c+' &middot; '+s.docs+' of 7 docs'+(s.owed>0?' &middot; '+money(s.owed)+' due':'')+'</span></span>'+
+          '<span class="dotstat" style="background:'+tone+'"></span>'+
+          '<svg class="ico chev"><use href="#i-chev" style="transform:rotate(-90deg)"/></svg>'+
+        '</button>';
+      }).join("");
+    }
   }
   function openDrawer(i){
     var s=S[i]; if(!s) return;
@@ -974,6 +1079,8 @@
   }
   function go(page){
     Array.prototype.forEach.call(document.querySelectorAll("[data-sec]"),function(sec){sec.classList.toggle("hidden",sec.getAttribute("data-sec")!==page);});
+    Array.prototype.forEach.call(document.querySelectorAll("#tabbar button"),function(b){b.classList.toggle("on",b.getAttribute("data-go")===page);});
+    document.body.setAttribute("data-page", page);
     var mainEl=document.querySelector(".main"); if(mainEl) mainEl.classList.toggle("flush",page==="messages");
     Array.prototype.forEach.call(document.querySelectorAll("#nav a"),function(a){a.classList.toggle("on",a.getAttribute("data-page")===page);});
     $("crumb").textContent=page.charAt(0).toUpperCase()+page.slice(1);
@@ -1156,6 +1263,15 @@
   document.addEventListener("click",function(e){
     var t=e.target.closest("a,button,tr"); if(!t) return;
     if(t.id==="dx"){closeDrawer();return;}
+    if(t.hasAttribute("data-go")){
+      var target=t.getAttribute("data-go");
+      if(target==="more"){
+        document.querySelector(".side").classList.add("open");
+        document.getElementById("sideScrim").classList.add("on");
+      } else { go(target); }
+      return;
+    }
+    if(t.id==="fab"){openEnroll();return;}
     if(t.id==="gateGo"){commitGate();return;}
     if(t.closest&&t.closest(".ws")){openGate();return;}
     if(t.id==="eClose"||t.id==="eCancel"){closeEnroll();return;}
