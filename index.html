@@ -11,7 +11,7 @@
     --line:#e8e6e1; --line2:#f1efea; --bg:#f8f7f4; --card:#fff; --side:#fcfbf9;
     --brand:#11554b; --brand2:#0b3f38; --brands:#e8f1ee;
     --amber:#8a5a12; --ambers:#fbf2e2; --red:#953a31; --reds:#fbeeec;
-    --blue:#2c5b78; --blues:#edf2f6; --grey:#f1efea;
+    --blue:#2c5b78; --blues:#edf2f6; --grey:#f1efea; --green:#1b6142; --greens:#e8f1ee;
     --shadow:0 1px 2px rgba(23,24,26,.04),0 1px 3px rgba(23,24,26,.03);
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
   }
@@ -56,6 +56,23 @@
   .demo{font-size:11.5px;color:var(--amber);background:var(--ambers);border:1px solid #f0e3c7;border-radius:6px;padding:4px 8px;font-weight:600}
   .main{padding:28px 32px 80px;max-width:1200px;width:100%;margin:0 auto}
   .main.flush{padding:0;max-width:none}
+  /* conversion strip (P0-1): one per page, under the top bar, never scrolls away */
+  .conv{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:8px 26px;background:var(--brands);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--ink2);position:sticky;top:56px;z-index:29}
+  .conv .tag{font-size:11px;font-weight:700;letter-spacing:.03em;color:var(--brand2);background:#fff;border:1px solid #cfe0d9;border-radius:5px;padding:2px 6px;white-space:nowrap}
+  .conv .say{min-width:0}
+  .conv .say b{font-weight:650;color:var(--ink)}
+  .conv .sep{color:var(--faint)}
+  .conv a.cta{display:inline-flex;align-items:center;gap:6px;background:var(--brand);color:#fff;text-decoration:none;border-radius:7px;padding:6px 11px;font-weight:650;white-space:nowrap}
+  .conv a.cta:hover{background:var(--brand2)}
+  .conv .reply{color:var(--muted)}
+  .conv .proof{color:var(--muted)}
+  .conv #defaultProof:before{content:"· ";color:var(--faint)}
+  .conv .mob{display:none}
+  /* name prompt (P0-2): inline, dismissible, shown after the first section view */
+  .namestrip{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 26px;background:var(--ambers);border-bottom:1px solid #f0e3c7;font-size:12.5px;color:var(--ink2)}
+  .namestrip .nq b{font-weight:650;color:var(--ink)}
+  .namestrip input{height:32px;border:1px solid var(--line);border-radius:7px;padding:0 10px;font:inherit;font-size:13px;background:#fff;color:var(--ink);min-width:0;flex:1 1 180px;max-width:260px}
+  .gateclose{width:100%;justify-content:center;margin-top:2px}
   .phead{display:flex;align-items:flex-start;gap:16px;margin-bottom:22px}
   .phead h1{margin:0;font-size:24px;letter-spacing:-.025em;font-weight:650;line-height:1.2}
   .phead .d{font-size:13px;color:var(--muted);margin-top:3px}
@@ -391,6 +408,9 @@
   .menuBtn{display:none}
   @media (max-width:1080px){
     .menuBtn{display:grid}
+    .conv .proof{display:none}
+    .conv .reply{display:none}
+    .conv .sep{display:none}
     .side{position:fixed;top:0;bottom:0;left:0;height:100vh;z-index:70;display:flex;transform:translateX(-100%);transition:transform .18s ease;box-shadow:12px 0 30px rgba(23,24,26,.12)}
     .side.open{transform:none}
     .sideScrim{position:fixed;inset:0;background:rgba(23,24,26,.3);z-index:65;display:none}
@@ -457,6 +477,14 @@
     .menuBtn{display:grid;border:0;background:transparent;width:38px;height:38px;color:var(--ink)}
     .navTitle{display:block;font-size:16px;font-weight:600;letter-spacing:-.02em}
     .demo{display:none}
+    .conv{padding:7px 10px;font-size:11.5px;gap:5px}
+    .conv .tag{font-size:10.5px;padding:2px 5px;letter-spacing:.02em}
+    .conv a.cta{font-size:12px;padding:6px 10px}
+    .conv .desk{display:none}
+    .conv .mob{display:inline}
+    .conv a.cta{width:100%;justify-content:center;text-align:center;white-space:normal}
+    .namestrip{padding:8px 12px;gap:7px}
+    .namestrip input{flex:1 1 100%;max-width:none}
     .main{padding:8px 16px 96px;max-width:100%}
     .phead{margin-bottom:14px}
     .phead h1{font-size:28px;letter-spacing:-.03em}
@@ -467,47 +495,6 @@
     .card .h{padding:14px 16px}
     .card .h h2{font-size:15px}
     .kpi{border-radius:14px}
-    /* full-screen menu sheet */
-    .menuSheet{display:block;position:fixed;inset:0;z-index:90;
-      background:rgba(24,26,24,.28);backdrop-filter:blur(8px);
-      opacity:0;pointer-events:none;transition:opacity .26s ease}
-    .menuSheet.on{opacity:1;pointer-events:auto}
-    .menuPanel{position:absolute;left:0;right:0;top:0;background:#fbfaf7;border-radius:0 0 22px 22px;
-      padding:8px 0 calc(18px + env(safe-area-inset-bottom));
-      transform:translateY(-14px) scale(.985);opacity:0;
-      transition:transform .34s cubic-bezier(.32,.72,0,1),opacity .26s ease;
-      max-height:92vh;overflow:auto}
-    .menuSheet.on .menuPanel{transform:none;opacity:1}
-    .menuTop{display:flex;align-items:center;gap:10px;padding:14px 18px 12px}
-    .menuBrand{display:flex;align-items:center;gap:10px;min-width:0}
-    .menuBrand .mark{width:29px;height:29px;border-radius:9px;background:var(--brand);color:#fff;
-      display:grid;place-items:center;font-size:12px;font-weight:700;flex:0 0 auto}
-    .menuBrand .nm{font-size:14px;font-weight:650;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .menuClose{margin-left:auto;width:32px;height:32px;border-radius:50%;border:0;background:#efede7;
-      display:grid;place-items:center;color:var(--ink2)}
-    .menuClose svg{width:14px;height:14px;transform:rotate(45deg)}
-    .menuNav{display:flex;flex-direction:column;padding:4px 10px}
-    .menuNav button{display:flex;align-items:center;gap:14px;border:0;background:transparent;
-      padding:13px 10px;border-radius:12px;font-size:17px;font-weight:550;letter-spacing:-.015em;
-      color:var(--ink);text-align:left;opacity:0;transform:translateY(8px);
-      transition:opacity .3s ease,transform .3s cubic-bezier(.32,.72,0,1),background .15s ease}
-    .menuNav button:active{background:#efede7}
-    .menuSheet.on .menuNav button{opacity:1;transform:none}
-    .menuSheet.on .menuNav button:nth-child(1){transition-delay:.04s}
-    .menuSheet.on .menuNav button:nth-child(2){transition-delay:.08s}
-    .menuSheet.on .menuNav button:nth-child(3){transition-delay:.12s}
-    .menuSheet.on .menuNav button:nth-child(4){transition-delay:.16s}
-    .menuSheet.on .menuNav button:nth-child(5){transition-delay:.20s}
-    .menuSheet.on .menuNav button:nth-child(6){transition-delay:.24s}
-    .menuSheet.on .menuNav button:nth-child(7){transition-delay:.28s}
-    .menuNav .mi{width:30px;height:30px;border-radius:9px;background:#fff;border:1px solid var(--line);
-      display:grid;place-items:center;color:var(--ink2);flex:0 0 auto}
-    .menuNav .mi .ico{width:16px;height:16px}
-    .menuNav .badge{margin-left:auto;font-size:12px;font-weight:600;color:var(--brand2);background:var(--brands);
-      border-radius:999px;padding:1px 8px;min-width:20px;text-align:center}
-    .menuNav .mc{margin-left:8px;color:var(--faint);font-size:20px;line-height:1}
-    .menuFoot{display:flex;align-items:center;gap:10px;padding:12px 20px 0;border-top:1px solid var(--line);margin:8px 14px 0}
-  .menuFoot .build{margin-left:auto;font-size:11px;color:var(--faint)}
     /* floating action button */
     .fab{display:grid;place-items:center;position:fixed;right:18px;bottom:calc(22px + env(safe-area-inset-bottom));
       width:54px;height:54px;border-radius:50%;border:0;background:var(--brand);color:#fff;
@@ -590,6 +577,47 @@
     .hero .l{border-right:0;border-bottom:1px solid var(--line2)}
     .search{display:none}
     td:nth-child(2),th:nth-child(2){display:none}
+    /* full-screen menu sheet */
+    .menuSheet{display:block;position:fixed;inset:0;z-index:90;
+      background:rgba(24,26,24,.28);backdrop-filter:blur(8px);
+      opacity:0;pointer-events:none;transition:opacity .26s ease}
+    .menuSheet.on{opacity:1;pointer-events:auto}
+    .menuPanel{position:absolute;left:0;right:0;top:0;background:#fbfaf7;border-radius:0 0 22px 22px;
+      padding:8px 0 calc(18px + env(safe-area-inset-bottom));
+      transform:translateY(-14px) scale(.985);opacity:0;
+      transition:transform .34s cubic-bezier(.32,.72,0,1),opacity .26s ease;
+      max-height:92vh;overflow:auto}
+    .menuSheet.on .menuPanel{transform:none;opacity:1}
+    .menuTop{display:flex;align-items:center;gap:10px;padding:14px 18px 12px}
+    .menuBrand{display:flex;align-items:center;gap:10px;min-width:0}
+    .menuBrand .mark{width:29px;height:29px;border-radius:9px;background:var(--brand);color:#fff;
+      display:grid;place-items:center;font-size:12px;font-weight:700;flex:0 0 auto}
+    .menuBrand .nm{font-size:14px;font-weight:650;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .menuClose{margin-left:auto;width:32px;height:32px;border-radius:50%;border:0;background:#efede7;
+      display:grid;place-items:center;color:var(--ink2)}
+    .menuClose svg{width:14px;height:14px;transform:rotate(45deg)}
+    .menuNav{display:flex;flex-direction:column;padding:4px 10px}
+    .menuNav button{display:flex;align-items:center;gap:14px;border:0;background:transparent;
+      padding:13px 10px;border-radius:12px;font-size:17px;font-weight:550;letter-spacing:-.015em;
+      color:var(--ink);text-align:left;opacity:0;transform:translateY(8px);
+      transition:opacity .3s ease,transform .3s cubic-bezier(.32,.72,0,1),background .15s ease}
+    .menuNav button:active{background:#efede7}
+    .menuSheet.on .menuNav button{opacity:1;transform:none}
+    .menuSheet.on .menuNav button:nth-child(1){transition-delay:.04s}
+    .menuSheet.on .menuNav button:nth-child(2){transition-delay:.08s}
+    .menuSheet.on .menuNav button:nth-child(3){transition-delay:.12s}
+    .menuSheet.on .menuNav button:nth-child(4){transition-delay:.16s}
+    .menuSheet.on .menuNav button:nth-child(5){transition-delay:.20s}
+    .menuSheet.on .menuNav button:nth-child(6){transition-delay:.24s}
+    .menuSheet.on .menuNav button:nth-child(7){transition-delay:.28s}
+    .menuNav .mi{width:30px;height:30px;border-radius:9px;background:#fff;border:1px solid var(--line);
+      display:grid;place-items:center;color:var(--ink2);flex:0 0 auto}
+    .menuNav .mi .ico{width:16px;height:16px}
+    .menuNav .badge{margin-left:auto;font-size:12px;font-weight:600;color:var(--brand2);background:var(--brands);
+      border-radius:999px;padding:1px 8px;min-width:20px;text-align:center}
+    .menuNav .mc{margin-left:8px;color:var(--faint);font-size:20px;line-height:1}
+    .menuFoot{display:flex;align-items:center;gap:10px;padding:12px 20px 0;border-top:1px solid var(--line);margin:8px 14px 0}
+  .menuFoot .build{margin-left:auto;font-size:11px;color:var(--faint)}
   }
 </style>
 </head>
@@ -618,20 +646,20 @@
 <div class="sideScrim" id="sideScrim"></div>
 <div class="gate" id="gate">
   <div class="gatecard" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
-    <div class="mark" style="width:38px;height:38px;border-radius:10px;font-size:14px">CT</div>
+    <div class="mark" id="gateMark" style="width:38px;height:38px;border-radius:10px;font-size:14px">CT</div>
     <h1 id="gateTitle">Your school, your workspace</h1>
-    <p class="gsub">Type your school's name to open the preview. It is a live demo with sample students, so nothing you type leaves your browser.</p>
-    <div class="field"><label for="gateName">School name</label><input id="gateName" placeholder="e.g. Sunrise CNA Academy" autocomplete="organization"></div>
+    <p class="gsub" id="gatePrivacy">It's a live demo with sample students. The only thing we keep is that this preview was opened, so I can follow up. No account, no card, nothing to install.</p>
+    <div class="field"><label for="gateName">School name</label><input id="gateName" placeholder="Your school's name" autocomplete="organization"></div>
     <div class="field"><label for="gateCity">City and state <span class="sub">(optional)</span></label><input id="gateCity" placeholder="e.g. Houston, Texas" autocomplete="address-level2"></div>
-    <div class="field"><label for="gateOwner">Your name</label><input id="gateOwner" placeholder="e.g. Dana Reyes" autocomplete="name"></div>
+    <div class="field"><label for="gateOwner">Your name</label><input id="gateOwner" placeholder="Your name" autocomplete="name"></div>
     <button class="btn gatebtn" id="gateGo" disabled>Open the preview</button>
-    <div class="gsub" style="margin-top:12px">We use your name to greet you and log that the preview was opened, so we can follow up. No account, no card, nothing to install.</div>
+    <button class="btn ghost gateclose" id="gateSkip">Just show me the demo</button>
   </div>
 </div>
 <div class="shell">
   <aside class="side">
     <div class="ws">
-      <div class="mark">CT</div>
+      <div class="mark" id="brandMark">CT</div>
       <div><div class="nm" id="brandName">CNA Training Institute</div><div class="sub" id="brandLoc">Sugar Land, Texas</div></div>
       <svg class="ico chev" width="15" height="15"><use href="#i-chev"/></svg>
     </div>
@@ -661,6 +689,32 @@
       <div class="spacer"></div>
       <div class="search"><svg class="ico"><use href="#i-search"/></svg><input id="qTop" placeholder="Search students"></div>
       <span class="demo">Demo · sample data</span>
+    </div>
+
+    <!-- conversion strip (P0-1): under the top bar, on all 7 sections, never scrolls away.
+         On a return visit the copy inside #welcomeStrip replaces the default copy in place. -->
+    <div class="conv" id="convStrip">
+      <span class="tag">DEMO · SAMPLE DATA</span>
+      <span class="say desk" id="defaultSay">This is the enrollment workspace we would build for <b class="cs">your school</b>.</span>
+      <span class="say mob" id="defaultSayM">— workspace for <b class="cs">your school</b></span>
+      <span class="sep desk" id="defaultSep1">·</span>
+      <span id="welcomeStrip" class="hidden">
+        <span class="say desk" id="welcomeSay">Welcome back. You looked at this demo before. Want it running for your next cohort?</span>
+        <span class="say mob" id="welcomeSayM">Welcome back — want it running for your next cohort?</span>
+      </span>
+      <a class="cta" id="convCta" href="mailto:agency@social-traffic.ca?subject=Enrollment%20workspace%20for%20%7BSchool%7D" data-cta="talk-to-me">Email me about <span class="cs">your school</span> →</a>
+      <span class="sep desk" id="defaultSep2">·</span>
+      <span class="reply desk" id="defaultReply">or just reply to my email</span>
+      <span class="proof" id="defaultProof">Built for CNA schools · 5,000 students enrolled through it</span>
+      <span class="reply desk" id="welcomeReply">· or tell me what's missing and I'll adjust it for your school.</span>
+    </div>
+
+    <!-- name after value (P0-2): school-only links get this inline, dismissible prompt -->
+    <div class="namestrip hidden" id="nameStrip">
+      <span class="nq">Preview for <b id="nameStripSchool">your school</b> — whose name should I put on it?</span>
+      <input id="nameStripInput" placeholder="Your name" autocomplete="name" aria-label="Your name">
+      <button class="btn" id="nameStripOpen">Open</button>
+      <button class="btn ghost" id="nameStripSkip">skip</button>
     </div>
 
     <main class="main">
@@ -1015,7 +1069,7 @@
 <div class="menuSheet" id="menuSheet" aria-hidden="true">
   <div class="menuPanel" role="dialog" aria-modal="true" aria-label="Menu">
     <div class="menuTop">
-      <div class="menuBrand"><div class="mark" id="menuMark">S</div><div class="nm" id="menuName">Sunrise CNA Academy</div></div>
+      <div class="menuBrand"><div class="mark" id="menuMark">CT</div><div class="nm" id="menuName">CNA Training Institute</div></div>
       <button class="menuClose" id="menuClose" aria-label="Close menu"><svg class="ico"><use href="#i-plus"/></svg></button>
     </div>
     <nav class="menuNav">
@@ -1028,8 +1082,8 @@
       <button data-go="team"><span class="mi"><svg class="ico"><use href="#i-team"/></svg></span>Team<span class="mc">&rsaquo;</span></button>
     </nav>
     <div class="menuFoot">
-      <div class="av" id="menuAv">DR</div>
-      <div><div class="nm" id="menuUser">Dana Reyes</div><div class="sub">Owner</div></div>
+      <div class="av" id="menuAv">MV</div>
+      <div><div class="nm" id="menuUser">Marisol Vega</div><div class="sub">Owner</div></div>
       <div class="build" id="buildStamp"></div>
     </div>
   </div>
@@ -1194,7 +1248,7 @@
     Array.prototype.forEach.call(document.querySelectorAll("#nav a"),function(a){a.classList.toggle("on",a.getAttribute("data-page")===page);});
     $("crumb").textContent=page.charAt(0).toUpperCase()+page.slice(1);
     window.scrollTo({top:0});
-    if(page!==lastSection){ lastSection=page; logHit("section", page); }
+    if(booted && page!==lastSection){ lastSection=page; logHit("section", page); }
   }
 
 
@@ -1224,64 +1278,174 @@
 
 
 
-  function openEnroll(){logHit("cta","enroll");$("emodal").classList.add("on");setTimeout(function(){$("en").focus();},30);}
+  function openEnroll(){logHit("action","enroll");$("emodal").classList.add("on");setTimeout(function(){$("en").focus();},30);}
   function closeEnroll(){$("emodal").classList.remove("on");}
   function submitEnroll(){
     var name=$("en").value.trim();
     if(name.length<3){$("en").focus();toast("Add the student's name first.");return;}
     var cls=$("ec").value, c=cls.split(" - ")[0], start=cls.indexOf("1 Nov")>=0?"1 Nov":"27 Oct";
     S.unshift({n:name,c:c,enrolled:"23 Oct",starts:start,docs:0,paid:100,owed:1250,st:"Documents missing",tone:"bad"});
-    closeEnroll(); renderStudents(); go("students"); toast(name.split(" ")[0]+" enrolled · welcome email sent");
+    closeEnroll(); renderStudents(); go("students"); logHit("action","enroll"); toast("That's the Thursday screen. Want it on your own students?");
   }
 
 
 
-  // ── visit beacon: tells us who opened the demo (endpoint filled in at deploy) ──
+  // ── analytics v2: one POST per event to the existing collector (contract in EVENTS.md) ──
+  // The deployed worker stores only ts,pid,kind,school,city,name,path,ref,country,ua,
+  // so everything a funnel needs travels in 'kind' (event name) and 'ref' (metadata).
   var COLLECTOR = "https://t.socialtraffic.ca";
-  var lastSection="";
-  function logHit(kind, section){
+  var AGENCY_EMAIL = "agency@social-traffic.ca";
+  var BOOKING_URL = ""; // set once a real booking link exists; empty keeps the email CTA
+  var t0 = Date.now(), sessionEnded = false, booted = false, lastSection = "";
+  var sname = "", scity = "", oname = "";
+  var qs = (function(){ try{ return new URLSearchParams(location.search); }catch(e){ return {get:function(){return "";}}; } })();
+  function lsGet(k){ try{ return localStorage.getItem(k)||""; }catch(e){ return ""; } }
+  function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+  function ssGet(k){ try{ return sessionStorage.getItem(k)||""; }catch(e){ return ""; } }
+  function ssSet(k,v){ try{ sessionStorage.setItem(k,v); }catch(e){} }
+  // Persist the prospect id after the first read, so a bare revisit stays attributable.
+  var pid = (qs.get("p")||"").trim() || lsGet("demoPid");
+  if(pid) lsSet("demoPid", pid);
+  var step = (qs.get("step")||qs.get("s")||"").trim().slice(0,10);
+  var arm = (qs.get("arm")||qs.get("a")||"").trim().slice(0,20);
+  var internalFlag = qs.get("internal")==="1" || qs.get("i")==="1" || ssGet("demoInternal")==="1";
+  if(internalFlag) ssSet("demoInternal","1");
+  var sid = (function(){
+    var v=ssGet("demoSid");
+    if(!/^[a-z0-9]{8}$/i.test(v)){ v=Math.random().toString(36).slice(2,10); ssSet("demoSid",v); }
+    return v;
+  })();
+  var seenKey = "demoSeen:" + (pid||"anon");
+  var prevSeen = lsGet(seenKey) || (pid ? "" : lsGet("demoLastSeen"));
+  var returning = !!prevSeen;
+  var prevProfile = null;
+  function visitPayload(kind, x, d){
+    var ref = ["v=2", "s="+sid];
+    if(step) ref.push("n="+step);
+    if(arm) ref.push("a="+arm);
+    if(x) ref.push("x="+x);
+    ref.push("i="+(internalFlag?1:0));
+    if(d!=null) ref.push("d="+Math.max(0,Math.round(d)));
+    ref.push("r="+(returning?1:0));
+    return {p:pid, kind:kind, school:sname, city:scity, name:oname, path:location.pathname, ref:ref.join(";").slice(0,200)};
+  }
+  function logHit(kind, x, d){
     if(!COLLECTOR) return;
     try{
       fetch(COLLECTOR + "/hit", {
         method: "POST",
         headers: {"content-type": "application/json"},
         keepalive: true,
-        body: JSON.stringify({
-          p: pid, kind: kind, school: sname, city: scity, name: oname,
-          path: location.pathname, ref: document.referrer,
-          session: session, step: step, arm: arm, internal: internal,
-          section: section || ""
-        })
+        body: JSON.stringify(visitPayload(kind, x, d))
       }).catch(function(){});
     }catch(e){}
   }
-
-  // ── personalised workspace: the visitor's school name replaces the sample brand ──
-  var sname="", scity="", pid="", step="", arm="", internal=false;
-  try{
-    var qs=new URLSearchParams(location.search);
-    pid=qs.get("p")||""; step=qs.get("s")||""; arm=qs.get("a")||"";
-    internal=qs.get("i")==="1";
-  }catch(e){}
-  // One id per tab session: repeated reloads of the same page collapse into
-  // one journey instead of inflating the view count.
-  var session=(function(){
+  function logSessionEnd(){
+    if(sessionEnded || !COLLECTOR) return;
+    sessionEnded = true;
+    var body = JSON.stringify(visitPayload("session_end", "", Date.now()-t0));
     try{
-      var v=sessionStorage.getItem("demoSid");
-      if(!v){ v=Math.random().toString(36).slice(2)+Date.now().toString(36); sessionStorage.setItem("demoSid",v); }
-      return v;
-    }catch(e){ return ""; }
-  })();
+      if(navigator.sendBeacon){
+        var blob = new Blob([body], {type:"application/json"});
+        if(navigator.sendBeacon(COLLECTOR+"/hit", blob)) return;
+      }
+    }catch(e){}
+    try{ fetch(COLLECTOR+"/hit", {method:"POST", headers:{"content-type":"application/json"}, keepalive:true, body:body}).catch(function(){}); }catch(e){}
+  }
+  document.addEventListener("visibilitychange", function(){ if(document.visibilityState==="hidden") logSessionEnd(); });
+  window.addEventListener("pagehide", logSessionEnd);
 
-  var oname="";
   function slugify(x){return (x||"").toLowerCase().replace(/[^a-z0-9]+/g,"").slice(0,26);}
   function initials(x){return (x||"").split(" ").filter(Boolean).map(function(w){return w[0];}).join("").slice(0,2).toUpperCase()||"MV";}
+  // A scraped SERP title is not a school name; reject the shapes listed in CRO-AUDIT §1.
+  function cleanSchool(x){
+    var v=(x||"").replace(/\s+/g," ").trim();
+    if(!v) return "";
+    if(v.length>60) return "";
+    if(v.indexOf(" | ")>=0) return "";
+    if(/\?$/.test(v)) return "";
+    if(/^what will i learn/i.test(v)) return "";
+    if(/mysite/i.test(v)) return "";
+    return v;
+  }
+  function readProfile(){
+    try{
+      var p=JSON.parse(lsGet("demoProfile")||"null");
+      if(p&&p.n) return {n:p.n,c:p.c||"",o:p.o||"",seen:p.seen||prevSeen};
+    }catch(e){}
+    try{
+      var s=JSON.parse(lsGet("demoSchool")||"null");
+      if(s&&s.n) return {n:s.n,c:s.c||"",o:s.o||"",seen:prevSeen};
+    }catch(e){}
+    return null;
+  }
+  function nowIso(){ return new Date().toISOString(); }
+  function saveProfile(){
+    try{
+      localStorage.setItem("demoProfile", JSON.stringify({n:sname,c:scity,o:oname,seen:nowIso()}));
+      localStorage.setItem("demoLastSeen", nowIso());
+      if(pid) localStorage.setItem("demoPid", pid);
+    }catch(e){}
+  }
+  function markSeen(){
+    try{
+      localStorage.setItem(seenKey, nowIso());
+      localStorage.setItem("demoLastSeen", nowIso());
+    }catch(e){}
+  }
+  function displaySchool(){ return sname || "your school"; }
+  var stripMode = "default";
+  function ctaHref(){
+    if(BOOKING_URL) return BOOKING_URL;
+    var school=displaySchool();
+    return "mailto:"+AGENCY_EMAIL+"?subject="+encodeURIComponent("Enrollment workspace for "+school)+"&body="+encodeURIComponent("Hi — yes, I'd like the enrollment workspace for "+school+".");
+  }
+  function fillSchoolSpans(){
+    Array.prototype.forEach.call(document.querySelectorAll(".cs"), function(el){ el.textContent=displaySchool(); });
+  }
+  function renderStrips(){
+    var back=stripMode==="back";
+    ["defaultSay","defaultSayM","defaultSep1","defaultSep2","defaultReply","defaultProof"].forEach(function(id){
+      var el=$(id); if(el) el.classList.toggle("hidden", back);
+    });
+    $("welcomeStrip").classList.toggle("hidden", !back);
+    if($("welcomeReply")) $("welcomeReply").classList.toggle("hidden", !back);
+    var cta=$("convCta");
+    if(back){
+      var prof=prevProfile;
+      var first=((prof&&prof.o)||oname||"").split(" ")[0];
+      var school=displaySchool();
+      var iso=(prof&&prof.seen)||prevSeen;
+      var when="";
+      try{ var d=new Date(iso); if(iso&&!isNaN(d.getTime())) when=" on "+d.toLocaleDateString(undefined,{day:"numeric",month:"short"}); }catch(e){}
+      var desk=$("welcomeSay"), mob=$("welcomeSayM");
+      if(desk){
+        desk.textContent="";
+        var b=document.createElement("b");
+        b.textContent=first?"Welcome back, "+first+".":"Welcome back.";
+        desk.appendChild(b);
+        desk.appendChild(document.createTextNode(" You looked at this for "+school+when+". Want it running for your next cohort?"));
+      }
+      if(mob) mob.textContent=(first?"Welcome back, "+first+". ":"Welcome back. ")+"Want it running for your next cohort?";
+      cta.textContent="Reply 'set it up' →";
+    }else{
+      cta.textContent="";
+      cta.appendChild(document.createTextNode("Email me about "));
+      var cs=document.createElement("span"); cs.className="cs"; cta.appendChild(cs);
+      cta.appendChild(document.createTextNode(" →"));
+    }
+    fillSchoolSpans();
+    cta.href=ctaHref();
+    var ns=$("nameStripSchool"); if(ns) ns.textContent=displaySchool();
+  }
   function applyOwner(){
     var who=oname||"Marisol Vega";
     var av=initials(who);
     $("meName").textContent=who; $("meAv").textContent=av;
     $("teamName").textContent=who; $("teamAv").textContent=av;
     $("teamMail").textContent=(oname?slugify(oname.split(" ")[0]):"marisol")+"@"+(sname?slugify(sname):"cnatraininginstitute")+".org";
+    if($("menuUser")) $("menuUser").textContent=who;
+    if($("menuAv")) $("menuAv").textContent=av;
   }
 
   function setGreeting(){
@@ -1290,49 +1454,82 @@
     var el=$("greetTime"); if(el) el.textContent=t;
   }
   function applyBrand(){
-    var nm=sname||"Your school";
-    $("brandName").textContent=nm;
+    var nm=displaySchool();
+    var branded=!!sname;
+    var bn=$("brandName"); bn.textContent=nm; bn.title=branded?nm:"";
     $("crumbBrand").textContent=nm;
     $("brandLoc").textContent=scity||"";
     $("brandLoc").style.display=scity?"block":"none";
     document.title=(sname?sname+" — ":"")+"enrollment workspace (demo)";
+    var mark=branded?initials(sname):"CT";
+    if($("brandMark")) $("brandMark").textContent=mark;
+    if($("menuMark")) $("menuMark").textContent=mark;
+    if($("gateMark")) $("gateMark").textContent=mark;
+    if($("menuName")) $("menuName").textContent=branded?sname:"CNA Training Institute";
     applyOwner();
+    renderStrips();
     var first=(oname||"").split(" ")[0];
     var g=$("greetWho"); if(g) g.textContent=first?", "+first:"";
-
+  }
+  var gatePending=false;
+  function gatePrivacy(){
+    var who=sname?sname+"'s preview was opened":"this preview was opened";
+    return "It's a live demo with sample students. The only thing we keep is that "+who+", so I can follow up. No account, no card, nothing to install.";
   }
   function openGate(){
     $("gateName").value=sname; $("gateCity").value=scity; $("gateOwner").value=oname;
     $("gateGo").disabled=!($("gateName").value.trim().length>1 && $("gateOwner").value.trim().length>1);
+    $("gatePrivacy").textContent=gatePrivacy();
+    $("gateMark").textContent=sname?initials(sname):"CT";
     $("gate").classList.add("on");
-    setTimeout(function(){$("gateName").focus();},40);
+    logHit("gate_view");
+    setTimeout(function(){ (sname?$("gateOwner"):$("gateName")).focus(); },40);
   }
+  function closeGate(){ $("gate").classList.remove("on"); }
   function commitGate(){
-    sname=$("gateName").value.trim(); scity=$("gateCity").value.trim(); oname=$("gateOwner").value.trim();
-    if(sname.length<2){$("gateName").focus();return;}
-    if(oname.length<2){$("gateOwner").focus();return;}
-    try{localStorage.setItem("demoSchool",JSON.stringify({n:sname,c:scity,o:oname}));}catch(e){}
-    applyBrand(); $("gate").classList.remove("on"); logHit("submit");
+    var raw=($("gateName").value||"").trim();
+    var clean=cleanSchool(raw);
+    if(raw.length>1 && !clean){ toast("That doesn't look like a school name — use the short version."); $("gateName").focus(); return; }
+    if(clean.length<2){$("gateName").focus();return;}
+    var who=($("gateOwner").value||"").trim().slice(0,40);
+    if(who.length<2){$("gateOwner").focus();return;}
+    sname=clean; scity=($("gateCity").value||"").trim().slice(0,40); oname=who;
+    closeGate(); hideNameStrip(); applyBrand(); saveProfile(); logHit("gate_submit");
+  }
+  // P0-2: links that carry a school open the dashboard; the name is asked for inline, not in a modal.
+  var nameStripTimer=null;
+  function showNameStrip(){
+    if(oname || ssGet("demoNameSkip")==="1") return;
+    var ns=$("nameStripSchool"); if(ns) ns.textContent=displaySchool();
+    $("nameStrip").classList.remove("hidden");
+  }
+  function queueNameStrip(){
+    clearTimeout(nameStripTimer);
+    nameStripTimer=setTimeout(showNameStrip, 450);
+  }
+  function hideNameStrip(){ $("nameStrip").classList.add("hidden"); }
+  function skipNameStrip(){ hideNameStrip(); ssSet("demoNameSkip","1"); }
+  function commitNameStrip(){
+    var v=($("nameStripInput").value||"").trim().slice(0,40);
+    if(v.length<2){ $("nameStripInput").focus(); return; }
+    oname=v; hideNameStrip(); applyBrand(); saveProfile(); logHit("gate_submit");
   }
   function bootBrand(){
-    var fromUrl="";
-    var fromName="";
-    try{ fromUrl=new URLSearchParams(location.search).get("school")||""; fromName=new URLSearchParams(location.search).get("name")||""; }catch(e){}
-    if(fromUrl){
-      sname=fromUrl; scity=""; oname="";
+    var rawSchool=(qs.get("school")||"").trim();
+    var fromName=(qs.get("name")||"").trim().slice(0,40);
+    var saved=readProfile();
+    prevProfile=saved;
+    if(returning) stripMode="back";
+    if(rawSchool){
+      sname=cleanSchool(rawSchool); scity=""; oname=fromName;
+      if(!oname && saved && saved.n===sname && saved.o) oname=saved.o;
       applyBrand();
-      // A link can prefill the school; the person's name is still asked for,
-      // so we know who opened it and the greeting is personal.
-      if(fromName){ oname=fromName; applyBrand(); return; }
-      openGate();
+      if(oname) hideNameStrip(); else queueNameStrip();
       return;
     }
-    try{
-      var saved=JSON.parse(localStorage.getItem("demoSchool")||"null");
-      if(saved&&saved.n&&saved.o){sname=saved.n;scity=saved.c||"";oname=saved.o||"";applyBrand();return;}
-      if(saved&&saved.n&&!saved.o){sname=saved.n;scity=saved.c||"";oname="";openGate();return;}
-    }catch(e){}
-    openGate();
+    if(saved && saved.n && saved.o){ sname=saved.n; scity=saved.c||""; oname=saved.o; applyBrand(); hideNameStrip(); return; }
+    if(saved && saved.n){ sname=saved.n; scity=saved.c||""; applyBrand(); queueNameStrip(); return; }
+    sname=""; oname=""; applyBrand(); gatePending=true;
   }
 
   // toast + small utilities used by the placeholder actions
@@ -1341,6 +1538,8 @@
     var el=$("toast"); el.textContent=msg; el.classList.add("on");
     clearTimeout(toastTimer); toastTimer=setTimeout(function(){el.classList.remove("on");},2200);
   }
+  // P1-3: every simulated action now points at the one real next step.
+  function intentCopy(){ return "This is the workflow. Want it live for "+displaySchool()+"? Reply to my email with 'set it up'."; }
   function exportCsv(){
     var head=["Student","Class","Starts","Documents","Paid","Due","Status"];
     var rows=S.map(function(x){return [x.n,x.c,x.starts,x.docs+" of 7",x.paid,x.owed,x.st];});
@@ -1374,44 +1573,56 @@
 
   document.addEventListener("click",function(e){
     var t=e.target.closest("a,button,tr"); if(!t) return;
+    var label=(t.textContent||"").trim();
     if(t.id==="dx"){closeDrawer();return;}
-    if(t.hasAttribute("data-go")){
-      go(t.getAttribute("data-go"));
-      closeMenu();
-      return;
-    }
-    if(t.id==="fab"){openEnroll();return;}
+    if(t.id==="gateSkip"){closeGate();return;}
+    if(t.id==="nameStripOpen"){commitNameStrip();return;}
+    if(t.id==="nameStripSkip"){skipNameStrip();return;}
     if(t.id==="gateGo"){commitGate();return;}
     if(t.closest&&t.closest(".ws")){openGate();return;}
+    if(t.id==="fab"||/Enroll a student/.test(label)){openEnroll();return;}
     if(t.id==="eClose"||t.id==="eCancel"){closeEnroll();return;}
     if(t.id==="eSubmit"){submitEnroll();return;}
     if(t.id==="menuBtn"){ $("menuSheet").classList.contains("on") ? closeMenu() : openMenu(); return; }
-    if(t.id==="menuClose"){ closeMenu(); return; }
-    if(t.id==="menuSheet"){ closeMenu(); return; }
-    if(t.closest&&t.closest(".phead")===null && /Print|Export/i.test(t.textContent)){ if(/Export/i.test(t.textContent)){exportCsv();return;} window.print();return; }
-    if(/Enroll a student/.test(t.textContent.trim())){ openEnroll(); return; }
-    if(/^(Send reminder|Send a message|Write)$/.test(t.textContent.trim())){ toast("Demo: this is where " + t.textContent.trim().toLowerCase() + " would happen."); return; }
-        if(t.hasAttribute("data-mbox")){setMbox(t.getAttribute("data-mbox"));return;}
+    if(t.id==="menuClose"||t.id==="menuSheet"){ closeMenu(); return; }
+    if(t.id==="convCta"){ logHit("cta", BOOKING_URL?"booking":"strip-email"); return; }
+    if(t.hasAttribute("data-go")){ go(t.getAttribute("data-go")); closeMenu(); return; }
+    if(t.hasAttribute("data-qtab")){setQtab(t.getAttribute("data-qtab"));return;}
+    if(t.hasAttribute("data-mbox")){setMbox(t.getAttribute("data-mbox"));return;}
     if(t.hasAttribute("data-msg")){curMsg=t.getAttribute("data-msg");MAIL[curMsg].unread=false;renderMail();$("mail").classList.add("reading");return;}
     if(t.id==="backToInbox"){$("mail").classList.remove("reading");return;}
-    if(t.hasAttribute("data-tpl")){$("replyBox").value=TPL[t.getAttribute("data-tpl")];$("replyBox").focus();return;}
-    if(t.id==="composeBtn"){$("replyBox").focus();return;}
-    if(t.id==="replyTemplate"){$("replyBox").value=TPL.docs;$("replyBox").focus();return;}
-    if(t.id==="replySend"){var rb=$("replyBox");if(!rb.value.trim()){$("replyHint").textContent="Write a reply first.";return;}rb.value="";$("replyHint").textContent="Reply sent as email · copy saved to the student's file";return;}
-    if(t.hasAttribute("data-qtab")){setQtab(t.getAttribute("data-qtab"));return;}
-    if(t.classList&&t.classList.contains("opt2")){
-      Array.prototype.forEach.call(document.querySelectorAll(".opt2"),function(o){o.classList.remove("sel");});
-      t.classList.add("sel"); return;
-    }
+    if(t.hasAttribute("data-tpl")){$("replyBox").value=TPL[t.getAttribute("data-tpl")];$("replyBox").focus();logHit("action","message");return;}
+    if(t.id==="composeBtn"){$("replyBox").focus();logHit("action","message");return;}
+    if(t.id==="replyTemplate"){$("replyBox").value=TPL.docs;$("replyBox").focus();logHit("action","message");return;}
+    if(t.id==="replySend"){var rb=$("replyBox");if(!rb.value.trim()){$("replyHint").textContent="Write a reply first.";return;}rb.value="";$("replyHint").textContent="Reply sent as email · copy saved to the student's file";logHit("action","message");return;}
     if(t.hasAttribute("data-page")){e.preventDefault();go(t.getAttribute("data-page"));
       document.querySelector(".side").classList.remove("open");document.getElementById("sideScrim").classList.remove("on");return;}
     if(t.hasAttribute("data-f")){
       Array.prototype.forEach.call(document.querySelectorAll("[data-f]"),function(b){b.classList.remove("on");});
       t.classList.add("on"); filter=t.getAttribute("data-f"); renderStudents(); return;
     }
-    if(t.hasAttribute("data-remind")){toast("Reminder sent to "+S[Number(t.getAttribute("data-remind"))].n);return;}
+    if(t.hasAttribute("data-remind")){logHit("action","remind");toast(intentCopy());return;}
     if(t.hasAttribute("data-i")){openDrawer(Number(t.getAttribute("data-i")));return;}
     if(t.closest&&t.closest("tr[data-i]")){openDrawer(Number(t.closest("tr[data-i]").getAttribute("data-i")));return;}
+    if(t.classList&&t.classList.contains("opt2")){
+      Array.prototype.forEach.call(document.querySelectorAll(".opt2"),function(o){o.classList.remove("sel");});
+      t.classList.add("sel"); return;
+    }
+    // P1-3: the remaining simulated actions log the intent and point at the one real next step.
+    var act="";
+    if(/^Print/i.test(label)) act="print";
+    else if(/^Export$/i.test(label)) act="export";
+    else if(/^Start Zoom$/i.test(label)) act="zoom";
+    else if(/^Roster$/i.test(label)) act="class";
+    else if(/^Send a message$/i.test(label)) act="message";
+    else if(/^Send reminder$/i.test(label)) act="remind";
+    else if(/^(Results|Edit|Next question|Previous|Send retake to 2 students)$/i.test(label)) act="quiz";
+    if(act){
+      logHit("action",act);
+      if(act==="export"){ exportCsv(); return; }
+      if(act==="print"){ window.print(); return; }
+      toast(intentCopy()); return;
+    }
   });
   function gateReady(){$("gateGo").disabled=!($("gateName").value.trim().length>1 && $("gateOwner").value.trim().length>1);}
   $("gateName").addEventListener("input",gateReady);
@@ -1419,12 +1630,15 @@
   $("gateOwner").addEventListener("keydown",function(e){if(e.key==="Enter"){commitGate();}});
   $("gateName").addEventListener("keydown",function(e){if(e.key==="Enter"){commitGate();}});
   $("gateCity").addEventListener("keydown",function(e){if(e.key==="Enter"){commitGate();}});
+  $("nameStripInput").addEventListener("keydown",function(e){if(e.key==="Enter"){commitNameStrip();}});
+  $("nameStripInput").addEventListener("input",function(){$("nameStripOpen").disabled=this.value.trim().length<2;});
+  $("nameStripOpen").disabled=true;
   $("emodal").addEventListener("click",function(e){if(e.target===this)closeEnroll();});
   $("qTop").addEventListener("input",function(){onSearch(this.value);});
 
   $("sideScrim").addEventListener("click",function(){document.querySelector(".side").classList.remove("open");this.classList.remove("on");});
   $("scrim").addEventListener("click",closeDrawer);
-  document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeDrawer();closeEnroll();closeMenu();}});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeDrawer();closeEnroll();closeMenu();closeGate();}});
 
   (function stamp(){
     var el=document.getElementById("buildStamp");
@@ -1434,7 +1648,7 @@
       el.textContent="Updated "+d.toLocaleDateString(undefined,{month:"short",day:"numeric"})+" "+d.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"});
     }catch(e){}
   })();
-  setGreeting(); bootBrand(); logHit("view"); renderStudents(); renderMoney(); renderMail();
+  setGreeting(); bootBrand(); logHit("view"); if(gatePending) openGate(); markSeen(); renderStudents(); renderMoney(); renderMail();
   var h=(location.hash||"").replace("#","");
   var sm=h.match(/^students-(\d+)$/);
   if(sm){ go("students"); openDrawer(Number(sm[1])); }
@@ -1446,6 +1660,8 @@
   } else if(h!=="zoom") {
     go(h&&document.querySelector('[data-sec="'+h+'"]')?h:"today");
   }
+  booted=true;
+  lastSection=document.body.getAttribute("data-page")||"today";
 })();
 </script>
 </body>
