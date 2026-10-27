@@ -500,6 +500,7 @@
     .menuNav .mi .ico{width:16px;height:16px}
     .menuNav .mc{margin-left:auto;color:var(--faint);font-size:20px;line-height:1}
     .menuFoot{display:flex;align-items:center;gap:10px;padding:12px 20px 0;border-top:1px solid var(--line);margin:8px 14px 0}
+  .menuFoot .build{margin-left:auto;font-size:11px;color:var(--faint)}
     /* floating action button */
     .fab{display:grid;place-items:center;position:fixed;right:18px;bottom:calc(22px + env(safe-area-inset-bottom));
       width:54px;height:54px;border-radius:50%;border:0;background:var(--brand);color:#fff;
@@ -1033,6 +1034,7 @@
     <div class="menuFoot">
       <div class="av" id="menuAv">DR</div>
       <div><div class="nm" id="menuUser">Dana Reyes</div><div class="sub">Owner</div></div>
+      <div class="build" id="buildStamp"></div>
     </div>
   </div>
 </div>
@@ -1428,6 +1430,14 @@
   $("zmodal").addEventListener("click",function(e){if(e.target===this)closeZoom();});
   document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeDrawer();closeZoom();closeEnroll();closeMenu();}});
 
+  (function stamp(){
+    var el=document.getElementById("buildStamp");
+    if(!el) return;
+    try{
+      var d=new Date(document.lastModified);
+      el.textContent="Updated "+d.toLocaleDateString(undefined,{month:"short",day:"numeric"})+" "+d.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"});
+    }catch(e){}
+  })();
   setGreeting(); bootBrand(); logHit("view"); renderStudents(); renderMoney(); renderMail(); addZoomButtons();
   var h=(location.hash||"").replace("#","");
   var sm=h.match(/^students-(\d+)$/);
