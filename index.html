@@ -160,6 +160,29 @@
   .opt.right{border-color:#c3d8cf;background:#f3f8f5}
   .opt.right .m{background:var(--brand);border-color:var(--brand);color:#fff}
 
+  .qlist{padding:2px 0}
+  .qrow{display:grid;grid-template-columns:minmax(0,1fr) 190px 84px 92px;gap:16px;align-items:center;
+    padding:15px 18px;border-bottom:1px solid var(--line2)}
+  .qrow:last-child{border-bottom:0}
+  .qrow .qmain .nm{font-size:14px;font-weight:600;letter-spacing:-.01em}
+  .qrow .qmain .s2{margin-top:2px}
+  .qrow .qstats{display:flex;flex-direction:column;gap:1px}
+  .qrow .qstats b{font-size:15px;font-weight:650;font-variant-numeric:tabular-nums}
+  .qrow .qstats .s2{font-size:12px;color:var(--muted)}
+  .qrow .rowbtn{justify-self:end}
+  @media (max-width:700px){
+    .qrow{grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;padding:16px;border:0;
+      border-bottom:1px solid var(--line2);align-items:center}
+    .qrow .qmain{grid-column:1/-1}
+    .qrow .qmain .nm{font-size:16px}
+    .qrow .qstats{grid-column:1;flex-direction:row;align-items:baseline;gap:8px;margin-top:2px}
+    .qrow .qstats b{font-size:14px}
+    .qrow .qstats .s2{font-size:12.5px}
+    .qrow .pill{grid-column:2;justify-self:end}
+    .qrow .rowbtn{grid-column:1/-1;width:100%;padding:11px;margin-top:10px;border-radius:11px}
+    .qtabs{display:flex;width:100%;overflow-x:auto;flex-wrap:nowrap;margin-bottom:14px}
+    .qtabs button{white-space:nowrap}
+  }
   /* quizzes */
   .qtabs{display:inline-flex;background:#f1efe9;border-radius:9px;padding:3px;margin-bottom:18px}
   .qtabs button{border:0;background:transparent;border-radius:7px;padding:7px 14px;font-size:13px;color:var(--ink2)}
@@ -497,7 +520,7 @@
   .slist{display:none}
   @media (max-width:700px){
     .brand{display:none}
-    .topAvatar{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;
+    .topAvatar{display:none;place-items:center;width:32px;height:32px;border-radius:10px;
       background:var(--brand);color:#fff;font-size:12px;font-weight:700}
     body[data-page="today"] .fab{display:none}
     body[data-page="students"] .phead .btn{display:none}
@@ -792,16 +815,31 @@
         </div>
 
         <div data-qpanel="list">
-          <div class="card">
-            <table class="qtable">
-              <thead><tr><th>Quiz</th><th>Class</th><th>Questions</th><th>Taken</th><th>Average</th><th>Status</th><th></th></tr></thead>
-              <tbody>
-                <tr><td><div class="nm">Infection control</div><div class="s2">Set by Ms. Alvarez · closes Sunday</div></td><td class="s2">Evening</td><td class="s2">20</td><td class="s2">14 of 18</td><td class="avg">88%</td><td><span class="pill warn">Open</span></td><td><button class="rowbtn">Results</button></td></tr>
-                <tr><td><div class="nm">Patient safety and falls</div><div class="s2">Set by Mr. Boateng · closed</div></td><td class="s2">Day</td><td class="s2">15</td><td class="s2">18 of 18</td><td class="avg">92%</td><td><span class="pill ok">Closed</span></td><td><button class="rowbtn">Results</button></td></tr>
-                <tr><td><div class="nm">Vital signs</div><div class="s2">Draft · not sent yet</div></td><td class="s2">All classes</td><td class="s2">12</td><td class="s2">0</td><td class="avg">—</td><td><span class="pill none">Draft</span></td><td><button class="rowbtn">Edit</button></td></tr>
-                <tr><td><div class="nm">Hand washing</div><div class="s2">Set by Ms. Okoro · closes Friday</div></td><td class="s2">Weekend</td><td class="s2">10</td><td class="s2">6 of 12</td><td class="avg">95%</td><td><span class="pill warn">Open</span></td><td><button class="rowbtn">Results</button></td></tr>
-              </tbody>
-            </table>
+          <div class="card qlist">
+            <div class="qrow">
+              <div class="qmain"><div class="nm">Infection control</div><div class="s2">Set by Ms. Alvarez &middot; Evening &middot; closes Sunday</div></div>
+              <div class="qstats"><b>88%</b><span class="s2">14 of 18 taken &middot; 20 questions</span></div>
+              <span class="pill warn">Open</span>
+              <button class="rowbtn">Results</button>
+            </div>
+            <div class="qrow">
+              <div class="qmain"><div class="nm">Patient safety and falls</div><div class="s2">Set by Mr. Boateng &middot; Day &middot; closed</div></div>
+              <div class="qstats"><b>92%</b><span class="s2">18 of 18 taken &middot; 15 questions</span></div>
+              <span class="pill ok">Closed</span>
+              <button class="rowbtn">Results</button>
+            </div>
+            <div class="qrow">
+              <div class="qmain"><div class="nm">Vital signs</div><div class="s2">Draft &middot; not sent yet</div></div>
+              <div class="qstats"><b>&mdash;</b><span class="s2">0 taken &middot; 12 questions</span></div>
+              <span class="pill none">Draft</span>
+              <button class="rowbtn">Edit</button>
+            </div>
+            <div class="qrow">
+              <div class="qmain"><div class="nm">Hand washing</div><div class="s2">Set by Ms. Okoro &middot; Weekend &middot; closes Friday</div></div>
+              <div class="qstats"><b>95%</b><span class="s2">6 of 12 taken &middot; 10 questions</span></div>
+              <span class="pill warn">Open</span>
+              <button class="rowbtn">Results</button>
+            </div>
           </div>
         </div>
 
