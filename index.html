@@ -1219,6 +1219,7 @@
     Array.prototype.forEach.call(document.querySelectorAll("#nav a"),function(a){a.classList.toggle("on",a.getAttribute("data-page")===page);});
     $("crumb").textContent=page.charAt(0).toUpperCase()+page.slice(1);
     window.scrollTo({top:0});
+    if(page!==lastSection){ lastSection=page; logHit("section", page); }
   }
 
 
@@ -1274,7 +1275,7 @@
 
 
 
-  function openEnroll(){$("emodal").classList.add("on");setTimeout(function(){$("en").focus();},30);}
+  function openEnroll(){logHit("cta","enroll");$("emodal").classList.add("on");setTimeout(function(){$("en").focus();},30);}
   function closeEnroll(){$("emodal").classList.remove("on");}
   function submitEnroll(){
     var name=$("en").value.trim();
@@ -1288,7 +1289,8 @@
 
   // ── visit beacon: tells us who opened the demo (endpoint filled in at deploy) ──
   var COLLECTOR = "https://t.socialtraffic.ca";
-  function logHit(kind){
+  var lastSection="";
+  function logHit(kind, section){
     if(!COLLECTOR) return;
     try{
       fetch(COLLECTOR + "/hit", {
@@ -1297,16 +1299,30 @@
         keepalive: true,
         body: JSON.stringify({
           p: pid, kind: kind, school: sname, city: scity, name: oname,
-          path: location.pathname, ref: document.referrer
+          path: location.pathname, ref: document.referrer,
+          session: session, step: step, arm: arm, internal: internal,
+          section: section || ""
         })
       }).catch(function(){});
     }catch(e){}
   }
 
   // ── personalised workspace: the visitor's school name replaces the sample brand ──
-  var sname="", scity="", pid="";
-  try{ pid=new URLSearchParams(location.search).get("p")||""; }catch(e){}
-  if(pid){ try{ localStorage.setItem("demoPid",pid); }catch(e){} }
+  var sname="", scity="", pid="", step="", arm="", internal=false;
+  try{
+    var qs=new URLSearchParams(location.search);
+    pid=qs.get("p")||""; step=qs.get("s")||""; arm=qs.get("a")||"";
+    internal=qs.get("i")==="1";
+  }catch(e){}
+  // One id per tab session: repeated reloads of the same page collapse into
+  // one journey instead of inflating the view count.
+  var session=(function(){
+    try{
+      var v=sessionStorage.getItem("demoSid");
+      if(!v){ v=Math.random().toString(36).slice(2)+Date.now().toString(36); sessionStorage.setItem("demoSid",v); }
+      return v;
+    }catch(e){ return ""; }
+  })();
 
   var oname="";
   function slugify(x){return (x||"").toLowerCase().replace(/[^a-z0-9]+/g,"").slice(0,26);}
