@@ -57,27 +57,23 @@
   .search .ico{position:absolute;left:9px;top:8.5px;color:var(--faint);width:15px;height:15px}
   .iconbtn{border:1px solid var(--line);background:#fff;border-radius:8px;height:34px;width:34px;display:grid;place-items:center;color:var(--muted)}
   .iconbtn:hover{background:#fbfaf8;color:var(--ink2)}
-  .main{padding:28px 32px 80px;max-width:1200px;width:100%;margin:0 auto}
+  .main{padding:40px 32px 96px;max-width:1200px;width:100%;margin:0 auto}
   .main.flush{padding:0;max-width:none}
-  /* conversion strip (P0-1): one per page, under the top bar, never scrolls away */
-  .conv{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:8px 26px;background:var(--brands);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--ink2);position:sticky;top:56px;z-index:29}
-  .conv .tag{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--brand2);background:#fff;border:1px solid #cfe0d9;border-radius:5px;padding:2px 6px;white-space:nowrap}
-  .conv .say{min-width:0}
-  .conv .say b{font-weight:650;color:var(--ink)}
-  .conv .sep{color:var(--faint)}
-  .conv a.cta{display:inline-flex;align-items:center;gap:6px;background:var(--brand);color:#fff;text-decoration:none;border-radius:7px;padding:6px 11px;font-weight:650;white-space:nowrap}
-  .conv a.cta:hover{background:var(--brand2)}
-  .conv .reply{color:var(--muted)}
-  .conv .proof{color:var(--muted)}
-  .conv #defaultProof:before{content:"· ";color:var(--faint)}
-  .conv .mob{display:none}
+  /* conversion row: one hairline, one disclosure, one quiet CTA */
+  .conv{display:flex;align-items:center;gap:14px;flex-wrap:nowrap;height:54px;padding:0 max(32px, calc((100% - 1200px)/2 + 32px));background:var(--bg);border-bottom:1px solid var(--line);color:var(--muted);position:sticky;top:56px;z-index:29}
+  .conv .tag{font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+  .conv #welcomeStrip{display:inline-flex;align-items:center;font-size:12.5px;color:var(--muted);white-space:nowrap}
+  .conv #welcomeStrip:before{content:"·";margin:0 10px;color:var(--faint)}
+  .conv .spacer{flex:1}
+  .conv a.cta{display:inline-flex;align-items:center;min-height:44px;color:var(--brand);font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap}
+  .conv a.cta:hover{color:var(--brand2);text-decoration:underline;text-underline-offset:3px}
   /* name prompt (P0-2): inline, dismissible, shown after the first section view */
-  .namestrip{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 26px;background:var(--ambers);border-bottom:1px solid #f0e3c7;font-size:12.5px;color:var(--ink2)}
+  .namestrip{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px max(32px, calc((100% - 1200px)/2 + 32px));background:var(--ambers);border-bottom:1px solid #f0e3c7;font-size:12.5px;color:var(--ink2)}
   .namestrip .nq b{font-weight:650;color:var(--ink)}
   .namestrip input{height:32px;border:1px solid var(--line);border-radius:7px;padding:0 10px;font:inherit;font-size:13px;background:#fff;color:var(--ink);min-width:0;flex:1 1 180px;max-width:260px}
   .gateclose{width:100%;justify-content:center;margin-top:2px}
-  .phead{display:flex;align-items:flex-start;gap:16px;margin-bottom:22px}
-  .phead h1{margin:0;font-size:24px;letter-spacing:-.025em;font-weight:650;line-height:1.2}
+  .phead{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+  .phead h1{margin:0;font-size:26px;letter-spacing:-.028em;font-weight:650;line-height:1.15}
   .phead .d{font-size:13px;color:var(--muted);margin-top:3px}
   .phead .spacer{flex:1}
   .btn{display:inline-flex;align-items:center;gap:7px;border:1px solid transparent;border-radius:8px;background:var(--brand);color:#fff;padding:8px 13px;font-size:13px;font-weight:600;box-shadow:var(--shadow)}
@@ -89,17 +85,17 @@
   .btn.ghost:hover{background:#fbfaf8;color:var(--ink)}
   h2{font-size:14.5px;font-weight:650;letter-spacing:-.01em;margin:0}
   .card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
-  .card .h{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line2)}
+  .card .h{display:flex;align-items:center;gap:10px;padding:18px 22px;border-bottom:1px solid var(--line2)}
   .card .h .sub{font-size:12.5px;color:var(--muted)}
   .card .h .spacer{flex:1}
-  .card .b{padding:16px 18px}
+  .card .b{padding:20px 22px}
   .muted{color:var(--muted)}
   .sub{font-size:12.5px;color:var(--muted)}
   /* grids */
-  .cols{display:grid;grid-template-columns:minmax(0,1fr) 322px;gap:18px;align-items:stretch}
-  .r2{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
-  .r3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .stack{display:flex;flex-direction:column;gap:16px}
+  .cols{display:grid;grid-template-columns:minmax(0,1fr) 322px;gap:24px;align-items:stretch}
+  .r2{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+  .r3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .stack{display:flex;flex-direction:column;gap:24px}
   /* today */
   .hero{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:0}
   .hero .l{padding:20px 22px;border-right:1px solid var(--line2)}
@@ -125,10 +121,10 @@
   .kpi .f{font-size:12px;color:var(--faint)}
   /* table */
   table{width:100%;border-collapse:separate;border-spacing:0}
-  thead th{text-align:left;font-size:11.5px;font-weight:600;color:var(--faint);letter-spacing:.02em;padding:10px 18px;border-bottom:1px solid var(--line2);background:#fcfbf9}
+  thead th{text-align:left;font-size:11.5px;font-weight:600;color:var(--faint);letter-spacing:.02em;padding:12px 22px;border-bottom:1px solid var(--line2);background:#fcfbf9}
   thead th:first-child{border-top-left-radius:12px}
   thead th:last-child{border-top-right-radius:12px}
-  tbody td{padding:12px 18px;border-bottom:1px solid var(--line2);font-size:13.5px;vertical-align:middle}
+  tbody td{padding:15px 22px;border-bottom:1px solid var(--line2);font-size:13.5px;vertical-align:middle}
   tbody tr:hover td{background:#fbfaf7}
   tbody tr:last-child td{border-bottom:0}
   .who{display:flex;align-items:center;gap:10px}
@@ -264,7 +260,7 @@
   .perm .ico{color:var(--brand);width:15px;height:15px;margin-top:2px}
 
   /* mail client */
-  .mail{display:grid;grid-template-columns:196px 348px minmax(0,1fr);background:#fff;border:0;border-radius:0;box-shadow:none;overflow:hidden;height:calc(100vh - 56px);min-height:480px}
+  .mail{display:grid;grid-template-columns:196px 348px minmax(0,1fr);background:#fff;border:0;border-radius:0;box-shadow:none;overflow:hidden;height:calc(100vh - 110px);min-height:480px}
   .mfold{border-right:1px solid var(--line2);background:#fcfbf9;padding:12px 10px;overflow:auto}
   .mfold .flbl{font-size:11px;letter-spacing:.03em;color:var(--faint);padding:10px 10px 6px;font-weight:650}
   .mfold button{display:flex;align-items:center;gap:9px;width:100%;border:0;background:transparent;border-radius:8px;padding:8px 10px;font-size:13.5px;color:var(--ink2);text-align:left}
@@ -345,12 +341,12 @@
   .toast.on{opacity:1;transform:translateX(-50%)}
 
   /* today, action first */
-  .greet{margin-bottom:20px}
-  .greet h1{font-size:26px;letter-spacing:-.025em;font-weight:650;margin:0}
-  .greet .line{font-size:14px;color:var(--muted);margin-top:4px}
+  .greet{margin-bottom:28px}
+  .greet h1{font-size:28px;letter-spacing:-.028em;font-weight:650;margin:0;line-height:1.15}
+  .greet .line{font-size:14px;color:var(--muted);margin-top:6px}
   .greet .who{color:var(--ink)}
   .sampleLine{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--amber);background:var(--ambers);border:1px solid #f0e3c7;border-radius:999px;padding:4px 11px;margin-top:10px}
-  .arow{display:flex;align-items:flex-start;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line2)}
+  .arow{display:flex;align-items:flex-start;gap:12px;padding:18px 22px;border-bottom:1px solid var(--line2)}
   .arow:last-of-type{border-bottom:0}
   .arow .hd{display:flex;align-items:flex-start;gap:9px}
   .arow .pip{width:7px;height:7px;border-radius:50%;margin-top:6px;flex:0 0 auto}
@@ -364,16 +360,16 @@
   .ch.bad{color:var(--red);background:var(--reds)}
   .ch.ok{color:var(--green);background:var(--greens)}
   .arow .acts{display:flex;gap:7px;flex:0 0 auto;align-items:center}
-  .afoot{display:flex;align-items:center;gap:10px;padding:12px 18px;background:#fcfbf9;border-top:1px solid var(--line2)}
+  .afoot{display:flex;align-items:center;gap:10px;padding:14px 22px;background:#fcfbf9;border-top:1px solid var(--line2)}
   .afoot .s{font-size:12.5px;color:var(--muted);margin-right:auto}
-  .miniStat{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--line2)}
+  .miniStat{display:flex;align-items:center;gap:11px;padding:14px 0;border-bottom:1px solid var(--line2)}
   .miniStat:last-child{border-bottom:0}
   .miniStat .ic{width:30px;height:30px;border-radius:8px;background:var(--brands);color:var(--brand2);display:grid;place-items:center;flex:0 0 auto}
   .miniStat .g{flex:1}
   .miniStat .k{font-size:12.5px;color:var(--muted)}
   .miniStat .v{font-size:15px;font-weight:650;letter-spacing:-.01em}
   .agenda{display:flex;flex-direction:column}
-  .agenda .a{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line2);font-size:13.5px}
+  .agenda .a{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line2);font-size:13.5px}
   .agenda .ch{white-space:nowrap;flex:0 0 auto}
   .agenda .a:last-child{border-bottom:0}
   .agenda .d{width:74px;flex:0 0 74px;color:var(--muted);font-size:12.5px}
@@ -412,9 +408,6 @@
   .menuBtn{display:none}
   @media (max-width:1080px){
     .menuBtn{display:grid}
-    .conv .proof{display:none}
-    .conv .reply{display:none}
-    .conv .sep{display:none}
     .side{position:fixed;top:0;bottom:0;left:0;height:100vh;z-index:70;display:flex;transform:translateX(-100%);transition:transform .18s ease;box-shadow:12px 0 30px rgba(23,24,26,.12)}
     .side.open{transform:none}
     .sideScrim{position:fixed;inset:0;background:rgba(23,24,26,.3);z-index:65;display:none}
@@ -453,7 +446,7 @@
     .hero{grid-template-columns:1fr}
     .hero .l{border-right:0;border-bottom:1px solid var(--line2)}
     .r2,.r3,.cols{grid-template-columns:1fr}
-    .mail{grid-template-columns:1fr;height:calc(100vh - 56px)}
+    .mail{grid-template-columns:1fr;height:calc(100vh - 110px)}
     .mfold,.mlist{display:none}
     .qcard2{width:100%}
     .zpanel{width:96vw}
@@ -479,22 +472,19 @@
       backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.05);gap:8px}
     .menuBtn{display:grid;border:0;background:transparent;width:38px;height:38px;color:var(--ink)}
     .navTitle{display:block;font-size:16px;font-weight:600;letter-spacing:-.02em}
-    .conv{padding:6px 10px;font-size:11.5px;gap:5px}
-    .conv .tag{font-size:10.5px;padding:2px 5px;letter-spacing:.02em}
-    .conv a.cta{font-size:12px;padding:6px 10px}
-    .conv .desk{display:none}
-    .conv .mob{display:inline}
-    .conv a.cta{width:100%;justify-content:center;text-align:center;white-space:normal}
-    .namestrip{padding:8px 12px;gap:7px}
+    .conv{padding:0 16px;gap:10px;height:54px}
+    .conv .tag{font-size:10px;letter-spacing:.08em}
+    .conv a.cta{min-height:44px}
+    .namestrip{padding:10px 16px;gap:8px}
     .namestrip input{flex:1 1 100%;max-width:none}
-    .main{padding:8px 16px 96px;max-width:100%}
-    .phead{margin-bottom:14px}
+    .main{padding:20px 16px 96px;max-width:100%}
+    .phead{margin-bottom:20px}
     .phead h1{font-size:28px;letter-spacing:-.03em}
     .phead .d{font-size:13px}
     .phead .btn{padding:11px 14px;font-size:13.5px;border-radius:12px}
     .greet h1{font-size:28px}
     .card{border-radius:16px;box-shadow:none}
-    .card .h{padding:14px 16px}
+    .card .h{padding:16px 18px}
     .card .h h2{font-size:15px}
     .kpi{border-radius:14px}
     /* floating action button */
@@ -537,7 +527,7 @@
   }
   @media (max-width:700px){
     /* action rows stack: text first, buttons underneath, never side by side */
-    .arow{flex-direction:column;align-items:stretch;gap:0;padding:16px 16px 14px}
+    .arow{flex-direction:column;align-items:stretch;gap:0;padding:18px 18px 16px}
     .arow .t{font-size:15.5px;line-height:1.35}
     .arow .s{font-size:13px;margin-top:4px;line-height:1.45}
     .arow .chips2{margin-top:9px}
@@ -545,7 +535,7 @@
     .arow .acts .btn{flex:1 1 auto;justify-content:center;padding:11px 14px;border-radius:11px}
     .arow .acts .rowbtn{flex:0 0 auto;padding:11px 14px;border-radius:11px}
     .arow .hd{gap:8px}
-    .card .h{flex-wrap:wrap;gap:8px;padding-right:16px}
+    .card .h{flex-wrap:wrap;gap:8px;padding-right:18px}
     .card .h .sub{width:100%;order:3}
     .phead .actions{width:100%;justify-content:flex-start;flex-wrap:wrap}
     .greet h1{font-size:23px}
@@ -563,7 +553,7 @@
     .card tbody td:last-child{padding-bottom:12px}
     .card table tbody tr td .money{text-align:right}
     /* mail: list first, reading pane opens as a second screen */
-    .mail{display:block;height:calc(100vh - 56px)}
+    .mail{display:block;height:calc(100vh - 110px)}
     .mfold,.mlist{display:none}
     .mread{display:none;height:100%}
     .mail.reading .mread{display:flex}
@@ -574,7 +564,9 @@
   }
   @media (max-width:1080px){
     .side{display:none}
-    .main{padding:20px 16px 60px}
+    .conv{padding:0 16px}
+    .namestrip{padding:10px 16px}
+    .main{padding:32px 16px 72px}
     .cols,.r2,.r3,.kpis,.hero{grid-template-columns:1fr}
     .hero .l{border-right:0;border-bottom:1px solid var(--line2)}
     .search{display:none}
@@ -633,13 +625,13 @@
   .skip{position:fixed;left:16px;top:-64px;z-index:300;background:var(--brand);color:#fff;padding:10px 14px;border-radius:8px;font-weight:600;font-size:13px;text-decoration:none;box-shadow:0 6px 20px rgba(23,24,26,.2);transition:top .15s ease}
   .skip:focus{top:12px}
   /* readiness card */
-  .readyCard{margin-bottom:18px}
-  .rcHead{display:flex;align-items:flex-start;gap:16px;padding:16px 18px 0}
+  .readyCard{margin-bottom:26px}
+  .rcHead{display:flex;align-items:flex-start;gap:16px;padding:20px 22px 0}
   .rcHead h2{font-size:15px}
   .rcHead .sub{margin-top:2px}
   .auditBadge{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--green);background:var(--greens);border:1px solid #d3e6dd;border-radius:999px;padding:4px 10px;white-space:nowrap}
   .auditBadge .hdot{width:6px;height:6px;border-radius:50%;background:var(--green);flex:0 0 auto}
-  .rcGrid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr) minmax(0,1.3fr) minmax(0,.8fr);gap:18px;align-items:center;padding:16px 18px 14px;border-bottom:1px solid var(--line2)}
+  .rcGrid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr) minmax(0,1.3fr) minmax(0,.8fr);gap:24px;align-items:center;padding:20px 22px}
   .rcMetric{display:flex;align-items:center;gap:13px;min-width:0}
   .ringWrap{position:relative;width:56px;height:56px;flex:0 0 auto}
   .ring{width:56px;height:56px;transform:rotate(-90deg)}
@@ -667,10 +659,6 @@
   .blkRow .pill{flex:0 0 auto}
   .rcMoney{min-width:0}
   .rcMoney .v{font-size:19px;font-weight:650;letter-spacing:-.02em;margin:2px 0 1px;font-variant-numeric:tabular-nums}
-  .rcFoot{display:flex;align-items:center;gap:12px;padding:10px 18px;background:#fcfbf9}
-  .rcFoot .s{font-size:11.5px;color:var(--muted);margin-right:auto;line-height:1.45}
-  .rcFoot .rowbtn{white-space:nowrap}
-  .rcFoot .rowbtn .ico{width:13px;height:13px;vertical-align:-2px;margin-right:5px}
   /* money card */
   .moneyHero{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
   .moneyHero .v{font-size:24px;font-weight:650;letter-spacing:-.025em;color:var(--ink)}
@@ -790,12 +778,10 @@
     .conv a.cta{min-height:44px;padding:10px 12px}
     .btn,.rowbtn{min-height:40px}
     .arow .acts .btn{min-height:44px}
-    .rcHead{flex-wrap:wrap;gap:8px;padding:14px 16px 0}
+    .rcHead{flex-wrap:wrap;gap:10px;padding:18px 18px 0}
     .auditBadge{margin-left:0}
-    .rcGrid{padding:14px 16px;gap:14px}
-    .rcFoot{flex-wrap:wrap;gap:8px;padding:10px 16px}
-    .rcFoot .rowbtn{width:100%;padding:10px}
-    .readyCard{margin-bottom:14px}
+    .rcGrid{padding:18px;gap:18px}
+    .readyCard{margin-bottom:20px}
     .docActs{flex-wrap:wrap;justify-content:flex-end}
     .blkRow{padding:9px 10px;min-height:44px}
     .moneyHero .v{font-size:22px}
@@ -910,27 +896,17 @@
       <div class="search"><svg class="ico"><use href="#i-search"/></svg><input id="qTop" type="search" placeholder="Search students" aria-label="Search students"></div>
     </div>
 
-    <!-- conversion strip (P0-1): under the top bar, on all 7 sections, never scrolls away.
-         On a return visit the copy inside #welcomeStrip replaces the default copy in place. -->
+    <!-- quiet conversion row: one disclosure, one CTA, a hairline underneath -->
     <div class="conv" id="convStrip">
       <span class="tag">Demo · sample data</span>
-      <span class="say desk" id="defaultSay">This is the enrollment workspace we would build for <b class="cs">your school</b>.</span>
-      <span class="say mob" id="defaultSayM">— workspace for <b class="cs">your school</b></span>
-      <span class="sep desk" id="defaultSep1">·</span>
-      <span id="welcomeStrip" class="hidden">
-        <span class="say desk" id="welcomeSay">Welcome back. You looked at this demo before. Want it running for your next cohort?</span>
-        <span class="say mob" id="welcomeSayM">Welcome back — want it running for your next cohort?</span>
-      </span>
-      <a class="cta" id="convCta" href="mailto:agency@social-traffic.ca?subject=Enrollment%20workspace%20for%20%7BSchool%7D" data-cta="talk-to-me">Email me about <span class="cs">your school</span> →</a>
-      <span class="sep desk" id="defaultSep2">·</span>
-      <span class="reply desk" id="defaultReply">or just reply to my email</span>
-      <span class="proof" id="defaultProof">Built for CNA schools · 5,000 students enrolled through it</span>
-      <span class="reply desk" id="welcomeReply">· or tell me what's missing and I'll adjust it for your school.</span>
+      <span id="welcomeStrip" class="hidden">Welcome back</span>
+      <span class="spacer"></span>
+      <a class="cta" id="convCta" href="mailto:agency@social-traffic.ca?subject=Enrollment%20workspace%20for%20%7BSchool%7D" data-cta="talk-to-me">Email me →</a>
     </div>
 
-    <!-- name after value (P0-2): school-only links get this inline, dismissible prompt -->
+    <!-- name after value (P0-2): inline, dismissible, shown after the first section view -->
     <div class="namestrip hidden" id="nameStrip">
-      <span class="nq">Preview for <b id="nameStripSchool">your school</b> — whose name should I put on it?</span>
+      <span class="nq">Preview for <b id="nameStripSchool">your school</b></span>
       <input id="nameStripInput" placeholder="Your name" autocomplete="name" aria-label="Your name">
       <button class="btn" id="nameStripOpen">Open</button>
       <button class="btn ghost" id="nameStripSkip">skip</button>
@@ -949,7 +925,7 @@
           <div class="rcHead">
             <div>
               <h2 id="readyTitle">Monday start readiness</h2>
-              <div class="sub">Evening and day cohort &middot; starts Mon 27 Oct &middot; 9 of 14 seats filled</div>
+              <div class="sub">Monday cohort</div>
             </div>
             <div class="auditBadge"><span class="hdot"></span>HHSC audit trail current</div>
           </div>
@@ -962,7 +938,7 @@
                 </svg>
                 <div class="ringTxt"><b id="ringPct">92%</b><span>approved</span></div>
               </div>
-              <div class="rcMeta"><div class="k">Clinical documents</div><div class="v"><span id="docApproved">58</span> of <span id="docRequired">63</span> approved</div><div class="s">for Monday starters</div></div>
+              <div class="rcMeta"><div class="k">Clinical documents</div><div class="v"><span id="docApproved">58</span> of <span id="docRequired">63</span> approved</div></div>
             </div>
             <div class="rcMetric">
               <svg class="cohortBar" id="cohortBar" viewBox="0 0 88 26" preserveAspectRatio="none" role="img" aria-label="7 of 9 students cleared to start Monday"></svg>
@@ -975,25 +951,20 @@
             <div class="rcMoney">
               <div class="k">Outstanding before Monday</div>
               <div class="v" id="rcOutstanding">$4,550</div>
-              <div class="s"><span id="rcOwing">5</span> students owe &middot; <span id="rcOutstandingAll">$5,850</span> school-wide</div>
+              <div class="s"><span id="rcOwing">5</span> students owe</div>
             </div>
-          </div>
-          <div class="rcFoot">
-            <span class="s">HHSC audit trail: <span id="auditAgreements">12</span> of 12 agreements signed &middot; <span id="auditPayments">21</span> payment records &middot; <span id="auditDocs">78</span> of 84 clinical documents approved</span>
-            <button class="rowbtn" data-goto="students">Open student files</button>
           </div>
         </div>
 
         <div class="cols">
           <div class="stack">
             <div class="card">
-              <div class="h"><h2>Before Monday</h2><span class="sub" id="bmSub">2 students and 2 questions</span><div class="spacer"></div><button class="rowbtn" id="printThursday"><svg class="ico"><use href="#i-print"/></svg>Print Thursday list</button></div>
+              <div class="h"><h2>Before Monday</h2><div class="spacer"></div><button class="rowbtn" id="printThursday"><svg class="ico"><use href="#i-print"/></svg>Print Thursday list</button></div>
               <div id="bmRows"></div>
-              <div class="afoot"><span class="s" id="bmFoot">One reminder covers both students and both questions.</span></div>
             </div>
 
             <div class="card">
-              <div class="h"><h2>This week</h2><span class="sub">what happens next</span></div>
+              <div class="h"><h2>This week</h2></div>
               <div class="b">
                 <div class="agenda">
                   <div class="a"><div class="d">Sunday</div><div class="x">Infection control quiz closes &middot; 14 of 18 taken</div><span class="ch ok">on track</span></div>
@@ -1006,7 +977,7 @@
 
           <div class="stack">
             <div class="card">
-              <div class="h"><h2>Monday's class</h2><span class="sub" id="mondaySub">starts Mon 27 Oct</span></div>
+              <div class="h"><h2>Monday's class</h2></div>
               <div class="b">
                 <div class="miniStat"><span class="ic"><svg class="ico"><use href="#i-users"/></svg></span><div class="g"><div class="k">Students starting</div><div class="v"><span id="mStart">9</span> of 14 seats</div></div></div>
                 <div class="miniStat"><span class="ic"><svg class="ico"><use href="#i-doc"/></svg></span><div class="g"><div class="k">Files ready</div><div class="v"><span id="mFiles">7</span> of <span id="mStart2">9</span> complete</div></div></div>
@@ -1016,7 +987,7 @@
             </div>
 
             <div class="card" id="moneyCard">
-              <div class="h"><h2>Money this week</h2><span class="sub" id="moneySub">21 payments recorded</span></div>
+              <div class="h"><h2>Money this week</h2></div>
               <div class="b">
                 <div class="moneyHero"><span class="v" id="moneyOutstanding">$5,850</span><span class="s">still to collect, school-wide</span></div>
                 <div class="segTrack" id="moneyBar" role="img" aria-label="64% of tuition collected"><i id="moneyBarFill" style="width:64%"></i></div>
@@ -1552,11 +1523,10 @@
     if($("ringArc")) $("ringArc").style.strokeDashoffset=String(150.8*(1-m.pct/100));
     setTxt("docApproved",m.approved); setTxt("docRequired",m.required);
     setTxt("clearedOk",m.clearedStart); setTxt("clearedTotal",m.starting);
-    setTxt("blockedShort",m.blocked.length+(m.blocked.length===1?" blocked":" blocked"));
+    setTxt("blockedShort",m.blocked.length+" blocked");
     if($("blockedCount")) $("blockedCount").textContent=m.blocked.length+(m.blocked.length===1?" student":" students");
     setTxt("rcOutstanding",money(m.outstandingMonday)); setTxt("rcOwing",m.owingMonday);
     setTxt("rcOutstandingAll",money(m.outstandingAll));
-    setTxt("auditAgreements",m.agreements); setTxt("auditPayments",m.paymentCount); setTxt("auditDocs",m.auditDocs);
     if($("cohortBar")){
       var bar="", bi=0;
       S.filter(function(x){return x.starts==="27 Oct";}).forEach(function(x){
@@ -1576,7 +1546,6 @@
         }).join("");
       }
     }
-    setTxt("bmSub",m.blocked.length+" student"+(m.blocked.length===1?"":"s")+" and 2 questions");
     var rows="";
     m.blocked.forEach(function(x){
       i=S.indexOf(x); n=openDocs(x).length; owed=owedOf(x);
@@ -1599,7 +1568,6 @@
       '<div class="chips2"><span class="ch warn">Jordan Alvarez</span><span class="ch warn">Nia Fontaine</span></div></div>'+
       '<div class="acts"><button class="btn ghost" data-goto="messages">Open messages</button></div></div>';
     if($("bmRows")) $("bmRows").innerHTML=rows;
-    setTxt("bmFoot",m.blocked.length?"One reminder covers both students and both questions.":"No document blockers before Monday. Two questions are waiting in Messages.");
     setTxt("mStart",m.starting); setTxt("mStart2",m.starting); setTxt("mFiles",m.clearedStart);
     setTxt("mDue",money(m.outstandingMonday));
     setTxt("agendaOpen",m.openMonday+" file"+(m.openMonday===1?"":"s")+" open");
@@ -1610,7 +1578,7 @@
     setTxt("clsWeekendSeats",12-weekend);
     setTxt("agendaStart",evening+day); setTxt("agendaWeekend",weekend); setTxt("agendaSeats",12-weekend);
     setTxt("moneyOutstanding",money(m.outstandingAll)); setTxt("moneyCollected",money(m.collected));
-    setTxt("moneyDue",money(m.outstandingAll)); setTxt("moneySub",m.paymentCount+" payments recorded");
+    setTxt("moneyDue",money(m.outstandingAll));
     setTxt("planCount",m.plans); setTxt("planTotal",m.total);
     var ratio=Math.round(m.collected/(m.collected+m.outstandingAll)*100);
     if($("moneyBarFill")) $("moneyBarFill").style.width=ratio+"%";
@@ -2060,38 +2028,11 @@
     Array.prototype.forEach.call(document.querySelectorAll(".cs"), function(el){ el.textContent=displaySchool(); });
   }
   function renderStrips(){
-    var back=stripMode==="back";
-    ["defaultSay","defaultSayM","defaultSep1","defaultSep2","defaultReply","defaultProof"].forEach(function(id){
-      var el=$(id); if(el) el.classList.toggle("hidden", back);
-    });
-    $("welcomeStrip").classList.toggle("hidden", !back);
-    if($("welcomeReply")) $("welcomeReply").classList.toggle("hidden", !back);
+    $("welcomeStrip").classList.toggle("hidden", stripMode!=="back");
     var cta=$("convCta");
-    if(back){
-      var prof=prevProfile;
-      var first=((prof&&prof.o)||oname||"").split(" ")[0];
-      var school=displaySchool();
-      var iso=(prof&&prof.seen)||prevSeen;
-      var when="";
-      try{ var d=new Date(iso); if(iso&&!isNaN(d.getTime())) when=" on "+d.toLocaleDateString(undefined,{day:"numeric",month:"short"}); }catch(e){}
-      var desk=$("welcomeSay"), mob=$("welcomeSayM");
-      if(desk){
-        desk.textContent="";
-        var b=document.createElement("b");
-        b.textContent=first?"Welcome back, "+first+".":"Welcome back.";
-        desk.appendChild(b);
-        desk.appendChild(document.createTextNode(" You looked at this for "+school+when+". Want it running for your next cohort?"));
-      }
-      if(mob) mob.textContent=(first?"Welcome back, "+first+". ":"Welcome back. ")+"Want it running for your next cohort?";
-      cta.textContent="Reply 'set it up' →";
-    }else{
-      cta.textContent="";
-      cta.appendChild(document.createTextNode("Email me about "));
-      var cs=document.createElement("span"); cs.className="cs"; cta.appendChild(cs);
-      cta.appendChild(document.createTextNode(" →"));
-    }
-    fillSchoolSpans();
+    cta.textContent=BOOKING_URL?"Book a time →":"Email me →";
     cta.href=ctaHref();
+    fillSchoolSpans();
     var ns=$("nameStripSchool"); if(ns) ns.textContent=displaySchool();
   }
   function applyOwner(){
