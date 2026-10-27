@@ -294,12 +294,6 @@
   @media (max-width:1100px){.mail{grid-template-columns:1fr}.mfold,.mlist{display:none}}
 
 
-  /* card zoom */
-  .card,.mail{position:relative}
-  .zoombtn{position:absolute;top:8px;right:8px;width:28px;height:28px;border:1px solid var(--line);background:#fff;border-radius:7px;display:grid;place-items:center;color:var(--muted);opacity:0;transition:opacity .12s;z-index:6;box-shadow:var(--shadow)}
-  .zoombtn:hover{color:var(--ink);border-color:#cdd6d1}
-  .card:hover .zoombtn,.mail:hover .zoombtn,.zoombtn:focus-visible{opacity:1}
-  @media (hover:none){.zoombtn{opacity:1}}
   .zmodal{position:fixed;inset:0;background:rgba(23,24,26,.42);z-index:80;display:none;align-items:center;justify-content:center;padding:24px}
   .zmodal.on{display:flex}
   .zpanel{background:#fff;border-radius:14px;width:min(1080px,94vw);max-height:88vh;height:auto;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(23,24,26,.22)}
@@ -312,7 +306,6 @@
   .zbody .hero .big{font-size:28px}
   .zbody .qtext{font-size:24px}
   .zbody .opt2{padding:14px 16px;font-size:15px}
-  .zbody .zoombtn{display:none}
 
   .emodal{position:fixed;inset:0;background:rgba(23,24,26,.4);z-index:85;display:none;align-items:center;justify-content:center;padding:20px}
   .emodal.on{display:flex}
@@ -565,7 +558,6 @@
     .arow .hd{gap:8px}
     .card .h{flex-wrap:wrap;gap:8px;padding-right:16px}
     .card .h .sub{width:100%;order:3}
-    .zoombtn{display:none}
     .phead .actions{width:100%;justify-content:flex-start;flex-wrap:wrap}
     .greet h1{font-size:23px}
     .agenda .a{align-items:center}
@@ -668,7 +660,6 @@
       <div class="topAvatar" id="topAvatar" aria-hidden="true">S</div>
       <div class="spacer"></div>
       <div class="search"><svg class="ico"><use href="#i-search"/></svg><input id="qTop" placeholder="Search students"></div>
-      <button class="iconbtn" aria-label="Notifications"><svg class="ico"><use href="#i-bell"/></svg></button>
       <span class="demo">Demo · sample data</span>
     </div>
 
@@ -714,7 +705,7 @@
 
               <div class="afoot">
                 <span class="s">One reminder covers both students and both questions.</span>
-                <button class="rowbtn">Send all reminders</button>
+                
               </div>
             </div>
 
@@ -741,15 +732,6 @@
               </div>
             </div>
 
-            <div class="card">
-              <div class="h"><h2>Quick actions</h2></div>
-              <div class="tpl">
-                <button data-goto="students" data-action="enroll"><svg class="ico"><use href="#i-plus"/></svg>Enroll a student</button>
-                <button data-goto="classes"><svg class="ico"><use href="#i-cal"/></svg>Add a class</button>
-                <button data-goto="messages"><svg class="ico"><use href="#i-mail2"/></svg>Send a message</button>
-                <button data-goto="quizzes"><svg class="ico"><use href="#i-check"/></svg>Set a quiz</button>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -776,7 +758,7 @@
 
       <!-- CLASSES -->
       <section data-sec="classes" class="hidden">
-        <div class="phead"><div><h1>Classes</h1><div class="d">Three classes running</div></div><div class="spacer"></div><button class="btn ghost"><svg class="ico"><use href="#i-plus"/></svg>Add a class</button></div>
+        <div class="phead"><div><h1>Classes</h1><div class="d">Three classes running</div></div><div class="spacer"></div></div>
         <div class="r3">
           <div class="card klass"><div class="b">
             <div class="k"><svg class="ico" style="width:15px;height:15px;color:var(--brand)"><use href="#i-cal"/></svg>Evening class</div>
@@ -822,7 +804,7 @@
 
       <!-- QUIZZES -->
       <section data-sec="quizzes" class="hidden">
-        <div class="phead"><div><h1>Quizzes</h1><div class="d">Short practice tests between lessons</div></div><div class="spacer"></div><button class="btn"><svg class="ico"><use href="#i-plus"/></svg>New quiz</button></div>
+        <div class="phead"><div><h1>Quizzes</h1><div class="d">Short practice tests between lessons</div></div><div class="spacer"></div></div>
         <div class="qtabs" id="qtabs">
           <button class="on" data-qtab="list">All quizzes</button>
           <button data-qtab="student">What a student sees</button>
@@ -978,15 +960,15 @@
 
       <!-- TEAM -->
       <section data-sec="team" class="hidden">
-        <div class="phead"><div><h1>Team</h1><div class="d">Who can see and do what</div></div><div class="spacer"></div><button class="btn"><svg class="ico"><use href="#i-plus"/></svg>Invite someone</button></div>
+        <div class="phead"><div><h1>Team</h1><div class="d">Who can see and do what</div></div><div class="spacer"></div></div>
         <div class="r2">
           <div class="card">
             <div class="h"><h2>People</h2></div>
             <table><thead><tr><th>Person</th><th>Role</th><th></th></tr></thead><tbody>
-              <tr><td><div class="who"><div class="av" id="teamAv">MV</div><div><div class="nm" id="teamName">Marisol Vega</div><div class="s2" id="teamMail">marisol@cnatraininginstitute.org</div></div></div></td><td data-label="Role"><span class="role owner">Owner</span></td><td><button class="rowbtn">Manage</button></td></tr>
-              <tr><td><div class="who"><div class="av">LA</div><div><div class="nm">Lisa Alvarez</div><div class="s2">lisa@cnatraininginstitute.org</div></div></div></td><td data-label="Role"><span class="role admin">Administrator</span></td><td><button class="rowbtn">Manage</button></td></tr>
-              <tr><td><div class="who"><div class="av">MB</div><div><div class="nm">Michael Boateng</div><div class="s2">michael@cnatraininginstitute.org</div></div></div></td><td data-label="Role"><span class="role teacher">Teacher</span></td><td><button class="rowbtn">Manage</button></td></tr>
-              <tr><td><div class="who"><div class="av">JA</div><div><div class="nm">Jordan Alvarez</div><div class="s2">student</div></div></div></td><td data-label="Role"><span class="role student">Student</span></td><td><button class="rowbtn">Manage</button></td></tr>
+              <tr><td><div class="who"><div class="av" id="teamAv">MV</div><div><div class="nm" id="teamName">Marisol Vega</div><div class="s2" id="teamMail">marisol@cnatraininginstitute.org</div></div></div></td><td data-label="Role"><span class="role owner">Owner</span></td><td></td></tr>
+              <tr><td><div class="who"><div class="av">LA</div><div><div class="nm">Lisa Alvarez</div><div class="s2">lisa@cnatraininginstitute.org</div></div></div></td><td data-label="Role"><span class="role admin">Administrator</span></td><td></td></tr>
+              <tr><td><div class="who"><div class="av">MB</div><div><div class="nm">Michael Boateng</div><div class="s2">michael@cnatraininginstitute.org</div></div></div></td><td data-label="Role"><span class="role teacher">Teacher</span></td><td></td></tr>
+              <tr><td><div class="who"><div class="av">JA</div><div><div class="nm">Jordan Alvarez</div><div class="s2">student</div></div></div></td><td data-label="Role"><span class="role student">Student</span></td><td></td></tr>
             </tbody></table>
           </div>
           <div class="card">
@@ -1004,13 +986,6 @@
   </div>
 </div>
 
-
-<div class="zmodal" id="zmodal" aria-hidden="true">
-  <div class="zpanel" role="dialog" aria-modal="true" aria-labelledby="zTitle">
-    <div class="zhead"><span class="t" id="zTitle">Card</span><button class="x" id="zClose" aria-label="Close"><svg class="ico" style="width:15px;height:15px"><use href="#i-plus"/></svg></button></div>
-    <div class="zbody" id="zBody"></div>
-  </div>
-</div>
 
 <div class="emodal" id="emodal">
   <div class="epanel" role="dialog" aria-modal="true" aria-labelledby="eTitle">
@@ -1246,32 +1221,6 @@
 
 
   // zoom: every card can be opened larger, for a prospect reading on a phone
-  function zoomTitle(card){
-    var h=card.querySelector("h2, .t, .k, h3");
-    return h? h.textContent.trim() : "Details";
-  }
-  function addZoomButtons(){
-    Array.prototype.forEach.call(document.querySelectorAll(".card, .mail"),function(card){
-      if(card.querySelector(":scope > .zoombtn")) return;
-      var b=document.createElement("button");
-      b.className="zoombtn"; b.type="button";
-      b.setAttribute("aria-label","Enlarge this card");
-      b.title="Enlarge";
-      b.innerHTML='<svg class="ico" style="width:14px;height:14px"><use href="#i-expand"/></svg>';
-      b.addEventListener("click",function(ev){ev.stopPropagation();openZoom(card);});
-      card.appendChild(b);
-    });
-  }
-  function openZoom(card){
-    var clone=card.cloneNode(true);
-    var zb=clone.querySelector(".zoombtn"); if(zb) zb.remove();
-    clone.style.boxShadow="none";
-    document.getElementById("zBody").innerHTML="";
-    document.getElementById("zBody").appendChild(clone);
-    document.getElementById("zTitle").textContent=zoomTitle(card);
-    document.getElementById("zmodal").classList.add("on");
-  }
-  function closeZoom(){document.getElementById("zmodal").classList.remove("on");}
 
 
 
@@ -1441,9 +1390,8 @@
     if(t.id==="menuSheet"){ closeMenu(); return; }
     if(t.closest&&t.closest(".phead")===null && /Print|Export/i.test(t.textContent)){ if(/Export/i.test(t.textContent)){exportCsv();return;} window.print();return; }
     if(/Enroll a student/.test(t.textContent.trim())){ openEnroll(); return; }
-    if(/^(Send reminder|Send a message|Add a class|New quiz|Invite someone|Manage|Write|Record a payment)$/.test(t.textContent.trim())){ toast("Demo: this is where " + t.textContent.trim().toLowerCase() + " would happen."); return; }
-    if(t.id==="zClose"){closeZoom();return;}
-    if(t.hasAttribute("data-mbox")){setMbox(t.getAttribute("data-mbox"));return;}
+    if(/^(Send reminder|Send a message|Write)$/.test(t.textContent.trim())){ toast("Demo: this is where " + t.textContent.trim().toLowerCase() + " would happen."); return; }
+        if(t.hasAttribute("data-mbox")){setMbox(t.getAttribute("data-mbox"));return;}
     if(t.hasAttribute("data-msg")){curMsg=t.getAttribute("data-msg");MAIL[curMsg].unread=false;renderMail();$("mail").classList.add("reading");return;}
     if(t.id==="backToInbox"){$("mail").classList.remove("reading");return;}
     if(t.hasAttribute("data-tpl")){$("replyBox").value=TPL[t.getAttribute("data-tpl")];$("replyBox").focus();return;}
@@ -1476,8 +1424,7 @@
 
   $("sideScrim").addEventListener("click",function(){document.querySelector(".side").classList.remove("open");this.classList.remove("on");});
   $("scrim").addEventListener("click",closeDrawer);
-  $("zmodal").addEventListener("click",function(e){if(e.target===this)closeZoom();});
-  document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeDrawer();closeZoom();closeEnroll();closeMenu();}});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeDrawer();closeEnroll();closeMenu();}});
 
   (function stamp(){
     var el=document.getElementById("buildStamp");
@@ -1487,13 +1434,12 @@
       el.textContent="Updated "+d.toLocaleDateString(undefined,{month:"short",day:"numeric"})+" "+d.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"});
     }catch(e){}
   })();
-  setGreeting(); bootBrand(); logHit("view"); renderStudents(); renderMoney(); renderMail(); addZoomButtons();
+  setGreeting(); bootBrand(); logHit("view"); renderStudents(); renderMoney(); renderMail();
   var h=(location.hash||"").replace("#","");
   var sm=h.match(/^students-(\d+)$/);
   if(sm){ go("students"); openDrawer(Number(sm[1])); }
   else if(h==="enroll"){ go("students"); openEnroll(); }
   else if(h==="menu"){ go("today"); setTimeout(openMenu, 80); }
-  else if(h==="zoom"){ go("today"); setTimeout(function(){var c=document.querySelector('[data-sec="today"] .card'); if(c) openZoom(c);},30); }
   else if(h.indexOf("quizzes")===0){
     go("quizzes");
     setQtab(h==="quizzes-student"?"student":(h==="quizzes-results"?"results":"list"));
