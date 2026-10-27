@@ -4,15 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
+<meta name="description" content="A live preview of the enrollment workspace Social Traffic builds for CNA schools: clinical documents, balances and HHSC-ready audit records.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f8f7f4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='8'%20fill='%2311554b'/%3E%3Cpath%20d='M9.5%2016.5l4.2%204.2%208.8-9.4'%20fill='none'%20stroke='%23ffffff'%20stroke-width='2.6'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E">
 <title>CNA Training Institute — enrollment workspace (demo)</title>
 <style>
   :root{
     --ink:#17181a; --ink2:#3b3f44; --muted:#6d7378; --faint:#98a0a5;
-    --line:#e8e6e1; --line2:#f1efea; --bg:#f8f7f4; --card:#fff; --side:#fcfbf9;
+    --line:#eae7e1; --line2:#f3f1ec; --bg:#f8f7f4; --card:#fff; --side:#fcfbf9;
     --brand:#11554b; --brand2:#0b3f38; --brands:#e8f1ee;
     --amber:#8a5a12; --ambers:#fbf2e2; --red:#953a31; --reds:#fbeeec;
     --blue:#2c5b78; --blues:#edf2f6; --grey:#f1efea; --green:#1b6142; --greens:#e8f1ee;
-    --shadow:0 1px 2px rgba(23,24,26,.04),0 1px 3px rgba(23,24,26,.03);
+    --shadow:0 1px 2px rgba(23,24,26,.035),0 1px 3px rgba(23,24,26,.025);
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box}
@@ -53,12 +57,11 @@
   .search .ico{position:absolute;left:9px;top:8.5px;color:var(--faint);width:15px;height:15px}
   .iconbtn{border:1px solid var(--line);background:#fff;border-radius:8px;height:34px;width:34px;display:grid;place-items:center;color:var(--muted)}
   .iconbtn:hover{background:#fbfaf8;color:var(--ink2)}
-  .demo{font-size:11.5px;color:var(--amber);background:var(--ambers);border:1px solid #f0e3c7;border-radius:6px;padding:4px 8px;font-weight:600}
   .main{padding:28px 32px 80px;max-width:1200px;width:100%;margin:0 auto}
   .main.flush{padding:0;max-width:none}
   /* conversion strip (P0-1): one per page, under the top bar, never scrolls away */
   .conv{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:8px 26px;background:var(--brands);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--ink2);position:sticky;top:56px;z-index:29}
-  .conv .tag{font-size:11px;font-weight:700;letter-spacing:.03em;color:var(--brand2);background:#fff;border:1px solid #cfe0d9;border-radius:5px;padding:2px 6px;white-space:nowrap}
+  .conv .tag{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--brand2);background:#fff;border:1px solid #cfe0d9;border-radius:5px;padding:2px 6px;white-space:nowrap}
   .conv .say{min-width:0}
   .conv .say b{font-weight:650;color:var(--ink)}
   .conv .sep{color:var(--faint)}
@@ -394,6 +397,7 @@
   .dh .nm{font-size:16px;font-weight:650;letter-spacing:-.015em}
   .dh .x{margin-left:auto;border:0;background:transparent;color:var(--faint);width:28px;height:28px;border-radius:7px;display:grid;place-items:center}
   .dh .x:hover{background:#f4f2ed;color:var(--ink2)}
+  .dh .x svg{transform:rotate(45deg)}
   .act-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .db{padding:16px 20px;overflow:auto}
   .ds{margin-bottom:20px}
@@ -421,7 +425,6 @@
     .phead{flex-wrap:wrap;gap:10px;flex-direction:column;align-items:stretch}
     .phead .spacer{display:none}
     .phead .btn{width:100%;justify-content:center}
-    .demo{display:none}
     .tools{flex-wrap:wrap}
     .seg{flex-wrap:wrap}
     html,body{overflow-x:hidden}
@@ -476,8 +479,7 @@
       backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.05);gap:8px}
     .menuBtn{display:grid;border:0;background:transparent;width:38px;height:38px;color:var(--ink)}
     .navTitle{display:block;font-size:16px;font-weight:600;letter-spacing:-.02em}
-    .demo{display:none}
-    .conv{padding:7px 10px;font-size:11.5px;gap:5px}
+    .conv{padding:6px 10px;font-size:11.5px;gap:5px}
     .conv .tag{font-size:10.5px;padding:2px 5px;letter-spacing:.02em}
     .conv a.cta{font-size:12px;padding:6px 10px}
     .conv .desk{display:none}
@@ -619,9 +621,223 @@
     .menuFoot{display:flex;align-items:center;gap:10px;padding:12px 20px 0;border-top:1px solid var(--line);margin:8px 14px 0}
   .menuFoot .build{margin-left:auto;font-size:11px;color:var(--faint)}
   }
+
+  /* ══ polish pass: readiness, money, resolution surfaces, states, print ══ */
+  .wfull{width:100%;justify-content:center}
+  .num,.numCol,.money,.kpi .v,.miniStat .v,.hero .r .v,.hero .big,.qstats b,.avg,.resrow .lab,.resrow .n,.moneyHero .v,.rcMoney .v,.rcMeta .v,.ringTxt b,.segLegend b,.paySummary b,.ledger .amt,.ledger .total b{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+  .numCol{text-align:right}
+  .miniStat .ic .ico{width:15px;height:15px}
+  .top .search{width:300px}
+  .shell .top .search input{background:#fbfaf8}
+  /* skip link */
+  .skip{position:fixed;left:16px;top:-64px;z-index:300;background:var(--brand);color:#fff;padding:10px 14px;border-radius:8px;font-weight:600;font-size:13px;text-decoration:none;box-shadow:0 6px 20px rgba(23,24,26,.2);transition:top .15s ease}
+  .skip:focus{top:12px}
+  /* readiness card */
+  .readyCard{margin-bottom:18px}
+  .rcHead{display:flex;align-items:flex-start;gap:16px;padding:16px 18px 0}
+  .rcHead h2{font-size:15px}
+  .rcHead .sub{margin-top:2px}
+  .auditBadge{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--green);background:var(--greens);border:1px solid #d3e6dd;border-radius:999px;padding:4px 10px;white-space:nowrap}
+  .auditBadge .hdot{width:6px;height:6px;border-radius:50%;background:var(--green);flex:0 0 auto}
+  .rcGrid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr) minmax(0,1.3fr) minmax(0,.8fr);gap:18px;align-items:center;padding:16px 18px 14px;border-bottom:1px solid var(--line2)}
+  .rcMetric{display:flex;align-items:center;gap:13px;min-width:0}
+  .ringWrap{position:relative;width:56px;height:56px;flex:0 0 auto}
+  .ring{width:56px;height:56px;transform:rotate(-90deg)}
+  .ringBg{fill:none;stroke:#ece9e2;stroke-width:5}
+  .ringFg{fill:none;stroke:var(--brand);stroke-width:5;stroke-linecap:round;stroke-dasharray:150.8;stroke-dashoffset:12;transition:stroke-dashoffset .4s cubic-bezier(.32,.72,0,1)}
+  .ringTxt{position:absolute;inset:0;display:grid;place-content:center;text-align:center;line-height:1.05}
+  .ringTxt b{font-size:13px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .ringTxt span{font-size:8.5px;color:var(--muted);letter-spacing:.01em}
+  .rcMeta{min-width:0}
+  .rcMeta .k,.rcMoney .k{font-size:12px;color:var(--muted)}
+  .rcMeta .v{font-size:14px;font-weight:650;letter-spacing:-.01em;margin-top:1px}
+  .rcMeta .s,.rcMoney .s{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .cohortBar{display:block;width:84px;height:26px;flex:0 0 auto;overflow:visible}
+  .cohortBar rect{fill:#eeebe3}
+  .cohortBar rect.ok{fill:var(--brand)}
+  .cohortBar rect.blocked{fill:#d9a13a}
+  .rcBlockers{min-width:0}
+  .blkLabel{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:650;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+  .blkLabel .pill{text-transform:none;letter-spacing:0;height:19px;font-size:11px}
+  .blkRow{display:flex;align-items:center;gap:9px;width:100%;border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 9px;margin-top:6px;text-align:left;font:inherit;color:var(--ink);min-height:40px}
+  .blkRow:hover{background:#fbfaf8;border-color:#ddd9d1}
+  .blkRow .who2{min-width:0;flex:1}
+  .blkRow .nm{display:block;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .blkRow .s2{display:block;margin-top:1px;font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .blkRow .pill{flex:0 0 auto}
+  .rcMoney{min-width:0}
+  .rcMoney .v{font-size:19px;font-weight:650;letter-spacing:-.02em;margin:2px 0 1px;font-variant-numeric:tabular-nums}
+  .rcFoot{display:flex;align-items:center;gap:12px;padding:10px 18px;background:#fcfbf9}
+  .rcFoot .s{font-size:11.5px;color:var(--muted);margin-right:auto;line-height:1.45}
+  .rcFoot .rowbtn{white-space:nowrap}
+  .rcFoot .rowbtn .ico{width:13px;height:13px;vertical-align:-2px;margin-right:5px}
+  /* money card */
+  .moneyHero{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+  .moneyHero .v{font-size:24px;font-weight:650;letter-spacing:-.025em;color:var(--ink)}
+  .moneyHero .s{font-size:12px;color:var(--muted)}
+  .segTrack{height:8px;border-radius:4px;background:#eeebe3;overflow:hidden}
+  .segTrack i{display:block;height:100%;background:var(--brand);border-radius:4px;transition:width .4s cubic-bezier(.32,.72,0,1)}
+  .segLegend{display:flex;justify-content:space-between;gap:8px;margin:8px 0 2px;font-size:11.5px;color:var(--muted)}
+  .segLegend b{font-weight:650;color:var(--ink2)}
+  .segLegend .dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px;vertical-align:1px}
+  .dot.brand{background:var(--brand)}.dot.red{background:#b4554a}
+  .agingLine{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--amber);background:var(--ambers);border-radius:7px;padding:6px 9px;margin:10px 0 12px}
+  /* empty / loading / saved states */
+  .emptyState{display:flex;flex-direction:column;align-items:center;gap:8px;padding:34px 20px;text-align:center;border:1px dashed var(--line);border-radius:12px;background:#fcfbf9;margin:12px 0}
+  .emptyState b{font-size:14px}
+  .emptyState .s{font-size:12.5px;color:var(--muted)}
+  .emptyState .esIcon{width:34px;height:34px;border-radius:50%;background:var(--brands);color:var(--brand2);display:grid;place-items:center}
+  .emptyInline{font-size:13px;color:var(--muted);padding:18px 18px;text-align:center}
+  .saveStatus{font-size:11.5px;color:var(--green);min-height:16px;margin-top:6px}
+  .saving{color:var(--muted)}
+  /* drawer resolution surfaces */
+  .dstatus{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:4px}
+  .dsec{border-bottom:1px solid var(--line2);padding:14px 0}
+  .dsec:first-child{padding-top:0}
+  .dsec:last-child{border-bottom:0}
+  .dsec h4{margin:0 0 9px;font-size:11px;letter-spacing:.04em;color:var(--faint);font-weight:650;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+  .dsec h4 .s2{text-transform:none;letter-spacing:0;font-weight:400;margin-left:auto;font-size:11.5px}
+  .docRow{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:10px;align-items:start;padding:9px 0;border-bottom:1px solid var(--line2)}
+  .docRow:last-child{border-bottom:0}
+  .docState{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:700;color:#fff;margin-top:1px}
+  .docState.ok{background:var(--brand)}
+  .docState.review{background:#c9922e}
+  .docState.open{background:#b4554a}
+  .docState.rejected{background:#b4554a;opacity:.7}
+  .docMain{min-width:0}
+  .docName{font-size:13px;font-weight:550;line-height:1.3}
+  .docMeta{font-size:11.5px;color:var(--muted);margin-top:1px;line-height:1.4}
+  .docMeta .note{color:var(--red)}
+  .docActs{display:flex;gap:5px;flex:0 0 auto}
+  .docActs .rowbtn{padding:4px 8px;font-size:11.5px;min-height:28px}
+  .docActs .rowbtn.primary{border-color:var(--brand);color:var(--brand2);font-weight:600}
+  .noteEditor{display:flex;gap:6px;margin:8px 0 2px;flex-wrap:wrap;align-items:center}
+  .noteEditor input{flex:1;min-width:150px;height:32px;border:1px solid var(--line);border-radius:7px;padding:0 9px;font:inherit;font-size:12.5px}
+  .noteEditor .hint{width:100%;font-size:11.5px;color:var(--muted)}
+  .paySummary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:9px}
+  .paySummary div{font-size:11.5px;color:var(--muted)}
+  .paySummary b{display:block;font-size:16px;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-.01em;margin-top:1px}
+  .paySummary b.minus{color:var(--red)}
+  .ledger{margin:9px 0 10px}
+  .ledger .lrow{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--line2);font-size:12.5px}
+  .ledger .lrow:last-child{border-bottom:0}
+  .ledger .lrow .d{width:64px;flex:0 0 64px;color:var(--muted)}
+  .ledger .lrow .r{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ledger .lrow .amt{font-variant-numeric:tabular-nums;font-weight:600}
+  .ledger .total{display:flex;justify-content:space-between;gap:10px;font-size:12px;padding-top:7px;border-top:1px solid var(--line);color:var(--muted)}
+  .ledger .total b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .payForm{display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding:9px;border:1px solid var(--line);border-radius:9px;background:#fcfbf9;margin-top:8px}
+  .payForm label{font-size:11.5px;color:var(--muted)}
+  .payForm input{width:108px;height:32px;border:1px solid var(--line);border-radius:7px;padding:0 9px;font:inherit;font-size:13px;font-variant-numeric:tabular-nums}
+  .formErr{width:100%;font-size:11.5px;color:var(--red)}
+  .dempty{font-size:12.5px;color:var(--muted);padding:8px 0}
+  .auditList .chk{font-size:12.5px}
+  .auditList .chk .s2{margin-left:4px}
+  /* reminder modal */
+  .rmodal{position:fixed;inset:0;background:rgba(23,24,26,.42);z-index:88;display:none;align-items:center;justify-content:center;padding:20px}
+  .rmodal.on{display:flex}
+  .rpanel{background:#fff;border-radius:14px;width:min(520px,96vw);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(23,24,26,.22)}
+  .remTo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .remTo .nm{font-size:14px;font-weight:650}
+  .remField{margin-bottom:12px}
+  .remField .lbl{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);font-weight:650;margin-bottom:5px}
+  .remField .val{font-size:13px;color:var(--ink2)}
+  .remText{font-size:13.5px;line-height:1.6;color:var(--ink);background:#fcfbf9;border:1px solid var(--line);border-radius:9px;padding:12px 13px;white-space:pre-wrap}
+  .remNote{font-size:11.5px;color:var(--muted);line-height:1.5}
+  /* micro-interactions */
+  .btn,.iconbtn,.rowbtn,.nav a,.mrow,.tpl button,.blkRow,.opt2,.srow,.docActs .rowbtn,.skip{transition:background-color .12s ease,color .12s ease,border-color .12s ease,box-shadow .12s ease,transform .06s ease}
+  .btn:active,.rowbtn:active,.iconbtn:active,.blkRow:active{transform:translateY(1px)}
+  .btn:hover{box-shadow:0 1px 2px rgba(23,24,26,.09)}
+  .btn.ghost:hover{box-shadow:none}
+  .rowbtn:hover{border-color:#d9d5cc}
+  .nav a.on{box-shadow:inset 2px 0 0 var(--brand),var(--shadow)}
+  .srow:hover,.mrow:hover{background:#fbfaf8}
+  .pill.ok{background:var(--greens)}
+  h1,h2{text-wrap:balance}
+  .greet h1{line-height:1.14}
+  .phead h1{line-height:1.2}
+  /* print-only surfaces */
+  .printSheet{display:none}
+  .psHead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:2px solid #000;padding-bottom:7px;margin-bottom:14px}
+  .psHead b{font-size:14pt}
+  .psHead span{font-size:9.5pt}
+  .psTitle{font-size:15pt;font-weight:700;margin:0 0 2px}
+  .psSub{font-size:10pt;margin:0 0 14px}
+  .psCard{border:1px solid #999;border-radius:5px;padding:10px 12px;margin-bottom:10px}
+  .psRow{padding:7px 0;border-bottom:1px solid #ccc}
+  .psRow:last-child{border-bottom:0}
+  .psRow b{font-size:11pt}
+  .psRow .psMeta{font-size:9.5pt;margin-top:2px}
+  .psRow .psChip{display:inline-block;border:1px solid #666;border-radius:3px;padding:0 5px;font-size:8.5pt;margin-left:5px}
+  .psSection{font-size:8.5pt;letter-spacing:.06em;text-transform:uppercase;font-weight:700;margin:14px 0 6px}
+  .psTable{width:100%;border-collapse:collapse;font-size:9.5pt}
+  .psTable th{text-align:left;border-bottom:1px solid #777;padding:4px 6px;font-weight:700}
+  .psTable td{border-bottom:1px solid #ddd;padding:4px 6px;vertical-align:top}
+  .psTable .r{text-align:right;font-variant-numeric:tabular-nums}
+  .psLine{font-size:9.5pt;margin-top:6px}
+  .psFooter{font-size:8.5pt;margin-top:14px;padding-top:6px;border-top:1px solid #999}
+  .psTotal{display:flex;justify-content:space-between;font-size:10pt;font-weight:700;padding-top:5px}
+  /* hidden helper */
+  .vhidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  #live{position:fixed;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);pointer-events:none}
+  /* tablet / mobile density */
+  @media (max-width:1080px){
+    .rcGrid{grid-template-columns:1fr 1fr;gap:14px}
+    .rcBlockers{grid-column:1/-1}
+    .top .search{display:none}
+  }
+  @media (max-width:700px){
+    .conv a.cta{min-height:44px;padding:10px 12px}
+    .btn,.rowbtn{min-height:40px}
+    .arow .acts .btn{min-height:44px}
+    .rcHead{flex-wrap:wrap;gap:8px;padding:14px 16px 0}
+    .auditBadge{margin-left:0}
+    .rcGrid{padding:14px 16px;gap:14px}
+    .rcFoot{flex-wrap:wrap;gap:8px;padding:10px 16px}
+    .rcFoot .rowbtn{width:100%;padding:10px}
+    .readyCard{margin-bottom:14px}
+    .docActs{flex-wrap:wrap;justify-content:flex-end}
+    .blkRow{padding:9px 10px;min-height:44px}
+    .moneyHero .v{font-size:22px}
+    .dsec{padding:12px 0}
+    .main{padding:12px 16px 96px}
+    .phead{margin-bottom:14px}
+  }
+  @media (max-width:560px){
+    .rcGrid{grid-template-columns:1fr;gap:14px}
+    .rcMetric{align-items:center}
+    .rcBlockers{grid-column:auto}
+    .rcMoney{padding-top:2px}
+    .rcHead h2{font-size:15.5px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  }
+  /* print: clean Thursday list by default, single-student audit record when printing-audit */
+  .blkRow .av{width:26px;height:26px;font-size:10.5px;flex:0 0 auto}
+  .acts2{white-space:nowrap;text-align:right}
+  .acts2 .rowbtn{margin-left:4px}
+  .skel{display:flex;flex-direction:column;gap:9px;padding:6px 0}
+  .skel i{display:block;height:12px;border-radius:4px;background:#f0ede7}
+  .skel i:nth-child(1){width:72%;height:15px}
+  .skel i:nth-child(2){width:96%}
+  .skel i:nth-child(3){width:58%}
+  @media print{
+    @page{margin:14mm}
+    body{background:#fff!important;color:#000!important}
+    .skip,.sideScrim,.gate,.emodal,.rmodal,.drawer,.menuSheet,.fab,.toast,.scrim,.shell,.conv,.namestrip,.side,#live{display:none!important}
+    .printSheet{display:block!important}
+    body:not(.printing-audit) #auditSheet{display:none!important}
+    body.printing-audit #rosterPrint{display:none!important}
+    .psCard{border-color:#666}
+    .psTable th,.psTable td{border-color:#888}
+    a{color:#000;text-decoration:none}
+  }
+
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to main content</a>
 <svg style="display:none" aria-hidden="true">
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></symbol>
   <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c0-3.2 2.9-5.5 6.5-5.5s6.5 2.3 6.5 5.5"/><path d="M16.5 5.5a3 3 0 0 1 0 5.8"/><path d="M18 14.6c2 .6 3.5 2.2 3.5 4.4"/></symbol>
@@ -641,6 +857,10 @@
   <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="6.5" width="12.5" height="11" rx="2.5"/><path d="m15.5 11 5.5-3v8l-5.5-3z"/></symbol>
   <symbol id="i-expand" viewBox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M20 15v5h-5"/></symbol>
   <symbol id="i-mail2" viewBox="0 0 24 24"><path d="M3 6h13v9H8l-5 4z"/><path d="M8 10h8"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5.5c0 4.4 2.9 7.6 7 9.5 4.1-1.9 7-5.1 7-9.5V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4 3.5 19.5h17z"/><path d="M12 9.5v4.5M12 17h.01"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
 </svg>
 
 <div class="sideScrim" id="sideScrim"></div>
@@ -687,14 +907,13 @@
       <div class="crumb"><b id="crumbBrand">CNA Training Institute</b> &nbsp;/&nbsp; <span id="crumb">Today</span></div>
       <div class="topAvatar" id="topAvatar" aria-hidden="true">S</div>
       <div class="spacer"></div>
-      <div class="search"><svg class="ico"><use href="#i-search"/></svg><input id="qTop" placeholder="Search students"></div>
-      <span class="demo">Demo · sample data</span>
+      <div class="search"><svg class="ico"><use href="#i-search"/></svg><input id="qTop" type="search" placeholder="Search students" aria-label="Search students"></div>
     </div>
 
     <!-- conversion strip (P0-1): under the top bar, on all 7 sections, never scrolls away.
          On a return visit the copy inside #welcomeStrip replaces the default copy in place. -->
     <div class="conv" id="convStrip">
-      <span class="tag">DEMO · SAMPLE DATA</span>
+      <span class="tag">Demo · sample data</span>
       <span class="say desk" id="defaultSay">This is the enrollment workspace we would build for <b class="cs">your school</b>.</span>
       <span class="say mob" id="defaultSayM">— workspace for <b class="cs">your school</b></span>
       <span class="sep desk" id="defaultSep1">·</span>
@@ -717,50 +936,60 @@
       <button class="btn ghost" id="nameStripSkip">skip</button>
     </div>
 
-    <main class="main">
+    <main class="main" id="main" tabindex="-1">
       <!-- TODAY -->
       <section data-sec="today">
         <div class="greet">
           <h1><span id="greetTime">Good morning</span><span id="greetWho"></span></h1>
-          <div class="line">Two students need something from you before Monday. Everything else can wait.</div>
+          <div class="line" id="todayLine">9 students start Monday. 2 are blocked on documents. $5,850 outstanding.</div>
+        </div>
+
+        <!-- readiness: the four CNA pains, above the fold -->
+        <div class="card readyCard" aria-labelledby="readyTitle">
+          <div class="rcHead">
+            <div>
+              <h2 id="readyTitle">Monday start readiness</h2>
+              <div class="sub">Evening and day cohort &middot; starts Mon 27 Oct &middot; 9 of 14 seats filled</div>
+            </div>
+            <div class="auditBadge"><span class="hdot"></span>HHSC audit trail current</div>
+          </div>
+          <div class="rcGrid">
+            <div class="rcMetric">
+              <div class="ringWrap">
+                <svg class="ring" viewBox="0 0 56 56" aria-hidden="true">
+                  <circle class="ringBg" cx="28" cy="28" r="24"></circle>
+                  <circle class="ringFg" id="ringArc" cx="28" cy="28" r="24"></circle>
+                </svg>
+                <div class="ringTxt"><b id="ringPct">92%</b><span>approved</span></div>
+              </div>
+              <div class="rcMeta"><div class="k">Clinical documents</div><div class="v"><span id="docApproved">58</span> of <span id="docRequired">63</span> approved</div><div class="s">for Monday starters</div></div>
+            </div>
+            <div class="rcMetric">
+              <svg class="cohortBar" id="cohortBar" viewBox="0 0 88 26" preserveAspectRatio="none" role="img" aria-label="7 of 9 students cleared to start Monday"></svg>
+              <div class="rcMeta"><div class="k">Students cleared</div><div class="v"><span id="clearedOk">7</span> of <span id="clearedTotal">9</span> ready</div><div class="s"><span id="blockedShort">2 blocked</span> on documents</div></div>
+            </div>
+            <div class="rcBlockers">
+              <div class="blkLabel">Blocking Monday <span class="pill bad" id="blockedCount">2 students</span></div>
+              <div id="blockerList"></div>
+            </div>
+            <div class="rcMoney">
+              <div class="k">Outstanding before Monday</div>
+              <div class="v" id="rcOutstanding">$4,550</div>
+              <div class="s"><span id="rcOwing">5</span> students owe &middot; <span id="rcOutstandingAll">$5,850</span> school-wide</div>
+            </div>
+          </div>
+          <div class="rcFoot">
+            <span class="s">HHSC audit trail: <span id="auditAgreements">12</span> of 12 agreements signed &middot; <span id="auditPayments">21</span> payment records &middot; <span id="auditDocs">78</span> of 84 clinical documents approved</span>
+            <button class="rowbtn" data-goto="students">Open student files</button>
+          </div>
         </div>
 
         <div class="cols">
           <div class="stack">
             <div class="card">
-              <div class="h"><h2>Before Monday</h2><span class="sub">2 students and 2 questions</span><div class="spacer"></div><button class="rowbtn" onclick="window.print()">Print Thursday list</button></div>
-
-              <div class="arow">
-                <div class="g">
-                  <div class="hd"><span class="pip" style="background:#b4554a"></span><span class="t">Maya Whitfield still owes $1,250 and 2 documents</span></div>
-                  <div class="s">Starts Monday &middot; reminder sent 3 days ago &middot; (713) 555-0188</div>
-                  <div class="chips2"><span class="ch warn">2 documents missing</span><span class="ch bad">$1,250 due</span></div>
-                </div>
-                <div class="acts"><button class="btn">Send reminder</button><button class="rowbtn" data-open-student="Maya Whitfield">Open</button></div>
-              </div>
-
-              <div class="arow">
-                <div class="g">
-                  <div class="hd"><span class="pip" style="background:#b4554a"></span><span class="t">Samuel Boateng has not uploaded his BLS card</span></div>
-                  <div class="s">3 documents missing &middot; cannot start clinicals without it</div>
-                  <div class="chips2"><span class="ch warn">3 documents missing</span><span class="ch bad">$1,250 due</span></div>
-                </div>
-                <div class="acts"><button class="btn">Send reminder</button><button class="rowbtn" data-open-student="Samuel Boateng">Open</button></div>
-              </div>
-
-              <div class="arow">
-                <div class="g">
-                  <div class="hd"><span class="pip" style="background:#c9922e"></span><span class="t">2 students asked a question in Messages</span></div>
-                  <div class="s">"Can I pay the rest next Friday?" &middot; "What do I need to do to catch up?"</div>
-                  <div class="chips2"><span class="ch warn">Jordan Alvarez</span><span class="ch warn">Nia Fontaine</span></div>
-                </div>
-                <div class="acts"><button class="btn ghost" data-goto="messages">Open messages</button></div>
-              </div>
-
-              <div class="afoot">
-                <span class="s">One reminder covers both students and both questions.</span>
-                
-              </div>
+              <div class="h"><h2>Before Monday</h2><span class="sub" id="bmSub">2 students and 2 questions</span><div class="spacer"></div><button class="rowbtn" id="printThursday"><svg class="ico"><use href="#i-print"/></svg>Print Thursday list</button></div>
+              <div id="bmRows"></div>
+              <div class="afoot"><span class="s" id="bmFoot">One reminder covers both students and both questions.</span></div>
             </div>
 
             <div class="card">
@@ -768,8 +997,8 @@
               <div class="b">
                 <div class="agenda">
                   <div class="a"><div class="d">Sunday</div><div class="x">Infection control quiz closes &middot; 14 of 18 taken</div><span class="ch ok">on track</span></div>
-                  <div class="a"><div class="d">Monday</div><div class="x">Evening and day classes start &middot; 9 and 7 students</div><span class="ch warn">5 files open</span></div>
-                  <div class="a"><div class="d">1 Nov</div><div class="x">Weekend class starts &middot; 6 students, 6 seats left</div><span class="ch ok">ready</span></div>
+                  <div class="a"><div class="d">Monday</div><div class="x">Evening and day classes start &middot; <span id="agendaStart">9</span> students</div><span class="ch warn" id="agendaOpen">5 files open</span></div>
+                  <div class="a"><div class="d">1 Nov</div><div class="x">Weekend class starts &middot; <span id="agendaWeekend">2</span> students, <span id="agendaSeats">10</span> seats left</div><span class="ch ok">ready</span></div>
                 </div>
               </div>
             </div>
@@ -777,22 +1006,33 @@
 
           <div class="stack">
             <div class="card">
-              <div class="h"><h2>Monday's class</h2></div>
+              <div class="h"><h2>Monday's class</h2><span class="sub" id="mondaySub">starts Mon 27 Oct</span></div>
               <div class="b">
-                <div class="miniStat"><span class="ic"><svg class="ico" style="width:15px;height:15px"><use href="#i-users"/></svg></span><div class="g"><div class="k">Students starting</div><div class="v">9 of 14 seats</div></div></div>
-                <div class="miniStat"><span class="ic"><svg class="ico" style="width:15px;height:15px"><use href="#i-doc"/></svg></span><div class="g"><div class="k">Files ready</div><div class="v">9 of 14 complete</div></div></div>
-                <div class="miniStat"><span class="ic"><svg class="ico" style="width:15px;height:15px"><use href="#i-money"/></svg></span><div class="g"><div class="k">Still to collect</div><div class="v money" style="color:var(--red)">$5,850</div></div></div>
-                <button class="btn ghost" style="width:100%;justify-content:center;margin-top:12px" data-goto="classes">Open the class</button>
+                <div class="miniStat"><span class="ic"><svg class="ico"><use href="#i-users"/></svg></span><div class="g"><div class="k">Students starting</div><div class="v"><span id="mStart">9</span> of 14 seats</div></div></div>
+                <div class="miniStat"><span class="ic"><svg class="ico"><use href="#i-doc"/></svg></span><div class="g"><div class="k">Files ready</div><div class="v"><span id="mFiles">7</span> of <span id="mStart2">9</span> complete</div></div></div>
+                <div class="miniStat"><span class="ic"><svg class="ico"><use href="#i-money"/></svg></span><div class="g"><div class="k">Still to collect before Monday</div><div class="v money" id="mDue" style="color:var(--red)">$4,550</div></div></div>
+                <button class="btn ghost wfull" data-goto="classes">Open the class</button>
               </div>
             </div>
 
+            <div class="card" id="moneyCard">
+              <div class="h"><h2>Money this week</h2><span class="sub" id="moneySub">21 payments recorded</span></div>
+              <div class="b">
+                <div class="moneyHero"><span class="v" id="moneyOutstanding">$5,850</span><span class="s">still to collect, school-wide</span></div>
+                <div class="segTrack" id="moneyBar" role="img" aria-label="64% of tuition collected"><i id="moneyBarFill" style="width:64%"></i></div>
+                <div class="segLegend"><span><i class="dot brand"></i>Collected <b id="moneyCollected">$10,350</b></span><span><i class="dot red"></i>Outstanding <b id="moneyDue">$5,850</b></span></div>
+                <div class="miniStat"><span class="ic"><svg class="ico"><use href="#i-cal"/></svg></span><div class="g"><div class="k">On payment plans</div><div class="v"><span id="planCount">7</span> of <span id="planTotal">12</span> students</div></div></div>
+                <div class="agingLine"><svg class="ico" style="width:14px;height:14px"><use href="#i-clock"/></svg><span id="agingLine">Oldest balance: 13 days &middot; Maya Whitfield</span></div>
+                <button class="btn ghost wfull" data-goto="money">Open Money</button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- STUDENTS -->
       <section data-sec="students" class="hidden">
-        <div class="phead"><div><h1>Students</h1><div class="d">12 enrolled · 9 starting Monday</div></div><div class="spacer"></div><button class="btn"><svg class="ico"><use href="#i-plus"/></svg>Enroll a student</button></div>
+        <div class="phead"><div><h1>Students</h1><div class="d" id="rosterMeta">12 enrolled &middot; 9 starting Monday</div></div><div class="spacer"></div><button class="btn"><svg class="ico"><use href="#i-plus"/></svg>Enroll a student</button></div>
         <div class="tools">
           <div class="seg" id="filters">
             <button class="on" data-f="all">Everyone</button>
@@ -802,9 +1042,15 @@
           </div>
         </div>
         <div class="slist" id="slist"></div>
-        <div class="card tablecard">
+        <div class="emptyState hidden" id="emptyRoster">
+          <span class="esIcon"><svg class="ico" style="width:17px;height:17px"><use href="#i-search"/></svg></span>
+          <b>No students match your search</b>
+          <span class="s" id="emptyRosterMsg">Try a different name, class or filter.</span>
+          <button class="btn ghost" id="clearRosterFilter">Clear search and filters</button>
+        </div>
+        <div class="card tablecard" id="tableCard">
           <table>
-            <thead><tr><th>Student</th><th>Class</th><th>Starts</th><th>Documents</th><th>Money</th><th></th></tr></thead>
+            <thead><tr><th>Student</th><th>Class</th><th>Starts</th><th>Documents</th><th class="numCol">Money</th><th></th></tr></thead>
             <tbody id="rows"></tbody>
           </table>
         </div>
@@ -819,7 +1065,7 @@
             <div class="rows">
               <div class="r"><span>Starts</span><b>Mon, 27 Oct</b></div>
               <div class="r"><span>Length</span><b>4 weeks · 6-10 pm</b></div>
-              <div class="r"><span>Students</span><b>9 of 14</b></div>
+              <div class="r"><span>Students</span><b><span id="clsEveningN">6</span> of 8</b></div>
               <div class="r"><span>Teacher</span><b>Ms. Alvarez, RN</b></div>
             </div>
             <div class="phases"><div class="on"></div><div></div><div></div></div>
@@ -832,7 +1078,7 @@
             <div class="rows">
               <div class="r"><span>Starts</span><b>Mon, 27 Oct</b></div>
               <div class="r"><span>Length</span><b>3 weeks · 9 am-5 pm</b></div>
-              <div class="r"><span>Students</span><b>7 of 12</b></div>
+              <div class="r"><span>Students</span><b><span id="clsDayN">3</span> of 6</b></div>
               <div class="r"><span>Teacher</span><b>Mr. Boateng, RN</b></div>
             </div>
             <div class="phases"><div class="on"></div><div class="on"></div><div></div></div>
@@ -845,11 +1091,11 @@
             <div class="rows">
               <div class="r"><span>Starts</span><b>Sat, 1 Nov</b></div>
               <div class="r"><span>Length</span><b>6 weeks · 9 am-5 pm</b></div>
-              <div class="r"><span>Students</span><b>6 of 12</b></div>
+              <div class="r"><span>Students</span><b><span id="clsWeekendN">2</span> of 12</b></div>
               <div class="r"><span>Teacher</span><b>Ms. Okoro, RN</b></div>
             </div>
             <div class="phases"><div></div><div></div><div></div></div>
-            <div class="sub">Not started · 6 seats left.</div>
+            <div class="sub">Not started · <span id="clsWeekendSeats">10</span> seats left.</div>
             <div class="zoomslot"><span class="dot2" style="background:#c7c2b8"></span>Zoom opens Sat 1 Nov, 8:45 am</div>
             <div class="classactions"><button class="btn ghost"><svg class="ico"><use href="#i-video"/></svg>Start Zoom</button><button class="btn ghost">Roster</button></div>
           </div></div>
@@ -1000,15 +1246,15 @@
 
       <!-- MONEY -->
       <section data-sec="money" class="hidden">
-        <div class="phead"><div><h1>Money</h1><div class="d">Tuition, payments and what is still owed</div></div><div class="spacer"></div><button class="btn ghost"><svg class="ico"><use href="#i-print"/></svg>Export</button></div>
+        <div class="phead"><div><h1>Money</h1><div class="d">Tuition, payments and what is still owed</div></div><div class="spacer"></div><button class="btn ghost" id="moneyExport"><svg class="ico"><use href="#i-print"/></svg>Export</button></div>
         <div class="kpis" style="margin-bottom:16px">
-          <div class="kpi"><div class="k">Collected this month</div><div class="v money">$12,450</div><div class="f">19 payments</div></div>
-          <div class="kpi"><div class="k">Still to collect</div><div class="v money" style="color:var(--red)">$5,850</div><div class="f">7 students</div></div>
-          <div class="kpi"><div class="k">On a payment plan</div><div class="v">7</div><div class="f">of 12 students</div></div>
+          <div class="kpi"><div class="k">Collected this term</div><div class="v money" id="kpiCollected">$10,350</div><div class="f"><span id="kpiPayments">21</span> payments</div></div>
+          <div class="kpi"><div class="k">Still to collect, school-wide</div><div class="v money" id="kpiOutstanding" style="color:var(--red)">$5,850</div><div class="f"><span id="kpiOwing">7</span> students</div></div>
+          <div class="kpi"><div class="k">On a payment plan</div><div class="v" id="kpiPlans">7</div><div class="f">of <span id="kpiTotal">12</span> students</div></div>
         </div>
         <div class="card">
-          <div class="h"><h2>Who owes what</h2><span class="sub">before Monday</span></div>
-          <table><thead><tr><th>Student</th><th>Paid</th><th>Still due</th><th>Plan</th><th></th></tr></thead><tbody id="moneyRows"></tbody></table>
+          <div class="h"><h2>Who owes what</h2><span class="sub">all open balances</span></div>
+          <table><thead><tr><th>Student</th><th class="numCol">Paid</th><th class="numCol">Still due</th><th class="numCol">Aging</th><th>Plan</th><th></th></tr></thead><tbody id="moneyRows"></tbody></table>
         </div>
       </section>
 
@@ -1090,113 +1336,514 @@
 </div>
 <button class="fab" id="fab" aria-label="Enroll a student"><svg class="ico"><use href="#i-plus"/></svg></button>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer">
   <div class="dh"><div class="av" id="dAv">MW</div><div><div class="nm" id="dName">Student</div><div class="s2" id="dMeta"></div></div><button class="x" id="dx" aria-label="Close"><svg class="ico"><use href="#i-plus"/></svg></button></div>
   <div class="db" id="dBody"></div>
-  <div class="df"><button class="btn"><svg class="ico"><use href="#i-mail2"/></svg>Send a message</button><button class="btn ghost"><svg class="ico"><use href="#i-print"/></svg>Print file</button></div>
+  <div class="df"><button class="btn" id="dRemind"><svg class="ico"><use href="#i-mail2"/></svg>Send reminder</button><button class="btn ghost" id="dAudit"><svg class="ico"><use href="#i-print"/></svg>Print audit record</button></div>
 </aside>
+
+<div id="live" class="vhidden" aria-live="polite" aria-atomic="true"></div>
+
+<!-- print-only surfaces: the Thursday list and the single-student audit record -->
+<div class="printSheet" id="rosterPrint"></div>
+<div class="printSheet" id="auditSheet"></div>
+
+<div class="rmodal" id="reminderModal" role="dialog" aria-modal="true" aria-labelledby="remTitle">
+  <div class="rpanel">
+    <div class="ehead"><span id="remTitle">Reminder draft</span><button class="x" id="remClose" aria-label="Close reminder"><svg class="ico" style="width:15px;height:15px"><use href="#i-plus"/></svg></button></div>
+    <div class="ebody">
+      <div class="remTo"><div class="av" id="remAv">MW</div><div><div class="nm" id="remName">Student</div><div class="s2" id="remMeta">Evening class</div></div></div>
+      <div class="remField"><div class="lbl">To</div><div class="val" id="remTo">text message</div></div>
+      <div class="remField"><div class="lbl">Drafted message</div><div class="remText" id="remText"></div></div>
+      <div class="remNote">Drafted from the file: open clinical documents, current balance and the Monday start date. Sending is simulated in this demo.</div>
+    </div>
+    <div class="efoot"><button class="btn ghost" id="remCancel">Cancel</button><button class="btn" id="remSend">Send reminder</button></div>
+  </div>
+</div>
 
 <script>
 (function(){
   "use strict";
-  var DOCS=["Application form","Proof of education","TB test","BLS / CPR card","Government ID","Second ID","Social Security card"];
+  var TUITION=1350;
+  var DOCS=[
+    {k:"app",n:"Application form"},
+    {k:"edu",n:"Proof of education"},
+    {k:"tb",n:"TB test"},
+    {k:"bls",n:"BLS / CPR card"},
+    {k:"id",n:"Government ID"},
+    {k:"id2",n:"Second ID"},
+    {k:"ssn",n:"Social Security card"}
+  ];
+  function ok(on){return {s:"ok",d:on||"",note:""};}
+  function rv(on,note){return {s:"review",d:on||"",note:note||""};}
+  function op(){return {s:"open",d:"",note:""};}
+  function rj(note){return {s:"rejected",d:"",note:note||""};}
+  function pay(on,amt,ref){return {on:on,amt:amt,ref:ref};}
+  function okDocs(){
+    var a=[];
+    for(var i=0;i<arguments.length;i++) a.push(ok(arguments[i]));
+    return a;
+  }
   var S=[
-    {n:"Jordan Alvarez",c:"Evening class",enrolled:"12 Oct",starts:"27 Oct",docs:7,paid:650,owed:700,st:"Payment plan",tone:"warn"},
-    {n:"Maya Whitfield",c:"Evening class",enrolled:"14 Oct",starts:"27 Oct",docs:5,paid:100,owed:1250,st:"Documents missing",tone:"bad"},
-    {n:"Samuel Boateng",c:"Evening class",enrolled:"16 Oct",starts:"27 Oct",docs:4,paid:100,owed:1250,st:"Documents missing",tone:"bad"},
-    {n:"Priya Raman",c:"Evening class",enrolled:"18 Oct",starts:"27 Oct",docs:7,paid:100,owed:1250,st:"Payment plan",tone:"warn"},
-    {n:"Marcus Deel",c:"Evening class",enrolled:"11 Oct",starts:"27 Oct",docs:7,paid:1250,owed:100,st:"Payment plan",tone:"warn"},
-    {n:"Renee Duval",c:"Evening class",enrolled:"06 Oct",starts:"27 Oct",docs:7,paid:1350,owed:0,st:"Ready",tone:"ok"},
-    {n:"Aisha Bello",c:"Day class",enrolled:"02 Oct",starts:"27 Oct",docs:7,paid:1350,owed:0,st:"Ready",tone:"ok"},
-    {n:"Tobias Reed",c:"Day class",enrolled:"03 Oct",starts:"27 Oct",docs:7,paid:1350,owed:0,st:"Ready",tone:"ok"},
-    {n:"Hannah Ives",c:"Day class",enrolled:"07 Oct",starts:"27 Oct",docs:7,paid:1350,owed:0,st:"Ready",tone:"ok"},
-    {n:"Caleb Ortiz",c:"Weekend class",enrolled:"09 Oct",starts:"1 Nov",docs:6,paid:650,owed:700,st:"Documents missing",tone:"warn"},
-    {n:"Nia Fontaine",c:"Weekend class",enrolled:"22 Sep",starts:"1 Nov",docs:7,paid:750,owed:600,st:"In classroom",tone:"info"},
-    {n:"Owen Park",c:"Day class",enrolled:"30 Aug",starts:"29 Sep",docs:7,paid:1350,owed:0,st:"Finished",tone:"none"}
+    {n:"Jordan Alvarez",c:"Evening class",enrolled:"12 Oct",starts:"27 Oct",phone:"(713) 555-0114",aging:9,
+      docs:okDocs("12 Oct","12 Oct","13 Oct","13 Oct","12 Oct","12 Oct","14 Oct"),
+      pay:[pay("12 Oct",100,"Registration"),pay("18 Oct",550,"Card payment")]},
+    {n:"Maya Whitfield",c:"Evening class",enrolled:"14 Oct",starts:"27 Oct",phone:"(713) 555-0188",aging:13,
+      docs:[ok("14 Oct"),ok("14 Oct"),rv("26 Oct","TB test uploaded 26 Oct — awaiting review"),op(),ok("15 Oct"),ok("15 Oct"),ok("16 Oct")],
+      pay:[pay("14 Oct",100,"Registration")]},
+    {n:"Samuel Boateng",c:"Evening class",enrolled:"16 Oct",starts:"27 Oct",phone:"(713) 555-0148",aging:11,
+      docs:[ok("16 Oct"),ok("16 Oct"),op(),op(),ok("16 Oct"),ok("16 Oct"),op()],
+      pay:[pay("16 Oct",100,"Registration")]},
+    {n:"Priya Raman",c:"Evening class",enrolled:"18 Oct",starts:"27 Oct",phone:"(713) 555-0166",aging:9,
+      docs:okDocs("18 Oct","18 Oct","19 Oct","19 Oct","18 Oct","18 Oct","20 Oct"),
+      pay:[pay("18 Oct",100,"Registration")]},
+    {n:"Marcus Deel",c:"Evening class",enrolled:"11 Oct",starts:"27 Oct",phone:"(713) 555-0177",aging:7,
+      docs:okDocs("11 Oct","11 Oct","12 Oct","12 Oct","11 Oct","11 Oct","13 Oct"),
+      pay:[pay("11 Oct",100,"Registration"),pay("20 Oct",1150,"Card payment")]},
+    {n:"Renee Duval",c:"Evening class",enrolled:"06 Oct",starts:"27 Oct",phone:"(713) 555-0121",aging:17,
+      docs:okDocs("06 Oct","06 Oct","07 Oct","07 Oct","06 Oct","06 Oct","08 Oct"),
+      pay:[pay("06 Oct",100,"Registration"),pay("10 Oct",1250,"Bank transfer")]},
+    {n:"Aisha Bello",c:"Day class",enrolled:"02 Oct",starts:"27 Oct",phone:"(713) 555-0133",aging:25,
+      docs:okDocs("02 Oct","02 Oct","03 Oct","03 Oct","02 Oct","02 Oct","04 Oct"),
+      pay:[pay("02 Oct",100,"Registration"),pay("06 Oct",1250,"Bank transfer")]},
+    {n:"Tobias Reed",c:"Day class",enrolled:"03 Oct",starts:"27 Oct",phone:"(713) 555-0155",aging:24,
+      docs:okDocs("03 Oct","03 Oct","04 Oct","04 Oct","03 Oct","03 Oct","05 Oct"),
+      pay:[pay("03 Oct",100,"Registration"),pay("07 Oct",1250,"Card payment")]},
+    {n:"Hannah Ives",c:"Day class",enrolled:"07 Oct",starts:"27 Oct",phone:"(713) 555-0190",aging:20,
+      docs:okDocs("07 Oct","07 Oct","08 Oct","08 Oct","07 Oct","07 Oct","09 Oct"),
+      pay:[pay("07 Oct",100,"Registration"),pay("11 Oct",1250,"Bank transfer")]},
+    {n:"Caleb Ortiz",c:"Weekend class",enrolled:"09 Oct",starts:"1 Nov",phone:"(713) 555-0162",aging:12,
+      docs:[ok("09 Oct"),ok("09 Oct"),ok("10 Oct"),op(),ok("09 Oct"),ok("09 Oct"),ok("11 Oct")],
+      pay:[pay("09 Oct",100,"Registration"),pay("15 Oct",550,"Card payment")]},
+    {n:"Nia Fontaine",c:"Weekend class",enrolled:"22 Sep",starts:"1 Nov",phone:"(713) 555-0179",aging:19,
+      docs:okDocs("22 Sep","22 Sep","23 Sep","23 Sep","22 Sep","22 Sep","24 Sep"),
+      pay:[pay("22 Sep",100,"Registration"),pay("08 Oct",650,"Bank transfer")]},
+    {n:"Owen Park",c:"Day class",enrolled:"30 Aug",starts:"29 Sep",phone:"(713) 555-0109",aging:0,
+      docs:okDocs("30 Aug","30 Aug","31 Aug","31 Aug","30 Aug","30 Aug","01 Sep"),
+      pay:[pay("30 Aug",100,"Registration"),pay("05 Sep",1250,"Bank transfer")]}
   ];
   var filter="all", qtab="list";
   function $(i){return document.getElementById(i);}
   function ini(n){return n.split(" ").map(function(w){return w[0];}).join("").slice(0,2).toUpperCase();}
   function money(v){return "$"+v.toLocaleString("en-US");}
+  function setTxt(id,v){var el=$(id); if(el) el.textContent=v;}
+  function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
+  function shortToday(){return new Date().toLocaleDateString("en-US",{day:"2-digit",month:"short"});}
+  function todayLong(){return new Date().toLocaleDateString("en-US",{weekday:"long",day:"numeric",month:"long",year:"numeric"});}
+  function announce(msg){var el=$("live"); if(!el) return; el.textContent=""; setTimeout(function(){el.textContent=msg;},40);}
+  var liveAnnounce = announce;
+
+  function paidOf(s){var t=0;for(var i=0;i<s.pay.length;i++)t+=s.pay[i].amt;return t;}
+  function owedOf(s){return TUITION-paidOf(s);}
+  function approvedOf(s){var t=0;for(var i=0;i<s.docs.length;i++)if(s.docs[i].s==="ok")t++;return t;}
+  function openDocs(s){var a=[];for(var i=0;i<s.docs.length;i++)if(s.docs[i].s!=="ok")a.push(i);return a;}
+  function docNames(s){return openDocs(s).map(function(i){return DOCS[i].n;});}
+  function cleared(s){return approvedOf(s)===DOCS.length;}
+  function statusOf(s){
+    if(s.starts==="29 Sep") return {t:"Finished",tone:"none"};
+    if(!cleared(s)) return {t:"Documents open",tone:"bad"};
+    if(owedOf(s)>0) return {t:"Payment plan",tone:"warn"};
+    return {t:"Ready",tone:"ok"};
+  }
+  function pillOf(st){return '<span class="pill '+st.tone+'">'+st.t+'</span>';}
+  function chkRow(text,bad){return '<div class="chk"><span class="c '+(bad?"bad":"ok")+'">'+(bad?"!":"&#10003;")+'</span><span>'+text+'</span></div>';}
+
+  function metrics(){
+    var monday=S.filter(function(s){return s.starts==="27 Oct";});
+    var required=monday.length*DOCS.length;
+    var collected=0,paymentCount=0,outstandingAll=0,owingAll=0,clearedAll=0,auditDocs=0;
+    S.forEach(function(s){
+      collected+=paidOf(s); paymentCount+=s.pay.length; auditDocs+=approvedOf(s);
+      var o=owedOf(s); if(o>0){outstandingAll+=o;owingAll++;}
+      if(cleared(s)) clearedAll++;
+    });
+    var mApproved=0,mOutstanding=0,mOwing=0,clearedStart=0,openMonday=0,blocked=[];
+    monday.forEach(function(s){
+      mApproved+=approvedOf(s); openMonday+=openDocs(s).length;
+      if(owedOf(s)>0){mOutstanding+=owedOf(s);mOwing++;}
+      if(cleared(s)) clearedStart++; else blocked.push(s);
+    });
+    blocked.sort(function(a,b){return openDocs(b).length-openDocs(a).length;});
+    var owing=S.filter(function(s){return owedOf(s)>0;}).sort(function(a,b){return b.aging-a.aging;});
+    return {starting:monday.length,required:required,approved:mApproved,clearedStart:clearedStart,blocked:blocked,openMonday:openMonday,
+      outstandingAll:outstandingAll,owingAll:owingAll,outstandingMonday:mOutstanding,owingMonday:mOwing,
+      collected:collected,paymentCount:paymentCount,plans:owingAll,total:S.length,clearedAll:clearedAll,
+      auditDocs:auditDocs,auditRequired:S.length*DOCS.length,agreements:S.length,oldest:owing[0]||null,
+      pct:required?Math.round(mApproved/required*100):0};
+  }
 
   function shown(){
     var r=S.slice();
     if(filter==="starting") r=r.filter(function(s){return s.starts==="27 Oct";});
-    if(filter==="missing") r=r.filter(function(s){return s.docs<7;});
-    if(filter==="owes") r=r.filter(function(s){return s.owed>0;});
+    if(filter==="missing") r=r.filter(function(s){return openDocs(s).length>0;});
+    if(filter==="owes") r=r.filter(function(s){return owedOf(s)>0;});
     if(term) r=r.filter(function(s){return (s.n+" "+s.c).toLowerCase().indexOf(term)>=0;});
     return r;
   }
+
   function renderStudents(){
-    $("rows").innerHTML=shown().map(function(s){
-      var i=S.indexOf(s), pct=Math.round(s.docs/7*100), tone=s.docs===7?"":(s.docs>=5?"warn":"bad");
+    var rows=shown(), m=metrics(), i, s, st, docOpen, owing;
+    var countStarting=S.filter(function(x){return x.starts==="27 Oct";}).length;
+    $("rows").innerHTML=rows.map(function(x){
+      i=S.indexOf(x); st=statusOf(x); docOpen=openDocs(x).length; owing=owedOf(x);
       return '<tr data-i="'+i+'">'+
-      '<td><div class="who"><div class="av">'+ini(s.n)+'</div><div><div class="nm">'+s.n+'</div><div class="s2">Enrolled '+s.enrolled+'</div></div></div></td>'+
-      '<td class="s2" data-label="Class">'+s.c+'</td>'+
-      '<td class="s2" data-label="Starts">'+s.starts+'</td>'+
-      '<td data-label="Documents"><div class="prog"><span class="track '+tone+'"><i style="width:'+pct+'%"></i></span><span class="s2">'+s.docs+' of 7</span></div></td>'+
-      '<td class="money '+(s.owed>0?'owed':'')+'" data-label="Money">'+(s.owed>0?money(s.owed):'Paid')+'</td>'+
-      '<td><button class="rowbtn" data-i="'+i+'">Open</button> <button class="rowbtn" data-remind="'+i+'">Remind</button></td></tr>';
+      '<td><div class="who"><div class="av">'+ini(x.n)+'</div><div><div class="nm">'+x.n+'</div><div class="s2">'+pillOf(st)+'</div></div></div></td>'+
+      '<td class="s2" data-label="Class">'+x.c+'</td>'+
+      '<td class="s2" data-label="Starts">'+x.starts+'</td>'+
+      '<td data-label="Documents"><div class="prog"><span class="track '+(docOpen?(docOpen>=3?"bad":"warn"):"")+'"><i style="width:'+Math.round(approvedOf(x)/DOCS.length*100)+'%"></i></span><span class="s2">'+approvedOf(x)+' of 7</span></div></td>'+
+      '<td class="money '+(owing>0?"owed":"")+'" data-label="Money">'+(owing>0?money(owing):"Paid")+'</td>'+
+      '<td class="acts2"><button class="rowbtn" data-i="'+i+'">Open</button> <button class="rowbtn" data-remind="'+i+'">Remind</button></td></tr>';
     }).join("");
     var list=$("slist");
     if(list){
-      list.innerHTML=shown().map(function(s){
-        var i=S.indexOf(s);
-        var tone=s.docs===7?'var(--brand)':(s.docs>=5?'#c9922e':'#b4554a');
+      list.innerHTML=rows.map(function(x){
+        i=S.indexOf(x); docOpen=openDocs(x).length; owing=owedOf(x);
+        var tone=docOpen===0?"var(--brand)":(docOpen<=2?"#c9922e":"#b4554a");
         return '<button class="srow" data-i="'+i+'">'+
-          '<span class="av">'+ini(s.n)+'</span>'+
-          '<span class="grow"><span class="nm">'+s.n+'</span>'+
-          '<span class="sub">'+s.c+' &middot; '+s.docs+' of 7 docs'+(s.owed>0?' &middot; '+money(s.owed)+' due':'')+'</span></span>'+
+          '<span class="av">'+ini(x.n)+'</span>'+
+          '<span class="grow"><span class="nm">'+x.n+'</span>'+
+          '<span class="sub">'+x.c+' &middot; '+approvedOf(x)+' of 7 docs'+(owing>0?' &middot; '+money(owing)+' due':'')+'</span></span>'+
           '<span class="dotstat" style="background:'+tone+'"></span>'+
           '<svg class="ico chev"><use href="#i-chev" style="transform:rotate(-90deg)"/></svg>'+
         '</button>';
       }).join("");
     }
+    var empty=rows.length===0;
+    if($("tableCard")) $("tableCard").classList.toggle("hidden",empty);
+    if($("emptyRoster")){
+      $("emptyRoster").classList.toggle("hidden",!empty);
+      if(empty) setTxt("emptyRosterMsg",term?'No students match "'+term+'". Try a different name, class or filter.':"No students in this filter. Clear it to see everyone.");
+    }
+    if($("rosterMeta")) $("rosterMeta").innerHTML=(filter!=="all"||term)
+      ? rows.length+" of "+S.length+" shown &middot; "+countStarting+" starting Monday"
+      : S.length+" enrolled &middot; "+countStarting+" starting Monday";
   }
+
   function renderMoney(){
-    $("moneyRows").innerHTML=S.filter(function(s){return s.owed>0;}).map(function(s){
-      var i=S.indexOf(s);
+    var owing=S.filter(function(s){return owedOf(s)>0;}).sort(function(a,b){return owedOf(b)-owedOf(a);});
+    var m=metrics();
+    setTxt("kpiCollected",money(m.collected));
+    setTxt("kpiPayments",m.paymentCount);
+    setTxt("kpiOutstanding",money(m.outstandingAll));
+    setTxt("kpiOwing",m.owingAll);
+    setTxt("kpiPlans",m.plans);
+    setTxt("kpiTotal",m.total);
+    $("moneyRows").innerHTML=owing.map(function(s){
+      var i=S.indexOf(s), trend=s.aging>=20?"bad":(s.aging>=10?"warn":"ok");
       return '<tr data-i="'+i+'"><td><div class="who"><div class="av">'+ini(s.n)+'</div><div><div class="nm">'+s.n+'</div><div class="s2">Enrolled '+s.enrolled+'</div></div></div></td>'+
-      '<td data-label="Paid"><div class="prog"><span class="track"><i style="width:'+Math.round(s.paid/1350*100)+'%"></i></span><span class="s2">'+money(s.paid)+'</span></div></td><td class="money owed" data-label="Still due">'+money(s.owed)+'</td>'+
-      '<td data-label="Plan"><span class="pill '+(s.tone==='bad'?'bad':'warn')+'">'+(s.tone==='bad'?'Documents missing':'On the plan')+'</span></td>'+
+      '<td data-label="Paid"><div class="prog"><span class="track"><i style="width:'+Math.round(paidOf(s)/TUITION*100)+'%"></i></span><span class="s2">'+money(paidOf(s))+'</span></div></td>'+
+      '<td class="money owed numCol" data-label="Still due">'+money(owedOf(s))+'</td>'+
+      '<td data-label="Aging"><span class="pill '+trend+'">'+s.aging+' days</span></td>'+
+      '<td data-label="Plan"><span class="pill info">Payment plan</span></td>'+
       '<td><button class="rowbtn" data-i="'+i+'">Open</button> <button class="rowbtn" data-remind="'+i+'">Remind</button></td></tr>';
     }).join("");
-    var list=$("slist");
-    if(list){
-      list.innerHTML=shown().map(function(s){
-        var i=S.indexOf(s);
-        var tone=s.docs===7?'var(--brand)':(s.docs>=5?'#c9922e':'#b4554a');
-        return '<button class="srow" data-i="'+i+'">'+
-          '<span class="av">'+ini(s.n)+'</span>'+
-          '<span class="grow"><span class="nm">'+s.n+'</span>'+
-          '<span class="sub">'+s.c+' &middot; '+s.docs+' of 7 docs'+(s.owed>0?' &middot; '+money(s.owed)+' due':'')+'</span></span>'+
-          '<span class="dotstat" style="background:'+tone+'"></span>'+
-          '<svg class="ico chev"><use href="#i-chev" style="transform:rotate(-90deg)"/></svg>'+
-        '</button>';
-      }).join("");
-    }
+    if(!owing.length) $("moneyRows").innerHTML='<tr><td colspan="6"><div class="emptyInline">No open balances. Every enrolled file is paid in full.</div></td></tr>';
   }
+
+  function renderToday(){
+    var m=metrics(), i, s, n, owed;
+    var line=m.starting+" students start Monday. "+(m.blocked.length
+      ? m.blocked.length+(m.blocked.length===1?" is":" are")+" blocked on documents. "
+      : "No one is blocked on documents. ")+money(m.outstandingAll)+" outstanding.";
+    setTxt("todayLine",line);
+    setTxt("ringPct",m.pct+"%");
+    if($("ringArc")) $("ringArc").style.strokeDashoffset=String(150.8*(1-m.pct/100));
+    setTxt("docApproved",m.approved); setTxt("docRequired",m.required);
+    setTxt("clearedOk",m.clearedStart); setTxt("clearedTotal",m.starting);
+    setTxt("blockedShort",m.blocked.length+(m.blocked.length===1?" blocked":" blocked"));
+    if($("blockedCount")) $("blockedCount").textContent=m.blocked.length+(m.blocked.length===1?" student":" students");
+    setTxt("rcOutstanding",money(m.outstandingMonday)); setTxt("rcOwing",m.owingMonday);
+    setTxt("rcOutstandingAll",money(m.outstandingAll));
+    setTxt("auditAgreements",m.agreements); setTxt("auditPayments",m.paymentCount); setTxt("auditDocs",m.auditDocs);
+    if($("cohortBar")){
+      var bar="", bi=0;
+      S.filter(function(x){return x.starts==="27 Oct";}).forEach(function(x){
+        bar+='<rect class="'+(cleared(x)?"ok":"blocked")+'" x="'+(bi*10)+'" y="0" width="8" height="26" rx="2"></rect>';
+        bi++;
+      });
+      $("cohortBar").innerHTML=bar;
+      $("cohortBar").setAttribute("aria-label",m.clearedStart+" of "+m.starting+" students cleared to start Monday");
+    }
+    if($("blockerList")){
+      if(m.blocked.length===0){
+        $("blockerList").innerHTML='<div class="dempty" style="padding:9px 0 2px">Everyone starting Monday has a complete clinical file.</div>';
+      }else{
+        $("blockerList").innerHTML=m.blocked.map(function(x){
+          i=S.indexOf(x); n=openDocs(x).length; owed=owedOf(x);
+          return '<button class="blkRow" data-i="'+i+'"><span class="av">'+ini(x.n)+'</span><span class="who2"><span class="nm">'+x.n+'</span><span class="s2">'+docNames(x).join(", ")+(owed>0?" · "+money(owed)+" due":"")+'</span></span><span class="pill bad">'+n+' doc'+(n===1?"":"s")+'</span></button>';
+        }).join("");
+      }
+    }
+    setTxt("bmSub",m.blocked.length+" student"+(m.blocked.length===1?"":"s")+" and 2 questions");
+    var rows="";
+    m.blocked.forEach(function(x){
+      i=S.indexOf(x); n=openDocs(x).length; owed=owedOf(x);
+      rows+='<div class="arow"><div class="g"><div class="hd"><span class="pip" style="background:#b4554a"></span><span class="t">'+x.n+' is missing '+docNames(x).join(", ")+'</span></div>'+
+        '<div class="s">Starts Monday &middot; '+n+' document'+(n===1?"":"s")+' open'+(owed>0?" &middot; "+money(owed)+" due":"")+'</div>'+
+        '<div class="chips2"><span class="ch warn">'+n+' document'+(n===1?"":"s")+' missing</span>'+(owed>0?'<span class="ch bad">'+money(owed)+' due</span>':'')+'</div></div>'+
+        '<div class="acts"><button class="btn" data-remind="'+i+'">Send reminder</button><button class="rowbtn" data-i="'+i+'">Open file</button></div></div>';
+    });
+    if(!m.blocked.length){
+      rows+='<div class="emptyInline">Every student starting Monday has a complete clinical file.</div>';
+    }
+    if(m.owingMonday>0){
+      rows+='<div class="arow"><div class="g"><div class="hd"><span class="pip" style="background:#c9922e"></span><span class="t">'+m.owingMonday+' students still owe '+money(m.outstandingMonday)+' before Monday</span></div>'+
+        '<div class="s">Oldest balance is '+(m.oldest?m.oldest.aging:0)+' days old &middot; '+m.plans+' payment plans open school-wide</div>'+
+        '<div class="chips2"><span class="ch warn">'+m.owingMonday+' balances</span><span class="ch warn">oldest '+(m.oldest?m.oldest.aging:0)+' days</span></div></div>'+
+        '<div class="acts"><button class="btn ghost" data-goto="money">Review balances</button></div></div>';
+    }
+    rows+='<div class="arow"><div class="g"><div class="hd"><span class="pip" style="background:#4a7fa3"></span><span class="t">2 students asked a question in Messages</span></div>'+
+      '<div class="s">"Can I pay the rest next Friday?" &middot; "What do I need to do to catch up?"</div>'+
+      '<div class="chips2"><span class="ch warn">Jordan Alvarez</span><span class="ch warn">Nia Fontaine</span></div></div>'+
+      '<div class="acts"><button class="btn ghost" data-goto="messages">Open messages</button></div></div>';
+    if($("bmRows")) $("bmRows").innerHTML=rows;
+    setTxt("bmFoot",m.blocked.length?"One reminder covers both students and both questions.":"No document blockers before Monday. Two questions are waiting in Messages.");
+    setTxt("mStart",m.starting); setTxt("mStart2",m.starting); setTxt("mFiles",m.clearedStart);
+    setTxt("mDue",money(m.outstandingMonday));
+    setTxt("agendaOpen",m.openMonday+" file"+(m.openMonday===1?"":"s")+" open");
+    var evening=S.filter(function(x){return x.c==="Evening class";}).length;
+    var day=S.filter(function(x){return x.c==="Day class"&&x.starts==="27 Oct";}).length;
+    var weekend=S.filter(function(x){return x.c==="Weekend class";}).length;
+    setTxt("clsEveningN",evening); setTxt("clsDayN",day); setTxt("clsWeekendN",weekend);
+    setTxt("clsWeekendSeats",12-weekend);
+    setTxt("agendaStart",evening+day); setTxt("agendaWeekend",weekend); setTxt("agendaSeats",12-weekend);
+    setTxt("moneyOutstanding",money(m.outstandingAll)); setTxt("moneyCollected",money(m.collected));
+    setTxt("moneyDue",money(m.outstandingAll)); setTxt("moneySub",m.paymentCount+" payments recorded");
+    setTxt("planCount",m.plans); setTxt("planTotal",m.total);
+    var ratio=Math.round(m.collected/(m.collected+m.outstandingAll)*100);
+    if($("moneyBarFill")) $("moneyBarFill").style.width=ratio+"%";
+    if($("moneyBar")) $("moneyBar").setAttribute("aria-label",ratio+"% of term tuition collected");
+    setTxt("agingLine",m.oldest?("Oldest balance: "+m.oldest.aging+" days · "+m.oldest.n):"No open balances");
+    Array.prototype.forEach.call(document.querySelectorAll('[data-badge="today"]'),function(b){b.textContent=String(m.blocked.length+2);});
+    if($("rosterPrint")) $("rosterPrint").innerHTML=rosterPrintHtml(m);
+  }
+
+  function refreshAll(){renderToday();renderStudents();renderMoney();}
+  // ── the student file: documents, ledger and audit record all resolve here ──
+  var curDrawer=-1, curReject=null, remStudent=-1, focusReturn=null;
+  function rememberFocus(){focusReturn=document.activeElement;}
+  function restoreFocus(){if(focusReturn&&focusReturn.focus){try{focusReturn.focus();}catch(e){}} focusReturn=null;}
+  function esc(x){return String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
+  function startsText(s){return s.starts==="29 Sep"?"finished "+s.starts:"starts "+s.starts;}
+  function markSaved(){
+    var el=$("saveStatus"); if(!el) return;
+    el.textContent="Saving change to the audit trail…"; el.className="saveStatus saving";
+    setTimeout(function(){
+      var live=$("saveStatus");
+      if(live){live.textContent="Saved · audit trail updated"; live.className="saveStatus";}
+    },320);
+  }
+  function docMetaText(d){
+    if(d.s==="ok") return "Approved "+d.d;
+    if(d.s==="review") return "Uploaded "+d.d+" · needs review";
+    if(d.s==="rejected") return "Rejected · re-upload requested"+(d.note?" — “"+esc(d.note)+"”":"");
+    return "Not uploaded";
+  }
+  function docGlyph(d){return d.s==="ok"?"&#10003;":(d.s==="review"?"•":(d.s==="rejected"?"!":"—"));}
+
+  function renderDrawer(){
+    var s=S[curDrawer]; if(!s) return;
+    var st=statusOf(s), owed=owedOf(s), paid=paidOf(s), open=openDocs(s);
+    $("dAv").textContent=ini(s.n); $("dName").textContent=s.n;
+    $("dMeta").textContent=s.c+" · "+startsText(s);
+    var html='<div class="dstatus">'+pillOf(st)+(owed>0?pillOf({t:money(owed)+" balance",tone:"info"}):pillOf({t:"Balance clear",tone:"ok"}))+
+      (cleared(s)?pillOf({t:"Audit-ready",tone:"ok"}):pillOf({t:open.length+" audit gap"+(open.length===1?"":"s"),tone:"bad"}))+'</div>';
+
+    html+='<div class="dsec"><h4>Clinical documents <span class="s2">'+approvedOf(s)+" of "+DOCS.length+" approved</span></h4>";
+    if(open.length===0){
+      html+='<div class="dempty">All seven documents are approved. Nothing to chase before clinicals.</div>';
+    }else{
+      html+='<div class="docList">';
+      s.docs.forEach(function(d,di){
+        var act=(d.s==="ok")?"":'<button class="rowbtn primary" data-doc-approve="'+di+'">Approve</button><button class="rowbtn" data-doc-reject="'+di+'">Reject</button>';
+        html+='<div class="docRow"><span class="docState '+d.s+'">'+docGlyph(d)+'</span><div class="docMain"><div class="docName">'+DOCS[di].n+'</div><div class="docMeta">'+docMetaText(d)+'</div></div><div class="docActs">'+act+'</div></div>';
+      });
+      html+='</div>';
+    }
+    html+='<div id="noteSlot"></div></div>';
+
+    html+='<div class="dsec"><h4>Payments <span class="s2">'+s.pay.length+" recorded</span></h4>"+
+      '<div class="paySummary"><div>Tuition<b>'+money(TUITION)+'</b></div><div>Paid<b>'+money(paid)+'</b></div><div>Balance<b class="'+(owed>0?"minus":"")+'">'+money(owed)+'</b></div></div>'+
+      '<div class="segTrack"><i style="width:'+Math.round(paid/TUITION*100)+'%"></i></div>'+
+      '<div class="ledger">'+s.pay.map(function(p){
+        return '<div class="lrow"><span class="d">'+p.on+'</span><span class="r">'+p.ref+'</span><span class="amt">'+money(p.amt)+'</span></div>';
+      }).join("")+'<div class="total"><span>Balance before Monday</span><b>'+money(owed)+'</b></div></div>';
+    if(owed>0){
+      html+='<button class="btn ghost wfull" id="recordPayBtn">Record a payment</button><div id="paySlot"></div>';
+    }else{
+      html+='<div class="dempty">Paid in full. The ledger is ready for an audit.</div>';
+    }
+    html+='<div class="saveStatus" id="saveStatus" aria-live="polite"></div></div>';
+
+    html+='<div class="dsec"><h4>Agreement &amp; audit record</h4><div class="auditList">'+
+      chkRow("Enrollment agreement signed "+s.enrolled)+
+      chkRow(s.docs[0].s==="ok"?"Application form approved "+s.docs[0].d:"Application form open",s.docs[0].s!=="ok")+
+      chkRow(s.docs[4].s==="ok"?"Government ID approved "+s.docs[4].d:"Government ID open",s.docs[4].s!=="ok")+
+      chkRow(s.docs[5].s==="ok"?"Second ID approved "+s.docs[5].d:"Second ID open",s.docs[5].s!=="ok")+
+      (owed>0?chkRow(money(owed)+" balance outstanding",true):chkRow("Payment record balanced"))+
+      '</div></div>';
+
+    $("dBody").innerHTML=html;
+    if(curReject && curReject.i===curDrawer) renderNoteEditor();
+  }
+
+  function renderNoteEditor(){
+    var s=S[curDrawer]; if(!s||!curReject) return;
+    var slot=$("noteSlot"); if(!slot) return;
+    slot.innerHTML='<div class="noteEditor"><input id="noteInput" placeholder="Reason saved to the file" aria-label="Rejection reason"><button class="btn" id="noteSave">Save rejection</button><button class="btn ghost" id="noteCancel">Cancel</button><div class="formErr" id="noteErr" role="alert"></div><div class="hint">Maya\u2019s reminder and the audit record will show this note.</div></div>';
+    var inp=$("noteInput"); if(inp){inp.focus();}
+  }
+
   function openDrawer(i){
     var s=S[i]; if(!s) return;
+    curDrawer=i; curReject=null; rememberFocus();
     $("dAv").textContent=ini(s.n); $("dName").textContent=s.n;
-    $("dMeta").textContent=s.c+" · starts "+s.starts;
-    var missing=DOCS.slice(s.docs);
-    $("dBody").innerHTML=
-      '<div class="ds"><h4>Situation</h4><span class="pill '+s.tone+'">'+s.st+'</span></div>'+
-      '<div class="ds"><h4>Documents</h4>'+DOCS.map(function(d,idx){
-        var ok=idx<s.docs;
-        return '<div class="chk"><span class="c '+(ok?'ok':'bad')+'">'+(ok?'&#10003;':'!')+'</span><span>'+d+(ok?'':' <span class="s2">— missing</span>')+'</span></div>';}).join("")+'</div>'+
-      '<div class="ds"><h4>Money</h4>'+
-        '<div class="line"><span class="a">Total tuition</span><span class="money">$1,350</span></div>'+
-        '<div class="line"><span class="a">Paid so far</span><span class="money">'+money(s.paid)+'</span></div>'+
-        '<div class="line"><span class="a">Still due</span><span class="money '+(s.owed>0?'owed':'')+'">'+money(s.owed)+'</span></div></div>'+
-      '<div class="ds"><h4>Agreement</h4><div class="chk"><span class="c ok">&#10003;</span><span>Signed at enrollment, stored on the file.</span></div></div>'+
-      '<div class="ds"><h4>Next step</h4><div class="s2">'+(missing.length?'Ask for '+missing.length+' missing document(s)'+(s.owed>0?' and the balance.':'.'):(s.owed>0?'Collect the remaining '+money(s.owed)+' before Monday.':'Nothing outstanding — the file is complete.'))+'</div></div>';
+    $("dMeta").textContent=s.c+" · "+startsText(s);
+    $("dBody").innerHTML='<div class="dsec"><div class="skel"><i></i><i></i><i></i></div></div>';
     $("drawer").classList.add("on"); $("scrim").classList.add("on");
+    setTimeout(function(){ if(curDrawer===i) renderDrawer(); },110);
+    setTimeout(function(){ var x=$("dx"); if(x) x.focus(); },40);
   }
-  function closeDrawer(){$("drawer").classList.remove("on");$("scrim").classList.remove("on");}
+  function closeDrawer(){$("drawer").classList.remove("on");$("scrim").classList.remove("on");curReject=null;restoreFocus();}
+
+  function approveDoc(di){
+    var s=S[curDrawer]; if(!s) return;
+    var d=s.docs[di]; if(!d||d.s==="ok") return;
+    d.s="ok"; d.d=shortToday(); d.note="";
+    curReject=null; renderDrawer(); refreshAll(); markSaved();
+    logHit("action","doc-approve");
+    var m=metrics();
+    announce("Document approved. Readiness now "+m.clearedStart+" of "+m.starting+" students cleared, "+m.approved+" of "+m.required+" clinical documents approved.");
+    setTimeout(function(){var b=document.querySelector("#dBody [data-doc-approve]"); if(b) b.focus(); else {var x=$("dx"); if(x)x.focus();}},20);
+  }
+  function startReject(di){
+    var s=S[curDrawer]; if(!s) return;
+    curReject={i:curDrawer,di:di}; renderNoteEditor();
+  }
+  function cancelReject(){curReject=null; renderDrawer();}
+  function saveReject(){
+    var s=S[curDrawer]; if(!s||!curReject) return;
+    var inp=$("noteInput"), note=inp?inp.value.trim():"";
+    if(note.length<3){ if($("noteErr")) $("noteErr").textContent="Add a short reason so the file explains the rejection."; if(inp)inp.focus(); return; }
+    var d=s.docs[curReject.di]; d.s="rejected"; d.note=note; d.d="";
+    curReject=null; renderDrawer(); refreshAll(); markSaved();
+    logHit("action","doc-reject");
+    announce("Document rejected and the note is saved on the file.");
+  }
+
+  function showPayForm(){
+    if($("payForm")) return;
+    var s=S[curDrawer]; if(!s) return;
+    $("paySlot").innerHTML='<div class="payForm" id="payForm"><label for="payAmt">Amount</label><input id="payAmt" inputmode="decimal" value="'+owedOf(s)+'" aria-label="Payment amount"><button class="btn" id="paySave">Record</button><button class="btn ghost" id="payCancel">Cancel</button><div class="formErr" id="payErr" role="alert"></div></div>';
+    var a=$("payAmt"); if(a){a.focus(); a.select();}
+  }
+  function recordPayment(){
+    var s=S[curDrawer]; if(!s) return;
+    var inp=$("payAmt"), err=$("payErr");
+    var raw=inp?inp.value.replace(/[^0-9.]/g,""):"";
+    var amt=Math.round(Number(raw)*100)/100;
+    var owed=owedOf(s);
+    if(!raw||isNaN(amt)||amt<=0){ if(err)err.textContent="Enter an amount greater than $0."; if(inp)inp.focus(); return; }
+    if(amt>owed){ if(err)err.textContent="That is more than the "+money(owed)+" balance on the file."; if(inp)inp.focus(); return; }
+    s.pay.push(pay(shortToday(),amt,"Card payment"));
+    renderDrawer(); refreshAll(); markSaved();
+    logHit("action","payment");
+    announce("Payment of "+money(amt)+" recorded. "+s.n.split(" ")[0]+"\u2019s balance is now "+money(owedOf(s))+".");
+  }
+
+  // ── reminder: the exact message that would go out ──
+  function reminderDraft(s){
+    var open=docNames(s), owed=owedOf(s), first=s.n.split(" ")[0], parts=[];
+    if(open.length) parts.push("we still need "+open.join(", ")+" on file.");
+    if(owed>0) parts.push("The remaining "+money(owed)+" is due before "+(s.starts==="27 Oct"?"Monday":s.starts)+".");
+    if(!parts.length) parts.push("Your file is complete and you are cleared to start "+(s.starts==="27 Oct"?"Monday":s.starts)+".");
+    return "Hi "+first+" — "+parts.join(" ")+" Reply here and we will get it sorted before clinicals. — "+(oname||"Marisol")+", "+displaySchool();
+  }
+  function openReminder(i){
+    var s=S[i]; if(!s) return;
+    remStudent=i; rememberFocus();
+    $("remAv").textContent=ini(s.n); $("remName").textContent=s.n;
+    $("remMeta").textContent=s.c+" · "+startsText(s);
+    $("remTo").textContent=(s.phone?s.phone+" · ":"")+"text message";
+    $("remText").textContent=reminderDraft(s);
+    $("reminderModal").classList.add("on");
+    setTimeout(function(){ var b=$("remSend"); if(b) b.focus(); },40);
+  }
+  function closeReminder(){$("reminderModal").classList.remove("on");restoreFocus();}
+  function sendReminder(){
+    var s=S[remStudent]; if(!s) return;
+    closeReminder();
+    logHit("action","remind");
+    toast("Reminder sent to "+s.n.split(" ")[0]+" · "+s.phone);
+    announce("Reminder sent to "+s.n+" with the missing documents and balance.");
+  }
+
+  // ── audit record: one clean, printable single-student file ──
+  function docStatusLabel(d){return d.s==="ok"?"Approved":(d.s==="review"?"Review":(d.s==="rejected"?"Rejected":"Open"));}
+  function auditRecordHtml(s){
+    var owed=owedOf(s), paid=paidOf(s), open=openDocs(s);
+    var enrollmentIdx=[0,4,5], clinicalIdx=[1,2,3,6];
+    var enrollmentRows='<tr><td>Enrollment agreement</td><td>Signed</td><td>'+s.enrolled+'</td></tr>'+
+      enrollmentIdx.map(function(di){
+        return '<tr><td>'+DOCS[di].n+'</td><td>'+docStatusLabel(s.docs[di])+'</td><td>'+(s.docs[di].d||"—")+'</td></tr>';
+      }).join("");
+    var clinicalOk=0;
+    var clinicalRows=clinicalIdx.map(function(di){
+      var d=s.docs[di]; if(d.s==="ok") clinicalOk++;
+      return '<tr><td>'+DOCS[di].n+'</td><td>'+docStatusLabel(d)+'</td><td>'+(d.d||"—")+'</td><td>'+esc(d.note||"")+'</td></tr>';
+    }).join("");
+    var ledger=s.pay.map(function(p){return '<tr><td>'+p.on+'</td><td>'+p.ref+'</td><td class="r">'+money(p.amt)+'</td></tr>';}).join("");
+    var statusLine=cleared(s)?"File complete":"Documents open: "+open.length;
+    return '<div class="psHead"><b>'+esc(displaySchool())+'</b><span>Student audit record · printed '+todayLong()+'</span></div>'+
+      '<h1 class="psTitle">'+esc(s.n)+'</h1>'+
+      '<p class="psSub">'+s.c+' · '+startsText(s)+' · enrolled '+s.enrolled+' · '+statusLine+' · <span class="psTag">'+(cleared(s)?"Audit-ready":"Audit gaps: "+open.length)+'</span></p>'+
+      '<div class="psCard"><div class="psSection">Enrollment file</div>'+
+        '<table class="psTable"><tr><th>Record</th><th>Status</th><th>Date</th></tr>'+enrollmentRows+'</table></div>'+
+      '<div class="psCard"><div class="psSection">Clinical documents · '+clinicalOk+' of '+clinicalIdx.length+' approved</div>'+
+        '<table class="psTable"><tr><th>Document</th><th>Status</th><th>Date</th><th>Note</th></tr>'+clinicalRows+'</table>'+
+        '<div class="psLine">Full file: '+approvedOf(s)+' of '+DOCS.length+' documents approved · '+open.length+' open</div></div>'+
+      '<div class="psCard"><div class="psSection">Payment ledger</div><table class="psTable"><tr><th>Date</th><th>Reference</th><th class="r">Amount</th></tr>'+ledger+
+        '<tr><td colspan="2">Paid to date</td><td class="r">'+money(paid)+'</td></tr>'+
+        '<tr><td colspan="2">Balance</td><td class="r">'+money(owed)+'</td></tr></table></div>'+
+      '<div class="psFooter">Generated from the enrollment workspace demo · sample data only · '+esc(displaySchool())+' · '+todayLong()+'</div>';
+  }
+  function printAudit(){
+    var s=S[curDrawer]; if(!s) return;
+    $("auditSheet").innerHTML=auditRecordHtml(s);
+    document.body.classList.add("printing-audit");
+    try{ window.print(); }catch(e){}
+    setTimeout(function(){document.body.classList.remove("printing-audit");},1500);
+    logHit("action","audit");
+    announce("Audit record for "+s.n+" prepared for printing.");
+  }
+  function printThursday(){
+    if($("rosterPrint")) $("rosterPrint").innerHTML=rosterPrintHtml(metrics());
+    document.body.classList.remove("printing-audit");
+    try{ window.print(); }catch(e){}
+    logHit("action","print");
+  }
+  function rosterPrintHtml(m){
+    var rows=m.blocked.map(function(s){
+      var owed=owedOf(s), n=openDocs(s);
+      return '<div class="psRow"><b>'+s.n+'</b><span class="psChip">'+s.c+'</span><span class="psChip">'+startsText(s)+'</span>'+
+        '<div class="psMeta">Open: '+(docNames(s).join(", ")||"none")+(owed>0?" · "+money(owed)+" due":"")+' · contact '+s.phone+'</div></div>';
+    }).join("");
+    var owing=S.filter(function(s){return owedOf(s)>0;}).sort(function(a,b){return owedOf(b)-owedOf(a);});
+    var moneyRows=owing.map(function(s){
+      return '<tr><td>'+s.n+'</td><td>'+s.c+'</td><td>'+startsText(s)+'</td><td class="r">'+money(owedOf(s))+'</td><td>'+s.aging+' days</td></tr>';
+    }).join("");
+    return '<div class="psHead"><b>'+esc(displaySchool())+'</b><span>Before Monday · printed '+todayLong()+'</span></div>'+
+      '<h1 class="psTitle">Before Monday</h1>'+
+      '<p class="psSub">'+m.blocked.length+' student'+(m.blocked.length===1?"":"s")+' blocked on clinical documents · '+money(m.outstandingMonday)+' still to collect before Monday.</p>'+
+      '<div class="psSection">Blocked on documents</div>'+
+      '<div class="psCard">'+(rows||'<div class="psRow">No document blockers before Monday.</div>')+'</div>'+
+      '<div class="psSection">Open balances</div>'+
+      '<table class="psTable"><tr><th>Student</th><th>Class</th><th>Starts</th><th class="r">Balance</th><th>Aging</th></tr>'+moneyRows+'</table>'+
+      '<div class="psTotal"><span>Outstanding school-wide</span><span>'+money(m.outstandingAll)+'</span></div>'+
+      '<div class="psFooter">Generated from the enrollment workspace demo · sample data only · '+esc(displaySchool())+'</div>';
+  }
 
   function updateBadges(){
     var unread=Object.keys(MAIL).filter(function(k){return MAIL[k].unread;}).length;
@@ -1278,14 +1925,23 @@
 
 
 
-  function openEnroll(){logHit("action","enroll");$("emodal").classList.add("on");setTimeout(function(){$("en").focus();},30);}
-  function closeEnroll(){$("emodal").classList.remove("on");}
+  function openEnroll(){
+    rememberFocus();
+    logHit("action","enroll");
+    $("emodal").classList.add("on");
+    setTimeout(function(){$("en").focus();},30);
+  }
+  function closeEnroll(){$("emodal").classList.remove("on");restoreFocus();}
   function submitEnroll(){
     var name=$("en").value.trim();
     if(name.length<3){$("en").focus();toast("Add the student's name first.");return;}
     var cls=$("ec").value, c=cls.split(" - ")[0], start=cls.indexOf("1 Nov")>=0?"1 Nov":"27 Oct";
-    S.unshift({n:name,c:c,enrolled:"23 Oct",starts:start,docs:0,paid:100,owed:1250,st:"Documents missing",tone:"bad"});
-    closeEnroll(); renderStudents(); go("students"); logHit("action","enroll"); toast("That's the Thursday screen. Want it on your own students?");
+    S.unshift({n:name,c:c,enrolled:shortToday(),starts:start,phone:"(346) 555-0142",aging:0,
+      docs:[op(),op(),op(),op(),op(),op(),op()],
+      pay:[pay(shortToday(),100,"Registration")]});
+    closeEnroll(); refreshAll(); go("students"); logHit("action","enroll");
+    announce("Student enrolled. Their file starts with seven documents open and the $100 registration recorded.");
+    toast("That's the Thursday screen. Want it on your own students?");
   }
 
 
@@ -1477,6 +2133,7 @@
     return "It's a live demo with sample students. The only thing we keep is that "+who+", so I can follow up. No account, no card, nothing to install.";
   }
   function openGate(){
+    rememberFocus();
     $("gateName").value=sname; $("gateCity").value=scity; $("gateOwner").value=oname;
     $("gateGo").disabled=!($("gateName").value.trim().length>1 && $("gateOwner").value.trim().length>1);
     $("gatePrivacy").textContent=gatePrivacy();
@@ -1485,7 +2142,7 @@
     logHit("gate_view");
     setTimeout(function(){ (sname?$("gateOwner"):$("gateName")).focus(); },40);
   }
-  function closeGate(){ $("gate").classList.remove("on"); }
+  function closeGate(){ $("gate").classList.remove("on"); restoreFocus(); }
   function commitGate(){
     var raw=($("gateName").value||"").trim();
     var clean=cleanSchool(raw);
@@ -1541,28 +2198,31 @@
   // P1-3: every simulated action now points at the one real next step.
   function intentCopy(){ return "This is the workflow. Want it live for "+displaySchool()+"? Reply to my email with 'set it up'."; }
   function exportCsv(){
-    var head=["Student","Class","Starts","Documents","Paid","Due","Status"];
-    var rows=S.map(function(x){return [x.n,x.c,x.starts,x.docs+" of 7",x.paid,x.owed,x.st];});
+    var head=["Student","Class","Starts","Documents approved","Open documents","Paid","Balance","Status"];
+    var rows=S.map(function(x){return [x.n,x.c,x.starts,approvedOf(x)+" of 7",docNames(x).join(" / "),paidOf(x),owedOf(x),statusOf(x).t];});
     var csv=[head].concat(rows).map(function(r){return r.join(",");}).join("\n");
     var a=document.createElement("a");
     a.href="data:text/csv;charset=utf-8,"+encodeURIComponent(csv);
     a.download="students.csv"; a.click();
     toast("students.csv downloaded");
   }
-  // top-bar search filters the roster from anywhere
+  // top-bar search filters the roster from anywhere; no matches get an inline empty state
   var term="";
   function onSearch(v){
     term=(v||"").trim().toLowerCase();
     if(term){ go("students"); }
     renderStudents();
-    if(term) toast(shown().length+" student(s) match \""+v.trim()+"\"");
+    var n=shown().length;
+    announce(term?(n+(n===1?" student matches ":" students match ")+'"'+v.trim()+'"'):n+" students shown");
   }
 
   function openMenu(){
+    rememberFocus();
     $("menuSheet").classList.add("on");
     $("menuSheet").setAttribute("aria-hidden","false");
     $("menuBtn").setAttribute("aria-expanded","true");
     document.body.style.overflow="hidden";
+    setTimeout(function(){var b=document.querySelector("#menuSheet .menuNav button");if(b)b.focus();},70);
   }
   function closeMenu(){
     $("menuSheet").classList.remove("on");
@@ -1571,6 +2231,13 @@
     document.body.style.overflow="";
   }
 
+  function clearRoster(){
+    term=""; filter="all";
+    var q=$("qTop"); if(q) q.value="";
+    Array.prototype.forEach.call(document.querySelectorAll("[data-f]"),function(b){b.classList.toggle("on",b.getAttribute("data-f")==="all");});
+    renderStudents();
+    announce("Filters cleared. All "+S.length+" students shown.");
+  }
   document.addEventListener("click",function(e){
     var t=e.target.closest("a,button,tr"); if(!t) return;
     var label=(t.textContent||"").trim();
@@ -1579,6 +2246,8 @@
     if(t.id==="nameStripOpen"){commitNameStrip();return;}
     if(t.id==="nameStripSkip"){skipNameStrip();return;}
     if(t.id==="gateGo"){commitGate();return;}
+    if(t.id==="remClose"||t.id==="remCancel"){closeReminder();return;}
+    if(t.id==="remSend"){sendReminder();return;}
     if(t.closest&&t.closest(".ws")){openGate();return;}
     if(t.id==="fab"||/Enroll a student/.test(label)){openEnroll();return;}
     if(t.id==="eClose"||t.id==="eCancel"){closeEnroll();return;}
@@ -1586,6 +2255,18 @@
     if(t.id==="menuBtn"){ $("menuSheet").classList.contains("on") ? closeMenu() : openMenu(); return; }
     if(t.id==="menuClose"||t.id==="menuSheet"){ closeMenu(); return; }
     if(t.id==="convCta"){ logHit("cta", BOOKING_URL?"booking":"strip-email"); return; }
+    if(t.id==="printThursday"){ printThursday(); return; }
+    if(t.id==="moneyExport"){ logHit("action","export"); exportCsv(); return; }
+    if(t.id==="dRemind"){ openReminder(curDrawer); return; }
+    if(t.id==="dAudit"){ printAudit(); return; }
+    if(t.id==="recordPayBtn"){ showPayForm(); return; }
+    if(t.id==="payCancel"){ var pf=$("payForm"); if(pf) pf.remove(); return; }
+    if(t.id==="paySave"){ recordPayment(); return; }
+    if(t.id==="noteCancel"){ cancelReject(); return; }
+    if(t.id==="noteSave"){ saveReject(); return; }
+    if(t.id==="clearRosterFilter"){ clearRoster(); return; }
+    if(t.hasAttribute("data-doc-approve")){ approveDoc(Number(t.getAttribute("data-doc-approve"))); return; }
+    if(t.hasAttribute("data-doc-reject")){ startReject(Number(t.getAttribute("data-doc-reject"))); return; }
     if(t.hasAttribute("data-go")){ go(t.getAttribute("data-go")); closeMenu(); return; }
     if(t.hasAttribute("data-qtab")){setQtab(t.getAttribute("data-qtab"));return;}
     if(t.hasAttribute("data-mbox")){setMbox(t.getAttribute("data-mbox"));return;}
@@ -1601,26 +2282,25 @@
       Array.prototype.forEach.call(document.querySelectorAll("[data-f]"),function(b){b.classList.remove("on");});
       t.classList.add("on"); filter=t.getAttribute("data-f"); renderStudents(); return;
     }
-    if(t.hasAttribute("data-remind")){logHit("action","remind");toast(intentCopy());return;}
+    if(t.hasAttribute("data-remind")){ openReminder(Number(t.getAttribute("data-remind"))); return; }
     if(t.hasAttribute("data-i")){openDrawer(Number(t.getAttribute("data-i")));return;}
     if(t.closest&&t.closest("tr[data-i]")){openDrawer(Number(t.closest("tr[data-i]").getAttribute("data-i")));return;}
     if(t.classList&&t.classList.contains("opt2")){
       Array.prototype.forEach.call(document.querySelectorAll(".opt2"),function(o){o.classList.remove("sel");});
       t.classList.add("sel"); return;
     }
-    // P1-3: the remaining simulated actions log the intent and point at the one real next step.
+    // remaining simulated in-product actions log the intent and point at the one real next step
     var act="";
     if(/^Print/i.test(label)) act="print";
     else if(/^Export$/i.test(label)) act="export";
     else if(/^Start Zoom$/i.test(label)) act="zoom";
     else if(/^Roster$/i.test(label)) act="class";
     else if(/^Send a message$/i.test(label)) act="message";
-    else if(/^Send reminder$/i.test(label)) act="remind";
     else if(/^(Results|Edit|Next question|Previous|Send retake to 2 students)$/i.test(label)) act="quiz";
     if(act){
       logHit("action",act);
       if(act==="export"){ exportCsv(); return; }
-      if(act==="print"){ window.print(); return; }
+      if(act==="print"){ printThursday(); return; }
       toast(intentCopy()); return;
     }
   });
@@ -1634,11 +2314,34 @@
   $("nameStripInput").addEventListener("input",function(){$("nameStripOpen").disabled=this.value.trim().length<2;});
   $("nameStripOpen").disabled=true;
   $("emodal").addEventListener("click",function(e){if(e.target===this)closeEnroll();});
+  $("reminderModal").addEventListener("click",function(e){if(e.target===this)closeReminder();});
   $("qTop").addEventListener("input",function(){onSearch(this.value);});
+  $("dBody").addEventListener("keydown",function(e){
+    if(e.key!=="Enter"||!e.target) return;
+    if(e.target.id==="noteInput"){e.preventDefault();saveReject();}
+    if(e.target.id==="payAmt"){e.preventDefault();recordPayment();}
+  });
 
   $("sideScrim").addEventListener("click",function(){document.querySelector(".side").classList.remove("open");this.classList.remove("on");});
   $("scrim").addEventListener("click",closeDrawer);
-  document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeDrawer();closeEnroll();closeMenu();closeGate();}});
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"){
+      closeDrawer();closeEnroll();closeMenu();closeGate();closeReminder();
+      document.body.classList.remove("printing-audit");
+      return;
+    }
+    if(e.key!=="Tab") return;
+    var dlg=document.querySelector(".gate.on .gatecard, .drawer.on, .emodal.on .epanel, .rmodal.on .rpanel, .menuSheet.on .menuPanel");
+    if(!dlg) return;
+    var nodes=dlg.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])');
+    var f=[];
+    Array.prototype.forEach.call(nodes,function(el){ if(el.offsetParent!==null||el===document.activeElement) f.push(el); });
+    if(!f.length) return;
+    var first=f[0], last=f[f.length-1];
+    if(e.shiftKey && document.activeElement===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first.focus();}
+  });
+  window.addEventListener("afterprint",function(){document.body.classList.remove("printing-audit");});
 
   (function stamp(){
     var el=document.getElementById("buildStamp");
@@ -1648,7 +2351,7 @@
       el.textContent="Updated "+d.toLocaleDateString(undefined,{month:"short",day:"numeric"})+" "+d.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"});
     }catch(e){}
   })();
-  setGreeting(); bootBrand(); logHit("view"); if(gatePending) openGate(); markSeen(); renderStudents(); renderMoney(); renderMail();
+  setGreeting(); bootBrand(); logHit("view"); if(gatePending) openGate(); markSeen(); refreshAll(); renderMail();
   var h=(location.hash||"").replace("#","");
   var sm=h.match(/^students-(\d+)$/);
   if(sm){ go("students"); openDrawer(Number(sm[1])); }
