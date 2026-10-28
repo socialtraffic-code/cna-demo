@@ -1511,7 +1511,9 @@
       '<span class="ds">Jordan Alvarez · Nia Fontaine</span></span>'+
       '<span class="tail"><span class="opn">Open</span>'+
       '<svg class="ico chev"><use href="#i-chev"/></svg></span></button>';
-    var missingDocs=0; m.blocked.forEach(function(x){missingDocs+=openDocs(x).length;});
+    var missingSet={};
+    m.blocked.forEach(function(x){docNames(x).forEach(function(nm){missingSet[nm]=1;});});
+    var missingDocs=Object.keys(missingSet).length;
     setTxt("bmSub", m.blocked.length+" student"+(m.blocked.length===1?"":"s")+" · "+missingDocs+" document"+(missingDocs===1?"":"s")+" · "+money(m.outstandingMonday));
     if($("bmRows")) $("bmRows").innerHTML=rows;
     setTxt("mStart",m.starting); setTxt("mStart2",m.starting); setTxt("mFiles",m.clearedStart);
