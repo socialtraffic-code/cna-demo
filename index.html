@@ -783,19 +783,19 @@
 </style>
 <style>
 /* Before Monday: section header on the page, flat list card underneath */
-.sechead{display:flex;align-items:baseline;gap:12px;padding:0 22px 10px}
-.sechead .kick{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);font-weight:650}
-.sechead .meta{font-size:12.5px;color:var(--muted)}
-.sechead .spacer{flex:1}
-.sechead .acts{display:flex;align-items:center;gap:18px;align-self:center}
-.sechead .quiet{background:none;border:0;color:var(--muted);font:inherit;font-size:12.5px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:2px 0}
-.sechead .quiet .ico{width:14px;height:14px}
-.sechead .quiet:hover{color:var(--ink2)}
+.bmhead{display:flex;align-items:baseline;gap:12px;padding:17px 22px 13px;border-bottom:1px solid var(--line2)}
+.bmhead .kick{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);font-weight:650}
+.bmhead .meta{font-size:12.5px;color:var(--muted)}
+.bmhead .spacer{flex:1}
+.bmhead .acts{display:flex;align-items:center;gap:18px;align-self:center}
+.bmhead .quiet{background:none;border:0;color:var(--muted);font:inherit;font-size:12.5px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:2px 0}
+.bmhead .quiet .ico{width:14px;height:14px}
+.bmhead .quiet:hover{color:var(--ink2)}
 .linkbtn{background:none;border:0;color:var(--brand);font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:2px 0}
 .linkbtn:hover{text-decoration:underline}
 .card.flat{padding:0;overflow:hidden}
 .bmrow{display:flex;align-items:center;gap:18px;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line2);padding:18px 22px;cursor:pointer;font:inherit;color:var(--ink)}
-.card.flat .bmrow:first-child{border-top:0}
+.card.flat #bmRows .bmrow:first-child{border-top:0}
 .bmrow:hover{background:#fcfbf9}
 .bmrow:active{background:#f7f5f0}
 .bmrow:focus-visible{outline:2px solid #9dc3b8;outline-offset:-2px}
@@ -809,9 +809,9 @@
 .bmrow .opn{font-size:12.5px;color:var(--muted)}
 .bmrow .chev{color:var(--faint);transform:rotate(-90deg)}
 @media (max-width:560px){
-  .sechead{flex-wrap:wrap;gap:2px 12px;padding:0 18px 8px}
-  .sechead .kick{width:100%}
-  .sechead .acts{gap:12px}
+  .bmhead{flex-wrap:wrap;gap:4px 12px;padding:14px 18px 11px}
+  .bmhead .kick{width:100%}
+  .bmhead .acts{gap:12px}
   .bmrow{padding:16px 18px;gap:12px}
   .bmrow .nm{font-size:15px}
   .bmrow .ds{font-size:12px}
@@ -922,16 +922,18 @@
 
         <div class="cols">
           <div class="stack">
-            <div class="sechead">
-              <div class="kick">Before Monday</div>
-              <div class="meta" id="bmSub">2 students · 3 documents · $4,550</div>
-              <div class="spacer"></div>
-              <div class="acts">
-                <button class="quiet" id="printThursday" type="button" aria-label="Print Thursday list"><svg class="ico"><use href="#i-print"/></svg>Print</button>
-                <button class="linkbtn" id="bmRemindAll" type="button">Send reminders</button>
+            <div class="card flat">
+              <div class="bmhead">
+                <div class="kick">Before Monday</div>
+                <div class="meta" id="bmSub">2 students · 5 documents · $4,550</div>
+                <div class="spacer"></div>
+                <div class="acts">
+                  <button class="quiet" id="printThursday" type="button" aria-label="Print Thursday list"><svg class="ico"><use href="#i-print"/></svg>Print</button>
+                  <button class="linkbtn" id="bmRemindAll" type="button">Send reminders</button>
+                </div>
               </div>
+              <div id="bmRows"></div>
             </div>
-            <div class="card flat"><div id="bmRows"></div></div>
 
             <div class="card">
               <div class="h"><h2>This week</h2></div>
