@@ -60,13 +60,18 @@
   .main{padding:40px 32px 96px;max-width:1200px;width:100%;margin:0 auto}
   .main.flush{padding:0;max-width:none}
   /* conversion row: one hairline, one disclosure, one quiet CTA */
-  .conv{display:flex;align-items:center;gap:14px;flex-wrap:nowrap;height:54px;padding:0 max(32px, calc((100% - 1200px)/2 + 32px));background:var(--bg);border-bottom:1px solid var(--line);color:var(--muted);position:sticky;top:56px;z-index:29}
+  .conv{display:flex;align-items:center;gap:14px;flex-wrap:nowrap;height:54px;padding:0 max(32px, calc((100% - 1200px)/2 + 32px));background:var(--bg);border-bottom:1px solid var(--line);color:var(--muted)}
   .conv .tag{font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
   .conv #welcomeStrip{display:inline-flex;align-items:center;font-size:12.5px;color:var(--muted);white-space:nowrap}
   .conv #welcomeStrip:before{content:"·";margin:0 10px;color:var(--faint)}
   .conv .spacer{flex:1}
-  .conv a.cta{display:inline-flex;align-items:center;min-height:44px;color:var(--brand);font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap}
-  .conv a.cta:hover{color:var(--brand2);text-decoration:underline;text-underline-offset:3px}
+  .conv a.cta{display:inline-flex;align-items:center;justify-content:center;height:34px;min-height:34px;padding:0 14px;border-radius:999px;background:var(--brand);color:#fff;font-size:12.5px;font-weight:600;text-decoration:none;white-space:nowrap;box-shadow:0 1px 2px rgba(17,85,75,.18);transition:background-color .12s ease}
+  .conv a.cta:hover{background:var(--brand2);color:#fff;text-decoration:none}
+  /* persistent contact pill: appears after the conversion row scrolls away */
+  .floatCta{position:fixed;right:28px;bottom:28px;z-index:40;display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 18px;border-radius:999px;background:var(--brand);color:#fff;font-size:13px;font-weight:600;text-decoration:none;box-shadow:0 10px 26px rgba(17,85,75,.24);opacity:0;visibility:hidden;transform:translateY(8px);pointer-events:none;transition:opacity .2s ease,transform .2s ease,visibility .2s ease}
+  .floatCta.on{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+  .floatCta:hover{background:var(--brand2);color:#fff}
+  .menuContact{display:none}
   /* name prompt (P0-2): inline, dismissible, shown after the first section view */
   .namestrip{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px max(32px, calc((100% - 1200px)/2 + 32px));background:var(--ambers);border-bottom:1px solid #f0e3c7;font-size:12.5px;color:var(--ink2)}
   .namestrip .nq b{font-weight:650;color:var(--ink)}
@@ -85,7 +90,8 @@
   .btn.ghost:hover{background:#fbfaf8;color:var(--ink)}
   h2{font-size:14.5px;font-weight:650;letter-spacing:-.01em;margin:0}
   .card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
-  .card .h{display:flex;align-items:center;gap:10px;padding:18px 22px;border-bottom:1px solid var(--line2)}
+  .card .h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:18px 22px;border-bottom:1px solid var(--line2)}
+  #mondaySub{flex:1 0 100%;margin-top:2px;font-size:11.5px}
   .card .h .sub{font-size:12.5px;color:var(--muted)}
   .card .h .spacer{flex:1}
   .card .b{padding:20px 22px}
@@ -474,7 +480,7 @@
     .navTitle{display:block;font-size:16px;font-weight:600;letter-spacing:-.02em}
     .conv{padding:0 16px;gap:10px;height:54px}
     .conv .tag{font-size:10px;letter-spacing:.08em}
-    .conv a.cta{min-height:44px}
+    .conv a.cta{height:44px;min-height:44px;padding:0 16px;font-size:13px}
     .namestrip{padding:10px 16px;gap:8px}
     .namestrip input{flex:1 1 100%;max-width:none}
     .main{padding:20px 16px 96px;max-width:100%}
@@ -612,6 +618,9 @@
     .menuNav .mc{margin-left:8px;color:var(--faint);font-size:20px;line-height:1}
     .menuFoot{display:flex;align-items:center;gap:10px;padding:12px 20px 0;border-top:1px solid var(--line);margin:8px 14px 0}
   .menuFoot .build{margin-left:auto;font-size:11px;color:var(--faint)}
+    .menuContact{display:flex;align-items:center;justify-content:center;gap:6px;margin:10px 14px 14px;height:44px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--brand);font-size:14px;font-weight:600;text-decoration:none}
+    .menuContact .mc{color:var(--brand)}
+    .menuContact:hover{background:#fbfaf8}
   }
 
   /* ══ polish pass: readiness, money, resolution surfaces, states, print ══ */
@@ -775,7 +784,8 @@
     .top .search{display:none}
   }
   @media (max-width:700px){
-    .conv a.cta{min-height:44px;padding:10px 12px}
+    .floatCta{right:auto;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));height:44px;padding:0 20px;transform:translateX(-50%) translateY(8px)}
+    .floatCta.on{transform:translateX(-50%)}
     .btn,.rowbtn{min-height:40px}
     .arow .acts .btn{min-height:44px}
     .rcHead{flex-wrap:wrap;gap:10px;padding:18px 18px 0}
@@ -811,7 +821,7 @@
   @media print{
     @page{margin:14mm}
     body{background:#fff!important;color:#000!important}
-    .skip,.sideScrim,.gate,.emodal,.rmodal,.drawer,.menuSheet,.fab,.toast,.scrim,.shell,.conv,.namestrip,.side,#live{display:none!important}
+    .skip,.sideScrim,.gate,.emodal,.rmodal,.drawer,.menuSheet,.fab,.toast,.scrim,.shell,.conv,.namestrip,.side,.floatCta,#live{display:none!important}
     .printSheet{display:block!important}
     body:not(.printing-audit) #auditSheet{display:none!important}
     body.printing-audit #rosterPrint{display:none!important}
@@ -881,7 +891,7 @@
     </nav>
     <div class="sidefoot">
       <div class="av" id="meAv">MV</div>
-      <div><div class="nm" id="meName">Marisol Vega</div><div class="rl">Owner</div></div>
+      <div><div class="nm" id="meName">Marisol Vega</div><div class="rl" id="meRole">Owner</div></div>
       <svg class="ico dots" width="15" height="15"><use href="#i-dots"/></svg>
     </div>
   </aside>
@@ -901,8 +911,11 @@
       <span class="tag">Demo · sample data</span>
       <span id="welcomeStrip" class="hidden">Welcome back</span>
       <span class="spacer"></span>
-      <a class="cta" id="convCta" href="mailto:agency@social-traffic.ca?subject=Enrollment%20workspace%20for%20%7BSchool%7D" data-cta="talk-to-me">Email me →</a>
+      <a class="cta" id="convCta" href="mailto:agency@social-traffic.ca?subject=Enrollment%20workspace%20for%20%7BSchool%7D" data-cta="talk-to-me">Email me</a>
     </div>
+
+    <!-- persistent contact: appears once the conversion row scrolls out of view -->
+    <a class="floatCta" id="floatCta" href="mailto:agency@social-traffic.ca?subject=Enrollment%20workspace%20for%20%7BSchool%7D" data-cta="talk-to-me" aria-label="Email me about this workspace">Email me</a>
 
     <!-- name after value (P0-2): inline, dismissible, shown after the first section view -->
     <div class="namestrip hidden" id="nameStrip">
@@ -925,7 +938,7 @@
           <div class="rcHead">
             <div>
               <h2 id="readyTitle">Monday start readiness</h2>
-              <div class="sub">Monday cohort</div>
+              <div class="sub" id="readySub">Monday cohort</div>
             </div>
             <div class="auditBadge"><span class="hdot"></span>HHSC audit trail current</div>
           </div>
@@ -977,7 +990,7 @@
 
           <div class="stack">
             <div class="card">
-              <div class="h"><h2>Monday's class</h2></div>
+              <div class="h"><h2>Monday's class</h2><span class="sub hidden" id="mondaySub"></span></div>
               <div class="b">
                 <div class="miniStat"><span class="ic"><svg class="ico"><use href="#i-users"/></svg></span><div class="g"><div class="k">Students starting</div><div class="v"><span id="mStart">9</span> of 14 seats</div></div></div>
                 <div class="miniStat"><span class="ic"><svg class="ico"><use href="#i-doc"/></svg></span><div class="g"><div class="k">Files ready</div><div class="v"><span id="mFiles">7</span> of <span id="mStart2">9</span> complete</div></div></div>
@@ -1236,7 +1249,7 @@
           <div class="card">
             <div class="h"><h2>People</h2></div>
             <table><thead><tr><th>Person</th><th>Role</th><th></th></tr></thead><tbody>
-              <tr><td><div class="who"><div class="av" id="teamAv">MV</div><div><div class="nm" id="teamName">Marisol Vega</div><div class="s2" id="teamMail">marisol@cnatraininginstitute.org</div></div></div></td><td data-label="Role"><span class="role owner">Owner</span></td><td></td></tr>
+              <tr><td><div class="who"><div class="av" id="teamAv">MV</div><div><div class="nm" id="teamName">Marisol Vega</div><div class="s2" id="teamMail">marisol@cnatraininginstitute.org</div></div></div></td><td data-label="Role"><span class="role owner" id="teamRole">Owner</span></td><td></td></tr>
               <tr><td><div class="who"><div class="av">LA</div><div><div class="nm">Lisa Alvarez</div><div class="s2">lisa@cnatraininginstitute.org</div></div></div></td><td data-label="Role"><span class="role admin">Administrator</span></td><td></td></tr>
               <tr><td><div class="who"><div class="av">MB</div><div><div class="nm">Michael Boateng</div><div class="s2">michael@cnatraininginstitute.org</div></div></div></td><td data-label="Role"><span class="role teacher">Teacher</span></td><td></td></tr>
               <tr><td><div class="who"><div class="av">JA</div><div><div class="nm">Jordan Alvarez</div><div class="s2">student</div></div></div></td><td data-label="Role"><span class="role student">Student</span></td><td></td></tr>
@@ -1300,9 +1313,10 @@
     </nav>
     <div class="menuFoot">
       <div class="av" id="menuAv">MV</div>
-      <div><div class="nm" id="menuUser">Marisol Vega</div><div class="sub">Owner</div></div>
+      <div><div class="nm" id="menuUser">Marisol Vega</div><div class="sub" id="menuRole">Owner</div></div>
       <div class="build" id="buildStamp"></div>
     </div>
+    <a class="menuContact" id="menuContact" href="mailto:agency@social-traffic.ca?subject=Enrollment%20workspace%20for%20%7BSchool%7D">Email me about this workspace<span class="mc" aria-hidden="true">&rarr;</span></a>
   </div>
 </div>
 <button class="fab" id="fab" aria-label="Enroll a student"><svg class="ico"><use href="#i-plus"/></svg></button>
@@ -1766,7 +1780,7 @@
     var statusLine=cleared(s)?"File complete":"Documents open: "+open.length;
     return '<div class="psHead"><b>'+esc(displaySchool())+'</b><span>Student audit record · printed '+todayLong()+'</span></div>'+
       '<h1 class="psTitle">'+esc(s.n)+'</h1>'+
-      '<p class="psSub">'+s.c+' · '+startsText(s)+' · enrolled '+s.enrolled+' · '+statusLine+' · <span class="psTag">'+(cleared(s)?"Audit-ready":"Audit gaps: "+open.length)+'</span></p>'+
+      '<p class="psSub">'+(sprogram?esc(sprogram)+" · ":"")+s.c+' · '+startsText(s)+' · enrolled '+s.enrolled+' · '+statusLine+' · <span class="psTag">'+(cleared(s)?"Audit-ready":"Audit gaps: "+open.length)+'</span></p>'+
       '<div class="psCard"><div class="psSection">Enrollment file</div>'+
         '<table class="psTable"><tr><th>Record</th><th>Status</th><th>Date</th></tr>'+enrollmentRows+'</table></div>'+
       '<div class="psCard"><div class="psSection">Clinical documents · '+clinicalOk+' of '+clinicalIdx.length+' approved</div>'+
@@ -1802,7 +1816,7 @@
     var moneyRows=owing.map(function(s){
       return '<tr><td>'+s.n+'</td><td>'+s.c+'</td><td>'+startsText(s)+'</td><td class="r">'+money(owedOf(s))+'</td><td>'+s.aging+' days</td></tr>';
     }).join("");
-    return '<div class="psHead"><b>'+esc(displaySchool())+'</b><span>Before Monday · printed '+todayLong()+'</span></div>'+
+    return '<div class="psHead"><b>'+esc(displaySchool())+'</b><span>'+(sprogram?esc(sprogram)+" · ":"")+'Before Monday · printed '+todayLong()+'</span></div>'+
       '<h1 class="psTitle">Before Monday</h1>'+
       '<p class="psSub">'+m.blocked.length+' student'+(m.blocked.length===1?"":"s")+' blocked on clinical documents · '+money(m.outstandingMonday)+' still to collect before Monday.</p>'+
       '<div class="psSection">Blocked on documents</div>'+
@@ -1921,7 +1935,7 @@
   var AGENCY_EMAIL = "agency@social-traffic.ca";
   var BOOKING_URL = ""; // set once a real booking link exists; empty keeps the email CTA
   var t0 = Date.now(), sessionEnded = false, booted = false, lastSection = "";
-  var sname = "", scity = "", oname = "";
+  var sname = "", scity = "", oname = "", srole = "", sprogram = "", sstart = "";
   var qs = (function(){ try{ return new URLSearchParams(location.search); }catch(e){ return {get:function(){return "";}}; } })();
   function lsGet(k){ try{ return localStorage.getItem(k)||""; }catch(e){ return ""; } }
   function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
@@ -1932,6 +1946,12 @@
   if(pid) lsSet("demoPid", pid);
   var step = (qs.get("step")||qs.get("s")||"").trim().slice(0,10);
   var arm = (qs.get("arm")||qs.get("a")||"").trim().slice(0,20);
+  // optional personalization depth: collapsed, trimmed, length-capped, never inserted as markup
+  function cleanLabel(x,max){var v=(x||"").replace(/\s+/g," ").trim(); return v?v.slice(0,max):"";}
+  var qsCity = cleanLabel(qs.get("city"),40);
+  var qsTitle = cleanLabel(qs.get("title"),32);
+  var qsProgram = cleanLabel(qs.get("program"),40);
+  var qsStart = cleanLabel(qs.get("start"),24);
   var internalFlag = qs.get("internal")==="1" || qs.get("i")==="1" || ssGet("demoInternal")==="1";
   if(internalFlag) ssSet("demoInternal","1");
   var sid = (function(){
@@ -1995,18 +2015,18 @@
   function readProfile(){
     try{
       var p=JSON.parse(lsGet("demoProfile")||"null");
-      if(p&&p.n) return {n:p.n,c:p.c||"",o:p.o||"",seen:p.seen||prevSeen};
+      if(p&&p.n) return {n:p.n,c:p.c||"",o:p.o||"",r:p.r||"",pg:p.pg||"",st:p.st||"",seen:p.seen||prevSeen};
     }catch(e){}
     try{
       var s=JSON.parse(lsGet("demoSchool")||"null");
-      if(s&&s.n) return {n:s.n,c:s.c||"",o:s.o||"",seen:prevSeen};
+      if(s&&s.n) return {n:s.n,c:s.c||"",o:s.o||"",r:"",pg:"",st:"",seen:prevSeen};
     }catch(e){}
     return null;
   }
   function nowIso(){ return new Date().toISOString(); }
   function saveProfile(){
     try{
-      localStorage.setItem("demoProfile", JSON.stringify({n:sname,c:scity,o:oname,seen:nowIso()}));
+      localStorage.setItem("demoProfile", JSON.stringify({n:sname,c:scity,o:oname,r:srole,pg:sprogram,st:sstart,seen:nowIso()}));
       localStorage.setItem("demoLastSeen", nowIso());
       if(pid) localStorage.setItem("demoPid", pid);
     }catch(e){}
@@ -2029,11 +2049,51 @@
   }
   function renderStrips(){
     $("welcomeStrip").classList.toggle("hidden", stripMode!=="back");
+    var wFirst=(oname||"").split(" ")[0];
+    if($("welcomeStrip")) $("welcomeStrip").textContent="Welcome back"+(wFirst?", "+wFirst:"");
     var cta=$("convCta");
-    cta.textContent=BOOKING_URL?"Book a time →":"Email me →";
+    cta.textContent=BOOKING_URL?"Book a time":"Email me";
     cta.href=ctaHref();
+    var fc=$("floatCta"); if(fc) fc.href=ctaHref();
+    var mc=$("menuContact"); if(mc) mc.href=ctaHref();
     fillSchoolSpans();
     var ns=$("nameStripSchool"); if(ns) ns.textContent=displaySchool();
+  }
+  // ── one-click contact that follows the scroll without covering an open overlay ──
+  var floatAway=false, floatIO=null;
+  function overlaysOpen(){
+    return !!document.querySelector(".gate.on, .drawer.on, .emodal.on, .rmodal.on, .menuSheet.on");
+  }
+  function updateFloat(){
+    var f=$("floatCta"); if(!f) return;
+    f.classList.toggle("on", floatAway && !overlaysOpen());
+  }
+  function initFloat(){
+    var strip=$("convStrip");
+    if(strip && "IntersectionObserver" in window){
+      floatIO=new IntersectionObserver(function(entries){
+        floatAway=!entries[entries.length-1].isIntersecting;
+        updateFloat();
+      },{threshold:0});
+      floatIO.observe(strip);
+    }else{
+      var onScroll=function(){
+        if(!strip) return;
+        floatAway=strip.getBoundingClientRect().bottom<=56;
+        updateFloat();
+      };
+      window.addEventListener("scroll", onScroll, {passive:true});
+      onScroll();
+    }
+    window.addEventListener("resize", function(){
+      if(!floatIO && strip) floatAway=strip.getBoundingClientRect().bottom<=56;
+      updateFloat();
+    });
+    var obs=new MutationObserver(function(){updateFloat();});
+    ["gate","drawer","emodal","reminderModal","menuSheet"].forEach(function(id){
+      var el=$(id); if(el) obs.observe(el,{attributes:true,attributeFilter:["class"]});
+    });
+    updateFloat();
   }
   function applyOwner(){
     var who=oname||"Marisol Vega";
@@ -2050,6 +2110,16 @@
     var t=h<12?"Good morning":(h<18?"Good afternoon":"Good evening");
     var el=$("greetTime"); if(el) el.textContent=t;
   }
+  function applyCohortLabels(){
+    var cohort=(sprogram?sprogram:"Monday")+" cohort";
+    if(sstart) cohort+=" · starts "+sstart;
+    setTxt("readySub",cohort);
+    var parts=[];
+    if(sprogram) parts.push(sprogram);
+    if(sstart) parts.push("starts "+sstart);
+    var ms=$("mondaySub");
+    if(ms){ ms.textContent=parts.join(" · "); ms.classList.toggle("hidden", parts.length===0); }
+  }
   function applyBrand(){
     var nm=displaySchool();
     var branded=!!sname;
@@ -2057,7 +2127,20 @@
     $("crumbBrand").textContent=nm;
     $("brandLoc").textContent=scity||"";
     $("brandLoc").style.display=scity?"block":"none";
-    document.title=(sname?sname+" — ":"")+"enrollment workspace (demo)";
+    var role=srole||"Owner";
+    if($("meRole")) $("meRole").textContent=role;
+    if($("menuRole")) $("menuRole").textContent=role;
+    if($("teamRole")) $("teamRole").textContent=role;
+    document.title=(sname?sname+" — ":"")+(sprogram?sprogram+" ":"")+"enrollment workspace (demo)";
+    var md=document.querySelector('meta[name="description"]');
+    if(md){
+      if(sname||sprogram){
+        md.setAttribute("content","A live preview of the enrollment workspace Social Traffic builds for "+(sname||"CNA schools")+(sprogram?" ("+sprogram+")":"")+": clinical documents, balances and HHSC-ready audit records.");
+      }else{
+        md.setAttribute("content","A live preview of the enrollment workspace Social Traffic builds for CNA schools: clinical documents, balances and HHSC-ready audit records.");
+      }
+    }
+    applyCohortLabels();
     var mark=branded?initials(sname):"CT";
     if($("brandMark")) $("brandMark").textContent=mark;
     if($("menuMark")) $("menuMark").textContent=mark;
@@ -2091,7 +2174,7 @@
     if(clean.length<2){$("gateName").focus();return;}
     var who=($("gateOwner").value||"").trim().slice(0,40);
     if(who.length<2){$("gateOwner").focus();return;}
-    sname=clean; scity=($("gateCity").value||"").trim().slice(0,40); oname=who;
+    sname=clean; scity=cleanLabel($("gateCity").value,40); oname=who;
     closeGate(); hideNameStrip(); applyBrand(); saveProfile(); logHit("gate_submit");
   }
   // P0-2: links that carry a school open the dashboard; the name is asked for inline, not in a modal.
@@ -2119,15 +2202,28 @@
     prevProfile=saved;
     if(returning) stripMode="back";
     if(rawSchool){
-      sname=cleanSchool(rawSchool); scity=""; oname=fromName;
-      if(!oname && saved && saved.n===sname && saved.o) oname=saved.o;
+      sname=cleanSchool(rawSchool); oname=fromName;
+      scity=qsCity; srole=qsTitle; sprogram=qsProgram; sstart=qsStart;
+      if(saved && saved.n===sname){
+        if(!oname && saved.o) oname=saved.o;
+        if(!scity && saved.c) scity=saved.c;
+        if(!srole && saved.r) srole=saved.r;
+        if(!sprogram && saved.pg) sprogram=saved.pg;
+        if(!sstart && saved.st) sstart=saved.st;
+      }
       applyBrand();
       if(oname) hideNameStrip(); else queueNameStrip();
       return;
     }
-    if(saved && saved.n && saved.o){ sname=saved.n; scity=saved.c||""; oname=saved.o; applyBrand(); hideNameStrip(); return; }
-    if(saved && saved.n){ sname=saved.n; scity=saved.c||""; applyBrand(); queueNameStrip(); return; }
-    sname=""; oname=""; applyBrand(); gatePending=true;
+    if(saved && saved.n && saved.o){
+      sname=saved.n; scity=saved.c||""; oname=saved.o; srole=saved.r||""; sprogram=saved.pg||""; sstart=saved.st||"";
+      applyBrand(); hideNameStrip(); return;
+    }
+    if(saved && saved.n){
+      sname=saved.n; scity=saved.c||""; oname=""; srole=saved.r||""; sprogram=saved.pg||""; sstart=saved.st||"";
+      applyBrand(); queueNameStrip(); return;
+    }
+    sname=""; scity=""; oname=""; srole=""; sprogram=""; sstart=""; applyBrand(); gatePending=true;
   }
 
   // toast + small utilities used by the placeholder actions
@@ -2196,6 +2292,8 @@
     if(t.id==="menuBtn"){ $("menuSheet").classList.contains("on") ? closeMenu() : openMenu(); return; }
     if(t.id==="menuClose"||t.id==="menuSheet"){ closeMenu(); return; }
     if(t.id==="convCta"){ logHit("cta", BOOKING_URL?"booking":"strip-email"); return; }
+    if(t.id==="floatCta"){ logHit("cta","float-email"); return; }
+    if(t.id==="menuContact"){ logHit("cta","menu-email"); return; }
     if(t.id==="printThursday"){ printThursday(); return; }
     if(t.id==="moneyExport"){ logHit("action","export"); exportCsv(); return; }
     if(t.id==="dRemind"){ openReminder(curDrawer); return; }
@@ -2292,7 +2390,7 @@
       el.textContent="Updated "+d.toLocaleDateString(undefined,{month:"short",day:"numeric"})+" "+d.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"});
     }catch(e){}
   })();
-  setGreeting(); bootBrand(); logHit("view"); if(gatePending) openGate(); markSeen(); refreshAll(); renderMail();
+  setGreeting(); bootBrand(); logHit("view"); if(gatePending) openGate(); markSeen(); refreshAll(); renderMail(); initFloat();
   var h=(location.hash||"").replace("#","");
   var sm=h.match(/^students-(\d+)$/);
   if(sm){ go("students"); openDrawer(Number(sm[1])); }
