@@ -625,7 +625,7 @@
 
   /* ══ polish pass: readiness, money, resolution surfaces, states, print ══ */
   .wfull{width:100%;justify-content:center}
-  .num,.numCol,.money,.kpi .v,.miniStat .v,.hero .r .v,.hero .big,.qstats b,.avg,.resrow .lab,.resrow .n,.moneyHero .v,.segLegend b,.paySummary b,.ledger .amt,.ledger .total b{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+  .num,.numCol,.money,.kpi .v,.miniStat .v,.hero .r .v,.hero .big,.qstats b,.avg,.resrow .lab,.resrow .n,.moneyHero .v,.segLegend b,.ledger .amt,.ledger .total b{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
   .numCol{text-align:right}
   .miniStat .ic .ico{width:15px;height:15px}
   .top .search{width:300px}
@@ -652,47 +652,56 @@
   .emptyInline{font-size:13px;color:var(--muted);padding:18px 18px;text-align:center}
   .saveStatus{font-size:11.5px;color:var(--green);min-height:16px;margin-top:6px}
   .saving{color:var(--muted)}
-  /* drawer resolution surfaces */
-  .dstatus{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:4px}
-  .dsec{border-bottom:1px solid var(--line2);padding:14px 0}
-  .dsec:first-child{padding-top:0}
-  .dsec:last-child{border-bottom:0}
-  .dsec h4{margin:0 0 9px;font-size:11px;letter-spacing:.04em;color:var(--faint);font-weight:650;text-transform:uppercase;display:flex;align-items:center;gap:8px}
-  .dsec h4 .s2{text-transform:none;letter-spacing:0;font-weight:400;margin-left:auto;font-size:11.5px}
-  .docRow{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:10px;align-items:start;padding:9px 0;border-bottom:1px solid var(--line2)}
+  /* drawer resolution surfaces (cleaned: summary, documents, payments) */
+  .drawer{width:560px}
+  .db{padding:16px 24px 22px}
+  .dSummary{font-size:13px;color:var(--muted);padding:2px 0 4px}
+  .dSummary b{color:var(--red);font-weight:650}
+  .dsec{margin-top:26px;border:0;padding:0}
+  .dsec:first-of-type{margin-top:16px}
+  .dsech{display:flex;align-items:baseline;gap:10px;padding-bottom:8px}
+  .dsech .k{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);font-weight:650}
+  .dsech .sp{flex:1}
+  .dsech .m{font-size:12.5px;color:var(--muted)}
+  .docList{border-top:1px solid var(--line2)}
+  .docRow{display:flex;align-items:center;gap:13px;padding:14px 0;border-bottom:1px solid var(--line2)}
   .docRow:last-child{border-bottom:0}
-  .docState{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:700;color:#fff;margin-top:1px}
+  .docState{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff;flex:0 0 auto}
   .docState.ok{background:var(--brand)}
   .docState.review{background:#c9922e}
-  .docState.open{background:#b4554a}
-  .docState.rejected{background:#b4554a;opacity:.7}
-  .docMain{min-width:0}
-  .docName{font-size:13px;font-weight:550;line-height:1.3}
-  .docMeta{font-size:11.5px;color:var(--muted);margin-top:1px;line-height:1.4}
+  .docState.open{background:var(--red);opacity:.88}
+  .docState.rejected{background:var(--red);opacity:.65}
+  .docMain{flex:1;min-width:0}
+  .docName{font-size:15px;font-weight:560;letter-spacing:-.008em;line-height:1.3}
+  .docMeta{font-size:12.5px;color:var(--muted);margin-top:1px;line-height:1.45}
   .docMeta .note{color:var(--red)}
-  .docActs{display:flex;gap:5px;flex:0 0 auto}
-  .docActs .rowbtn{padding:4px 8px;font-size:11.5px;min-height:28px}
-  .docActs .rowbtn.primary{border-color:var(--brand);color:var(--brand2);font-weight:600}
-  .noteEditor{display:flex;gap:6px;margin:8px 0 2px;flex-wrap:wrap;align-items:center}
-  .noteEditor input{flex:1;min-width:150px;height:32px;border:1px solid var(--line);border-radius:7px;padding:0 9px;font:inherit;font-size:12.5px}
-  .noteEditor .hint{width:100%;font-size:11.5px;color:var(--muted)}
-  .paySummary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:9px}
-  .paySummary div{font-size:11.5px;color:var(--muted)}
-  .paySummary b{display:block;font-size:16px;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-.01em;margin-top:1px}
-  .paySummary b.minus{color:var(--red)}
-  .ledger{margin:9px 0 10px}
-  .ledger .lrow{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--line2);font-size:12.5px}
+  .docActs{display:flex;align-items:center;gap:16px;flex:0 0 auto}
+  .dlink{background:none;border:0;font:inherit;font-size:12.5px;font-weight:600;color:var(--brand);cursor:pointer;padding:4px 0}
+  .dlink.quiet{color:var(--faint);font-weight:500}
+  .dlink:hover{text-decoration:underline}
+  .payBig{font-size:27px;font-weight:640;letter-spacing:-.025em;color:var(--red);font-variant-numeric:tabular-nums}
+  .payBig span{font-size:13px;font-weight:500;color:var(--muted);letter-spacing:0;margin-left:5px}
+  .payBig.clear{color:var(--ink)}
+  .payPaid{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .segTrack{margin-top:16px;height:4px;border-radius:99px;background:var(--line2)}
+  .segTrack i{background:var(--brand)}
+  .ledger{margin:14px 0 0;border-top:1px solid var(--line2)}
+  .ledger .lrow{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line2);font-size:12.5px;color:var(--muted)}
   .ledger .lrow:last-child{border-bottom:0}
-  .ledger .lrow .d{width:64px;flex:0 0 64px;color:var(--muted)}
+  .ledger .lrow .d{flex:0 0 auto}
   .ledger .lrow .r{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .ledger .lrow .amt{font-variant-numeric:tabular-nums;font-weight:600}
-  .ledger .total{display:flex;justify-content:space-between;gap:10px;font-size:12px;padding-top:7px;border-top:1px solid var(--line);color:var(--muted)}
-  .ledger .total b{color:var(--ink);font-variant-numeric:tabular-nums}
-  .payForm{display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding:9px;border:1px solid var(--line);border-radius:9px;background:#fcfbf9;margin-top:8px}
+  .ledger .lrow .amt{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+  .payRec{margin-top:14px;background:none;border:1px solid var(--line);border-radius:10px;padding:10px 15px;font:inherit;font-size:13px;font-weight:560;color:var(--ink);cursor:pointer}
+  .payRec:hover{background:#fcfbf9}
+  .noteLine{font-size:12px;color:var(--faint);line-height:1.5;margin-top:26px;padding-top:15px;border-top:1px solid var(--line2)}
+  .noteEditor{display:flex;gap:6px;margin:10px 0 2px;flex-wrap:wrap;align-items:center}
+  .noteEditor input{flex:1;min-width:150px;height:34px;border:1px solid var(--line);border-radius:8px;padding:0 10px;font:inherit;font-size:13px}
+  .noteEditor .hint{width:100%;font-size:11.5px;color:var(--muted)}
+  .payForm{display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fcfbf9;margin-top:10px}
   .payForm label{font-size:11.5px;color:var(--muted)}
-  .payForm input{width:108px;height:32px;border:1px solid var(--line);border-radius:7px;padding:0 9px;font:inherit;font-size:13px;font-variant-numeric:tabular-nums}
+  .payForm input{width:110px;height:34px;border:1px solid var(--line);border-radius:8px;padding:0 10px;font:inherit;font-size:13px;font-variant-numeric:tabular-nums}
   .formErr{width:100%;font-size:11.5px;color:var(--red)}
-  .dempty{font-size:12.5px;color:var(--muted);padding:8px 0}
+  .dempty{font-size:12.5px;color:var(--muted);padding:10px 0}
   .auditList .chk{font-size:12.5px}
   .auditList .chk .s2{margin-left:4px}
   /* reminder modal */
@@ -1557,49 +1566,41 @@
     if(d.s==="rejected") return "Rejected · re-upload requested"+(d.note?" — “"+esc(d.note)+"”":"");
     return "Not uploaded";
   }
-  function docGlyph(d){return d.s==="ok"?"&#10003;":(d.s==="review"?"•":(d.s==="rejected"?"!":"—"));}
+  function docGlyph(d){return d.s==="ok"?"&#10003;":(d.s==="review"?"•":"!");}
 
   function renderDrawer(){
     var s=S[curDrawer]; if(!s) return;
     var st=statusOf(s), owed=owedOf(s), paid=paidOf(s), open=openDocs(s);
     $("dAv").textContent=ini(s.n); $("dName").textContent=s.n;
     $("dMeta").textContent=s.c+" · "+startsText(s);
-    var html='<div class="dstatus">'+pillOf(st)+(owed>0?pillOf({t:money(owed)+" balance",tone:"info"}):pillOf({t:"Balance clear",tone:"ok"}))+
-      (cleared(s)?pillOf({t:"Audit-ready",tone:"ok"}):pillOf({t:open.length+" audit gap"+(open.length===1?"":"s"),tone:"bad"}))+'</div>';
+    var html='<div class="dSummary"><b>'+open.length+' document'+(open.length===1?"":"s")+' missing</b>'+
+      (owed>0?' · <b>'+money(owed)+'</b> due before Monday':' · balance clear')+'</div>';
 
-    html+='<div class="dsec"><h4>Clinical documents <span class="s2">'+approvedOf(s)+" of "+DOCS.length+" approved</span></h4>";
+    html+='<div class="dsec"><div class="dsech"><span class="k">Documents</span><span class="sp"></span><span class="m">'+approvedOf(s)+" of "+DOCS.length+" approved</span></div>";
     if(open.length===0){
       html+='<div class="dempty">All seven documents are approved. Nothing to chase before clinicals.</div>';
     }else{
       html+='<div class="docList">';
       s.docs.forEach(function(d,di){
-        var act=(d.s==="ok")?"":'<button class="rowbtn primary" data-doc-approve="'+di+'">Approve</button><button class="rowbtn" data-doc-reject="'+di+'">Reject</button>';
-        html+='<div class="docRow"><span class="docState '+d.s+'">'+docGlyph(d)+'</span><div class="docMain"><div class="docName">'+DOCS[di].n+'</div><div class="docMeta">'+docMetaText(d)+'</div></div><div class="docActs">'+act+'</div></div>';
+        var act=(d.s==="ok")?"":'<button class="dlink" data-doc-approve="'+di+'">Approve</button><button class="dlink quiet" data-doc-reject="'+di+'">Reject</button>';
+        html+='<div class="docRow"><span class="docState '+d.s+'">'+docGlyph(d)+'</span><div class="docMain"><div class="docName">'+DOCS[di].n+'</div><div class="docMeta">'+docMetaText(d)+'</div></div>'+(act?'<div class="docActs">'+act+'</div>':'')+'</div>';
       });
       html+='</div>';
     }
     html+='<div id="noteSlot"></div></div>';
 
-    html+='<div class="dsec"><h4>Payments <span class="s2">'+s.pay.length+" recorded</span></h4>"+
-      '<div class="paySummary"><div>Tuition<b>'+money(TUITION)+'</b></div><div>Paid<b>'+money(paid)+'</b></div><div>Balance<b class="'+(owed>0?"minus":"")+'">'+money(owed)+'</b></div></div>'+
+    html+='<div class="dsec"><div class="dsech"><span class="k">Payments</span><span class="sp"></span><span class="m">'+s.pay.length+" recorded</span></div>"+
+      '<div class="payBig'+(owed>0?"":" clear")+'">'+money(owed)+'<span>'+(owed>0?"due before Monday":"balance clear")+'</span></div>'+
+      '<div class="payPaid">'+money(paid)+' paid of '+money(TUITION)+' tuition</div>'+
       '<div class="segTrack"><i style="width:'+Math.round(paid/TUITION*100)+'%"></i></div>'+
       '<div class="ledger">'+s.pay.map(function(p){
         return '<div class="lrow"><span class="d">'+p.on+'</span><span class="r">'+p.ref+'</span><span class="amt">'+money(p.amt)+'</span></div>';
-      }).join("")+'<div class="total"><span>Balance before Monday</span><b>'+money(owed)+'</b></div></div>';
+      }).join("")+'</div>';
     if(owed>0){
-      html+='<button class="btn ghost wfull" id="recordPayBtn">Record a payment</button><div id="paySlot"></div>';
-    }else{
-      html+='<div class="dempty">Paid in full. The ledger is ready for an audit.</div>';
+      html+='<button class="payRec" id="recordPayBtn">Record a payment</button><div id="paySlot"></div>';
     }
-    html+='<div class="saveStatus" id="saveStatus" aria-live="polite"></div></div>';
-
-    html+='<div class="dsec"><h4>Agreement &amp; audit record</h4><div class="auditList">'+
-      chkRow("Enrollment agreement signed "+s.enrolled)+
-      chkRow(s.docs[0].s==="ok"?"Application form approved "+s.docs[0].d:"Application form open",s.docs[0].s!=="ok")+
-      chkRow(s.docs[4].s==="ok"?"Government ID approved "+s.docs[4].d:"Government ID open",s.docs[4].s!=="ok")+
-      chkRow(s.docs[5].s==="ok"?"Second ID approved "+s.docs[5].d:"Second ID open",s.docs[5].s!=="ok")+
-      (owed>0?chkRow(money(owed)+" balance outstanding",true):chkRow("Payment record balanced"))+
-      '</div></div>';
+    html+='<div class="noteLine">The printed audit record includes the agreement, every document above and the payment ledger.</div>'+
+      '<div class="saveStatus" id="saveStatus" aria-live="polite"></div></div>';
 
     $("dBody").innerHTML=html;
     if(curReject && curReject.i===curDrawer) renderNoteEditor();
