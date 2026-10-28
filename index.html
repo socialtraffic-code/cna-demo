@@ -625,7 +625,7 @@
 
   /* ══ polish pass: readiness, money, resolution surfaces, states, print ══ */
   .wfull{width:100%;justify-content:center}
-  .num,.numCol,.money,.kpi .v,.miniStat .v,.hero .r .v,.hero .big,.qstats b,.avg,.resrow .lab,.resrow .n,.moneyHero .v,.rcMoney .v,.rcMeta .v,.ringTxt b,.segLegend b,.paySummary b,.ledger .amt,.ledger .total b{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+  .num,.numCol,.money,.kpi .v,.miniStat .v,.hero .r .v,.hero .big,.qstats b,.avg,.resrow .lab,.resrow .n,.moneyHero .v,.segLegend b,.paySummary b,.ledger .amt,.ledger .total b{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
   .numCol{text-align:right}
   .miniStat .ic .ico{width:15px;height:15px}
   .top .search{width:300px}
@@ -633,41 +633,6 @@
   /* skip link */
   .skip{position:fixed;left:16px;top:-64px;z-index:300;background:var(--brand);color:#fff;padding:10px 14px;border-radius:8px;font-weight:600;font-size:13px;text-decoration:none;box-shadow:0 6px 20px rgba(23,24,26,.2);transition:top .15s ease}
   .skip:focus{top:12px}
-  /* readiness card */
-  .readyCard{margin-bottom:26px}
-  .rcHead{display:flex;align-items:flex-start;gap:16px;padding:20px 22px 0}
-  .rcHead h2{font-size:15px}
-  .rcHead .sub{margin-top:2px}
-  .auditBadge{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--green);background:var(--greens);border:1px solid #d3e6dd;border-radius:999px;padding:4px 10px;white-space:nowrap}
-  .auditBadge .hdot{width:6px;height:6px;border-radius:50%;background:var(--green);flex:0 0 auto}
-  .rcGrid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr) minmax(0,1.3fr) minmax(0,.8fr);gap:24px;align-items:center;padding:20px 22px}
-  .rcMetric{display:flex;align-items:center;gap:13px;min-width:0}
-  .ringWrap{position:relative;width:56px;height:56px;flex:0 0 auto}
-  .ring{width:56px;height:56px;transform:rotate(-90deg)}
-  .ringBg{fill:none;stroke:#ece9e2;stroke-width:5}
-  .ringFg{fill:none;stroke:var(--brand);stroke-width:5;stroke-linecap:round;stroke-dasharray:150.8;stroke-dashoffset:12;transition:stroke-dashoffset .4s cubic-bezier(.32,.72,0,1)}
-  .ringTxt{position:absolute;inset:0;display:grid;place-content:center;text-align:center;line-height:1.05}
-  .ringTxt b{font-size:13px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-  .ringTxt span{font-size:8.5px;color:var(--muted);letter-spacing:.01em}
-  .rcMeta{min-width:0}
-  .rcMeta .k,.rcMoney .k{font-size:12px;color:var(--muted)}
-  .rcMeta .v{font-size:14px;font-weight:650;letter-spacing:-.01em;margin-top:1px}
-  .rcMeta .s,.rcMoney .s{font-size:11.5px;color:var(--muted);margin-top:2px}
-  .cohortBar{display:block;width:84px;height:26px;flex:0 0 auto;overflow:visible}
-  .cohortBar rect{fill:#eeebe3}
-  .cohortBar rect.ok{fill:var(--brand)}
-  .cohortBar rect.blocked{fill:#d9a13a}
-  .rcBlockers{min-width:0}
-  .blkLabel{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:650;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
-  .blkLabel .pill{text-transform:none;letter-spacing:0;height:19px;font-size:11px}
-  .blkRow{display:flex;align-items:center;gap:9px;width:100%;border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 9px;margin-top:6px;text-align:left;font:inherit;color:var(--ink);min-height:40px}
-  .blkRow:hover{background:#fbfaf8;border-color:#ddd9d1}
-  .blkRow .who2{min-width:0;flex:1}
-  .blkRow .nm{display:block;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .blkRow .s2{display:block;margin-top:1px;font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .blkRow .pill{flex:0 0 auto}
-  .rcMoney{min-width:0}
-  .rcMoney .v{font-size:19px;font-weight:650;letter-spacing:-.02em;margin:2px 0 1px;font-variant-numeric:tabular-nums}
   /* money card */
   .moneyHero{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
   .moneyHero .v{font-size:24px;font-weight:650;letter-spacing:-.025em;color:var(--ink)}
@@ -742,8 +707,8 @@
   .remText{font-size:13.5px;line-height:1.6;color:var(--ink);background:#fcfbf9;border:1px solid var(--line);border-radius:9px;padding:12px 13px;white-space:pre-wrap}
   .remNote{font-size:11.5px;color:var(--muted);line-height:1.5}
   /* micro-interactions */
-  .btn,.iconbtn,.rowbtn,.nav a,.mrow,.tpl button,.blkRow,.opt2,.srow,.docActs .rowbtn,.skip{transition:background-color .12s ease,color .12s ease,border-color .12s ease,box-shadow .12s ease,transform .06s ease}
-  .btn:active,.rowbtn:active,.iconbtn:active,.blkRow:active{transform:translateY(1px)}
+  .btn,.iconbtn,.rowbtn,.nav a,.mrow,.tpl button,.opt2,.srow,.docActs .rowbtn,.skip{transition:background-color .12s ease,color .12s ease,border-color .12s ease,box-shadow .12s ease,transform .06s ease}
+  .btn:active,.rowbtn:active,.iconbtn:active{transform:translateY(1px)}
   .btn:hover{box-shadow:0 1px 2px rgba(23,24,26,.09)}
   .btn.ghost:hover{box-shadow:none}
   .rowbtn:hover{border-color:#d9d5cc}
@@ -779,8 +744,6 @@
   #live{position:fixed;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);pointer-events:none}
   /* tablet / mobile density */
   @media (max-width:1080px){
-    .rcGrid{grid-template-columns:1fr 1fr;gap:14px}
-    .rcBlockers{grid-column:1/-1}
     .top .search{display:none}
   }
   @media (max-width:700px){
@@ -788,29 +751,16 @@
     .floatCta.on{transform:translateX(-50%)}
     .btn,.rowbtn{min-height:40px}
     .arow .acts .btn{min-height:44px}
-    .rcHead{flex-wrap:wrap;gap:10px;padding:18px 18px 0}
-    .auditBadge{margin-left:0}
-    .rcGrid{padding:18px;gap:18px}
-    .readyCard{margin-bottom:20px}
     .docActs{flex-wrap:wrap;justify-content:flex-end}
-    .blkRow{padding:9px 10px;min-height:44px}
     .moneyHero .v{font-size:22px}
     .dsec{padding:12px 0}
     .main{padding:12px 16px 96px}
     .phead{margin-bottom:14px}
   }
-  @media (max-width:560px){
-    .rcGrid{grid-template-columns:1fr;gap:14px}
-    .rcMetric{align-items:center}
-    .rcBlockers{grid-column:auto}
-    .rcMoney{padding-top:2px}
-    .rcHead h2{font-size:15.5px}
-  }
   @media (prefers-reduced-motion: reduce){
     *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   }
   /* print: clean Thursday list by default, single-student audit record when printing-audit */
-  .blkRow .av{width:26px;height:26px;font-size:10.5px;flex:0 0 auto}
   .acts2{white-space:nowrap;text-align:right}
   .acts2 .rowbtn{margin-left:4px}
   .skel{display:flex;flex-direction:column;gap:9px;padding:6px 0}
@@ -931,42 +881,6 @@
         <div class="greet">
           <h1><span id="greetTime">Good morning</span><span id="greetWho"></span></h1>
           <div class="line" id="todayLine">9 students start Monday. 2 are blocked on documents. $5,850 outstanding.</div>
-        </div>
-
-        <!-- readiness: the four CNA pains, above the fold -->
-        <div class="card readyCard" aria-labelledby="readyTitle">
-          <div class="rcHead">
-            <div>
-              <h2 id="readyTitle">Monday start readiness</h2>
-              <div class="sub" id="readySub">Monday cohort</div>
-            </div>
-            <div class="auditBadge"><span class="hdot"></span>HHSC audit trail current</div>
-          </div>
-          <div class="rcGrid">
-            <div class="rcMetric">
-              <div class="ringWrap">
-                <svg class="ring" viewBox="0 0 56 56" aria-hidden="true">
-                  <circle class="ringBg" cx="28" cy="28" r="24"></circle>
-                  <circle class="ringFg" id="ringArc" cx="28" cy="28" r="24"></circle>
-                </svg>
-                <div class="ringTxt"><b id="ringPct">92%</b><span>approved</span></div>
-              </div>
-              <div class="rcMeta"><div class="k">Clinical documents</div><div class="v"><span id="docApproved">58</span> of <span id="docRequired">63</span> approved</div></div>
-            </div>
-            <div class="rcMetric">
-              <svg class="cohortBar" id="cohortBar" viewBox="0 0 88 26" preserveAspectRatio="none" role="img" aria-label="7 of 9 students cleared to start Monday"></svg>
-              <div class="rcMeta"><div class="k">Students cleared</div><div class="v"><span id="clearedOk">7</span> of <span id="clearedTotal">9</span> ready</div><div class="s"><span id="blockedShort">2 blocked</span> on documents</div></div>
-            </div>
-            <div class="rcBlockers">
-              <div class="blkLabel">Blocking Monday <span class="pill bad" id="blockedCount">2 students</span></div>
-              <div id="blockerList"></div>
-            </div>
-            <div class="rcMoney">
-              <div class="k">Outstanding before Monday</div>
-              <div class="v" id="rcOutstanding">$4,550</div>
-              <div class="s"><span id="rcOwing">5</span> students owe</div>
-            </div>
-          </div>
         </div>
 
         <div class="cols">
@@ -1437,26 +1351,22 @@
 
   function metrics(){
     var monday=S.filter(function(s){return s.starts==="27 Oct";});
-    var required=monday.length*DOCS.length;
-    var collected=0,paymentCount=0,outstandingAll=0,owingAll=0,clearedAll=0,auditDocs=0;
+    var collected=0,paymentCount=0,outstandingAll=0,owingAll=0;
     S.forEach(function(s){
-      collected+=paidOf(s); paymentCount+=s.pay.length; auditDocs+=approvedOf(s);
+      collected+=paidOf(s); paymentCount+=s.pay.length;
       var o=owedOf(s); if(o>0){outstandingAll+=o;owingAll++;}
-      if(cleared(s)) clearedAll++;
     });
-    var mApproved=0,mOutstanding=0,mOwing=0,clearedStart=0,openMonday=0,blocked=[];
+    var mOutstanding=0,mOwing=0,clearedStart=0,openMonday=0,blocked=[];
     monday.forEach(function(s){
-      mApproved+=approvedOf(s); openMonday+=openDocs(s).length;
+      openMonday+=openDocs(s).length;
       if(owedOf(s)>0){mOutstanding+=owedOf(s);mOwing++;}
       if(cleared(s)) clearedStart++; else blocked.push(s);
     });
     blocked.sort(function(a,b){return openDocs(b).length-openDocs(a).length;});
     var owing=S.filter(function(s){return owedOf(s)>0;}).sort(function(a,b){return b.aging-a.aging;});
-    return {starting:monday.length,required:required,approved:mApproved,clearedStart:clearedStart,blocked:blocked,openMonday:openMonday,
+    return {starting:monday.length,clearedStart:clearedStart,blocked:blocked,openMonday:openMonday,
       outstandingAll:outstandingAll,owingAll:owingAll,outstandingMonday:mOutstanding,owingMonday:mOwing,
-      collected:collected,paymentCount:paymentCount,plans:owingAll,total:S.length,clearedAll:clearedAll,
-      auditDocs:auditDocs,auditRequired:S.length*DOCS.length,agreements:S.length,oldest:owing[0]||null,
-      pct:required?Math.round(mApproved/required*100):0};
+      collected:collected,paymentCount:paymentCount,plans:owingAll,total:S.length,oldest:owing[0]||null};
   }
 
   function shown(){
@@ -1533,33 +1443,6 @@
       ? m.blocked.length+(m.blocked.length===1?" is":" are")+" blocked on documents. "
       : "No one is blocked on documents. ")+money(m.outstandingAll)+" outstanding.";
     setTxt("todayLine",line);
-    setTxt("ringPct",m.pct+"%");
-    if($("ringArc")) $("ringArc").style.strokeDashoffset=String(150.8*(1-m.pct/100));
-    setTxt("docApproved",m.approved); setTxt("docRequired",m.required);
-    setTxt("clearedOk",m.clearedStart); setTxt("clearedTotal",m.starting);
-    setTxt("blockedShort",m.blocked.length+" blocked");
-    if($("blockedCount")) $("blockedCount").textContent=m.blocked.length+(m.blocked.length===1?" student":" students");
-    setTxt("rcOutstanding",money(m.outstandingMonday)); setTxt("rcOwing",m.owingMonday);
-    setTxt("rcOutstandingAll",money(m.outstandingAll));
-    if($("cohortBar")){
-      var bar="", bi=0;
-      S.filter(function(x){return x.starts==="27 Oct";}).forEach(function(x){
-        bar+='<rect class="'+(cleared(x)?"ok":"blocked")+'" x="'+(bi*10)+'" y="0" width="8" height="26" rx="2"></rect>';
-        bi++;
-      });
-      $("cohortBar").innerHTML=bar;
-      $("cohortBar").setAttribute("aria-label",m.clearedStart+" of "+m.starting+" students cleared to start Monday");
-    }
-    if($("blockerList")){
-      if(m.blocked.length===0){
-        $("blockerList").innerHTML='<div class="dempty" style="padding:9px 0 2px">Everyone starting Monday has a complete clinical file.</div>';
-      }else{
-        $("blockerList").innerHTML=m.blocked.map(function(x){
-          i=S.indexOf(x); n=openDocs(x).length; owed=owedOf(x);
-          return '<button class="blkRow" data-i="'+i+'"><span class="av">'+ini(x.n)+'</span><span class="who2"><span class="nm">'+x.n+'</span><span class="s2">'+docNames(x).join(", ")+(owed>0?" · "+money(owed)+" due":"")+'</span></span><span class="pill bad">'+n+' doc'+(n===1?"":"s")+'</span></button>';
-        }).join("");
-      }
-    }
     var rows="";
     m.blocked.forEach(function(x){
       i=S.indexOf(x); n=openDocs(x).length; owed=owedOf(x);
@@ -1697,7 +1580,7 @@
     curReject=null; renderDrawer(); refreshAll(); markSaved();
     logHit("action","doc-approve");
     var m=metrics();
-    announce("Document approved. Readiness now "+m.clearedStart+" of "+m.starting+" students cleared, "+m.approved+" of "+m.required+" clinical documents approved.");
+    announce("Document approved. Files ready: "+m.clearedStart+" of "+m.starting+" students cleared to start Monday.");
     setTimeout(function(){var b=document.querySelector("#dBody [data-doc-approve]"); if(b) b.focus(); else {var x=$("dx"); if(x)x.focus();}},20);
   }
   function startReject(di){
@@ -2111,9 +1994,6 @@
     var el=$("greetTime"); if(el) el.textContent=t;
   }
   function applyCohortLabels(){
-    var cohort=(sprogram?sprogram:"Monday")+" cohort";
-    if(sstart) cohort+=" · starts "+sstart;
-    setTxt("readySub",cohort);
     var parts=[];
     if(sprogram) parts.push(sprogram);
     if(sstart) parts.push("starts "+sstart);
