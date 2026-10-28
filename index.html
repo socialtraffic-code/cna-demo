@@ -781,6 +781,43 @@
   }
 
 </style>
+<style>
+/* Before Monday: section header on the page, flat list card underneath */
+.sechead{display:flex;align-items:baseline;gap:12px;padding:0 22px 10px}
+.sechead .kick{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);font-weight:650}
+.sechead .meta{font-size:12.5px;color:var(--muted)}
+.sechead .spacer{flex:1}
+.sechead .acts{display:flex;align-items:center;gap:18px;align-self:center}
+.sechead .quiet{background:none;border:0;color:var(--muted);font:inherit;font-size:12.5px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:2px 0}
+.sechead .quiet .ico{width:14px;height:14px}
+.sechead .quiet:hover{color:var(--ink2)}
+.linkbtn{background:none;border:0;color:var(--brand);font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:2px 0}
+.linkbtn:hover{text-decoration:underline}
+.card.flat{padding:0;overflow:hidden}
+.bmrow{display:flex;align-items:center;gap:18px;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line2);padding:18px 22px;cursor:pointer;font:inherit;color:var(--ink)}
+.card.flat .bmrow:first-child{border-top:0}
+.bmrow:hover{background:#fcfbf9}
+.bmrow:active{background:#f7f5f0}
+.bmrow:focus-visible{outline:2px solid #9dc3b8;outline-offset:-2px}
+.bmrow .grow{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.bmrow .nm{font-size:15.5px;font-weight:620;letter-spacing:-.012em}
+.bmrow .nm.mid{font-size:15px;font-weight:600}
+.bmrow .ds{font-size:12.5px;color:var(--muted);line-height:1.45}
+.bmrow .tail{display:flex;align-items:center;gap:14px;flex:0 0 auto}
+.bmrow .amt{font-size:15.5px;font-weight:620;color:var(--red);font-variant-numeric:tabular-nums}
+.bmrow .amt.neutral{color:var(--ink)}
+.bmrow .opn{font-size:12.5px;color:var(--muted)}
+.bmrow .chev{color:var(--faint);transform:rotate(-90deg)}
+@media (max-width:560px){
+  .sechead{flex-wrap:wrap;gap:2px 12px;padding:0 18px 8px}
+  .sechead .kick{width:100%}
+  .sechead .acts{gap:12px}
+  .bmrow{padding:16px 18px;gap:12px}
+  .bmrow .nm{font-size:15px}
+  .bmrow .ds{font-size:12px}
+  .bmrow .amt{font-size:15px}
+}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to main content</a>
@@ -880,15 +917,21 @@
       <section data-sec="today">
         <div class="greet">
           <h1><span id="greetTime">Good morning</span><span id="greetWho"></span></h1>
-          <div class="line" id="todayLine">9 students start Monday. 2 are blocked on documents. $5,850 outstanding.</div>
+
         </div>
 
         <div class="cols">
           <div class="stack">
-            <div class="card">
-              <div class="h"><h2>Before Monday</h2><div class="spacer"></div><button class="rowbtn" id="printThursday"><svg class="ico"><use href="#i-print"/></svg>Print Thursday list</button></div>
-              <div id="bmRows"></div>
+            <div class="sechead">
+              <div class="kick">Before Monday</div>
+              <div class="meta" id="bmSub">2 students · 3 documents · $4,550</div>
+              <div class="spacer"></div>
+              <div class="acts">
+                <button class="quiet" id="printThursday" type="button" aria-label="Print Thursday list"><svg class="ico"><use href="#i-print"/></svg>Print</button>
+                <button class="linkbtn" id="bmRemindAll" type="button">Send reminders</button>
+              </div>
             </div>
+            <div class="card flat"><div id="bmRows"></div></div>
 
             <div class="card">
               <div class="h"><h2>This week</h2></div>
@@ -1445,25 +1488,29 @@
     setTxt("todayLine",line);
     var rows="";
     m.blocked.forEach(function(x){
-      i=S.indexOf(x); n=openDocs(x).length; owed=owedOf(x);
-      rows+='<div class="arow"><div class="g"><div class="hd"><span class="pip" style="background:#b4554a"></span><span class="t">'+x.n+' is missing '+docNames(x).join(", ")+'</span></div>'+
-        '<div class="s">Starts Monday &middot; '+n+' document'+(n===1?"":"s")+' open'+(owed>0?" &middot; "+money(owed)+" due":"")+'</div>'+
-        '<div class="chips2"><span class="ch warn">'+n+' document'+(n===1?"":"s")+' missing</span>'+(owed>0?'<span class="ch bad">'+money(owed)+' due</span>':'')+'</div></div>'+
-        '<div class="acts"><button class="btn" data-remind="'+i+'">Send reminder</button><button class="rowbtn" data-i="'+i+'">Open file</button></div></div>';
+      i=S.indexOf(x); owed=owedOf(x);
+      rows+='<button class="bmrow" data-i="'+i+'">'+
+        '<span class="grow"><span class="nm">'+x.n+'</span><span class="ds">'+docNames(x).join(" · ")+'</span></span>'+
+        '<span class="tail">'+(owed>0?'<span class="amt">'+money(owed)+'</span>':'')+
+        '<svg class="ico chev"><use href="#i-chev"/></svg></span></button>';
     });
     if(!m.blocked.length){
       rows+='<div class="emptyInline">Every student starting Monday has a complete clinical file.</div>';
     }
     if(m.owingMonday>0){
-      rows+='<div class="arow"><div class="g"><div class="hd"><span class="pip" style="background:#c9922e"></span><span class="t">'+m.owingMonday+' students still owe '+money(m.outstandingMonday)+' before Monday</span></div>'+
-        '<div class="s">Oldest balance is '+(m.oldest?m.oldest.aging:0)+' days old &middot; '+m.plans+' payment plans open school-wide</div>'+
-        '<div class="chips2"><span class="ch warn">'+m.owingMonday+' balances</span><span class="ch warn">oldest '+(m.oldest?m.oldest.aging:0)+' days</span></div></div>'+
-        '<div class="acts"><button class="btn ghost" data-goto="money">Review balances</button></div></div>';
+      rows+='<button class="bmrow" data-goto="money">'+
+        '<span class="grow"><span class="nm mid">'+m.owingMonday+' students still owe</span>'+
+        '<span class="ds">Oldest balance '+(m.oldest?m.oldest.aging:0)+' days · '+m.plans+' payment plans open</span></span>'+
+        '<span class="tail"><span class="amt neutral">'+money(m.outstandingMonday)+'</span>'+
+        '<svg class="ico chev"><use href="#i-chev"/></svg></span></button>';
     }
-    rows+='<div class="arow"><div class="g"><div class="hd"><span class="pip" style="background:#4a7fa3"></span><span class="t">2 students asked a question in Messages</span></div>'+
-      '<div class="s">"Can I pay the rest next Friday?" &middot; "What do I need to do to catch up?"</div>'+
-      '<div class="chips2"><span class="ch warn">Jordan Alvarez</span><span class="ch warn">Nia Fontaine</span></div></div>'+
-      '<div class="acts"><button class="btn ghost" data-goto="messages">Open messages</button></div></div>';
+    rows+='<button class="bmrow" data-goto="messages">'+
+      '<span class="grow"><span class="nm mid">2 questions in Messages</span>'+
+      '<span class="ds">Jordan Alvarez · Nia Fontaine</span></span>'+
+      '<span class="tail"><span class="opn">Open</span>'+
+      '<svg class="ico chev"><use href="#i-chev"/></svg></span></button>';
+    var missingDocs=0; m.blocked.forEach(function(x){missingDocs+=openDocs(x).length;});
+    setTxt("bmSub", m.blocked.length+" student"+(m.blocked.length===1?"":"s")+" · "+missingDocs+" document"+(missingDocs===1?"":"s")+" · "+money(m.outstandingMonday));
     if($("bmRows")) $("bmRows").innerHTML=rows;
     setTxt("mStart",m.starting); setTxt("mStart2",m.starting); setTxt("mFiles",m.clearedStart);
     setTxt("mDue",money(m.outstandingMonday));
@@ -2175,6 +2222,12 @@
     if(t.id==="floatCta"){ logHit("cta","float-email"); return; }
     if(t.id==="menuContact"){ logHit("cta","menu-email"); return; }
     if(t.id==="printThursday"){ printThursday(); return; }
+    if(t.id==="bmRemindAll"){
+      var _bs=metrics().blocked;
+      if(_bs.length){ logHit("action","remind-all"); openReminder(S.indexOf(_bs[0])); }
+      else { toast("No documents are blocking Monday."); }
+      return;
+    }
     if(t.id==="moneyExport"){ logHit("action","export"); exportCsv(); return; }
     if(t.id==="dRemind"){ openReminder(curDrawer); return; }
     if(t.id==="dAudit"){ printAudit(); return; }
@@ -2187,6 +2240,7 @@
     if(t.hasAttribute("data-doc-approve")){ approveDoc(Number(t.getAttribute("data-doc-approve"))); return; }
     if(t.hasAttribute("data-doc-reject")){ startReject(Number(t.getAttribute("data-doc-reject"))); return; }
     if(t.hasAttribute("data-go")){ go(t.getAttribute("data-go")); closeMenu(); return; }
+    if(t.hasAttribute("data-goto")){ go(t.getAttribute("data-goto")); return; }
     if(t.hasAttribute("data-qtab")){setQtab(t.getAttribute("data-qtab"));return;}
     if(t.hasAttribute("data-mbox")){setMbox(t.getAttribute("data-mbox"));return;}
     if(t.hasAttribute("data-msg")){curMsg=t.getAttribute("data-msg");MAIL[curMsg].unread=false;renderMail();$("mail").classList.add("reading");return;}
